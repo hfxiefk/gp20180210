@@ -1,0 +1,126 @@
+http://www.55188.com/viewthread.php?tid=7077274&highlight=
+http://www.55188.com/viewthread.php?tid=7077116&highlight=
+http://www.55188.com/viewthread.php?tid=7917130&highlight=%2B%D5%C7xcq
+选股日资金净买率大，大宗资金净买率大
+http://www.55188.com/thread-7076898-3-1.html
+指标
+超B:=L2_AMO(0,2);
+大B:=L2_AMO(1,2);
+中B:=L2_AMO(2,2);
+小B:=L2_AMO(3,2);
+超S:=L2_AMO(0,3);
+大S:=L2_AMO(1,3);
+中S:=L2_AMO(2,3);
+小S:=L2_AMO(3,3);
+资金流向:=(超B+大B+中B+小B)-(超S+大S+中S+小S),NODRAW;
+近5日流向:=SUM(资金流向,5)*0.5;
+净买率:=资金流向/FINANCE(7)*100;
+
+STICKLINE(净买率>0,0,净买率,2,0),COLORRED;
+STICKLINE(净买率<0,0,净买率,2,0),COLORCYAN;
+净买率1日:资金流向/FINANCE(7)*100;
+净买率5日:近5日流向/FINANCE(7)*100;
+
+===========================================================
+通达信大宗净买率副图公式
+超B:=L2_AMO(0,2)/10000.0;
+ 大B:=L2_AMO(1,2)/10000.0;
+ 中B:=L2_AMO(2,2)/10000.0;
+ 小B:=L2_AMO(3,2)/10000.0;
+ 超S:=L2_AMO(0,3)/10000.0;
+ 大S:=L2_AMO(1,3)/10000.0;
+ 中S:=L2_AMO(2,3)/10000.0;
+ 小S:=L2_AMO(3,3)/10000.0;
+ 大宗净流入:=(超B+大B)-(超S+大S);
+ 大宗净买率: 大宗净流入/FINANCE(40)*1000000;
+ 大宗相对流量:大宗净流入/AMOUNT*1000000;
+ STICKLINE(大宗净买率>0,0,大宗净买率,2,0),COLORRED;
+ STICKLINE(大宗净买率<0,0, 大宗净买率,2,0),COLORCYAN;
+ 近2:SUM(大宗净买率,2),NODRAW;
+ 近3:SUM(大宗净买率,3),NODRAW;
+ 近5:SUM(大宗净买率,5),NODRAW;
+ 近8:SUM(大宗净买率,8),NODRAW;
+ 近10:SUM(大宗净买率,10),NODRAW;
+ 近15:SUM(大宗净买率,15),NODRAW;
+ 近20:SUM(大宗净买率,20),NODRAW;
+
+===========================================================
+
+ZFA:=(C/REF(C,1)-1)*100;
+ZFB:=(C/O-1)*100;
+ZF:=MAX(ZFA,ZFB);
+VBR3:=DYNAINFO(4)>0;
+MA17:=MA(C,IF(BARSSINCE(C>0)<17,BARSSINCE(C>0),17));
+MA55:=MA(C,IF(BARSSINCE(C>0)<55,BARSSINCE(C>0),55));
+
+VAR1:=BARSLAST(ZF>=9.6);
+VAR1A:=REF(VAR1,1);
+VAR2:=REF(HHV(C,VAR1),1);
+VAR3:=(C-VAR2)*100/VAR2;
+VAR4:=REF(COUNT(ZF<9.6,2)=2,1);
+
+XSZT:VBR3 AND VAR1A>=2 AND VAR1A<=17 AND VAR3<=10 AND VAR3>-4 AND VAR4 AND ZF>=9.6 AND 
+C>MA17 AND C>MA55;
+
+BARSSINCE（X）：第一次X不为0到现在的天数
+例如：BARSSINCE（HIGH>10）表示股价超过10元时到当前的周期数
+
+{横盘突破}
+LAST((H-L)/REF(C,1)<0.1,20,0) AND VOL>REF(VOL,1)*2 AND C>REF(C,1)*1.03
+AND "DMI.PDI">"DMI.MDI" AND"DMI.ADXR">"DMI.MDI"AND "DMI.PDI">"DMI.ADX" 
+AND(CROSS("DMI.ADX","DMI.ADXR")OR("DMI.ADX">"DMI.ADXR"))
+AND "KDJ.D">REF("KDJ.D",1);
+
+////////////////////////////////////////////////////////////////////
+{公式名称: 开盘预警涨停}
+指标的思路：
+
+指标是以近三个月以来的平台为突破口，三个月左右平台整理，但上下波动幅度不能过大，
+控制在20%以内，一般的牛股都到位了。
+整理到位后三个交易日内前两天小阳，第三天突然放巨大阳起步突破平台。
+另外结合了均线多头，量价齐升的条件！为了盘中能狙击涨停，预警设在5个点以上。
+大部分出信号后的信号，9成能攻击涨停，这就是指标的思路。
+结合用法说明伏击涨停不在话下
+
+{公式名称: 开盘预警涨停}
+VAR1:=EXIST((CLOSE-REF(CLOSE,1))/REF(CLOSE,1)*100>5.6,100);
+VAR2:=DYNAINFO(17)=0;
+VAR3:=(CLOSE-REF(CLOSE,1))/REF(CLOSE,1)*100;
+VAR4:=VOL/REF(MA(VOL,5),1);
+VAR5:=CAPITAL/1000000;
+X:VAR3>3 AND VAR4>2 AND VAR5<1;
+
+
+{抓涨停公式很牛}
+V2G:=(((CLOSE - REF(CLOSE,1)) / REF(CLOSE,1)) * 100); {今日涨幅}
+V3G:=(MA(VOL,2) / MA(VOL,10));  {两天平均价格和10他平均价格比}
+V4G:=(VOL / CAPITAL); {成交量和流通盘比} 
+A1G:=((((0.0068 * V2G) - (0.0072 * V3G)) - (0.5676 * V4G)) - 0.0105);  
+A2G:=((((0.0015 * V2G) - (0.0124 * V3G)) + (1.7461 * V4G)) - 0.0074);   
+S1:=BARSCOUNT(C)>30;{上市30天以上}                                                            
+抓涨停:((((0 - (12.2401 * A1G)) - (1 * A2G)) + 0.321) < 0)*105 AND S1;  
+
+//换手率:VOL/CAPITAL*100,COLORYELLOW; 
+
+//----------------------------------------------------------------------------
+买量5>卖量5买量10>卖量10买量20>卖量20当日量比<1.4的选股公式
+K1:=IF(CLOSE>=REF(CLOSE,1),HIGH-OPEN+CLOSE-LOW+CLOSE-REF(CLOSE,1),HIGH-OPEN+CLOSE-LOW);
+K2:=IF(CLOSE<=REF(CLOSE,1),OPEN-LOW+HIGH-CLOSE+REF(CLOSE,1)-CLOSE,OPEN-LOW+HIGH-CLOSE);
+DT:=VOL*K1/(K1+K2);
+KT:=VOL-DT;
+买量5:=SUM(DT,5);
+卖量5:=SUM(KT,5);
+买量10:=SUM(DT,10);
+卖量10:=SUM(KT,10);
+买量20:=SUM(DT,20);
+卖量20:=SUM(KT,20);
+XG1:=买量5>卖量5 AND 买量10>卖量10 AND 买量20>卖量20;
+A1:=CAPITAL/1000000<5;
+C1:=BETWEEN((H-L)/REF(C,1)*100,0.2,10.5);
+XG: XG1 AND A1 AND C>O AND C1 AND C<15  AND DYNAINFO(17)<1.4;
+
+
+
+
+
+

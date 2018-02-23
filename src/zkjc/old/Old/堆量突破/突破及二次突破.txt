@@ -1,0 +1,48 @@
+http://www.55188.com/thread-8151773-1-13.html
+
+突破:=h=hhv(h,120) and h/o>1.05;
+缩量:=v/hhv(v,5);
+回调:=h/ref(c,1)<1.05 and l<ma(c,5) and 突破=0;
+突破包三:ref(count(突破,10) and count(缩量 and 回调,3)=3,1)
+and ref(o/ref(llv(o,3),1)<1.03 and o/ref(llv(c,3),1)<1.03 and c=hhv(c,4),1)
+and v/ref(v,1)>2 and 突破 and ma(c,60)>ma(c,120) and ma(c,120)>ma(c,250);
+
+
+突破:=h=hhv(h,120) and h/o>1.05;
+缩量:=v/ref(v,1)<1.2;
+回调:=h/ref(c,1)<1.05 and l<ma(c,5) and 突破=0;
+二次突破:ref(count(突破,10) and count(缩量 and 回调,3)=3,1)
+and v/ref(v,1)>2 and 突破 and ma(c,120)>0;
+
+
+请大师们将这俩公式的出来的信号做个选股预警公式，一个公式或两个公式都 行，谢谢
+
+
+回复 楼主 @闲理尘心 的帖子
+@闲理尘心 
+
+突破:=h=hhv(h,120) and h/o>1.05;
+缩量:=v/hhv(v,5);
+回调:=h/ref(c,1)<1.05 and l<ma(c,5) and 突破=0;
+突破包三:=ref(count(突破,10) and count(缩量 and 回调,3)=3,1)
+and ref(o/ref(llv(o,3),1)<1.03 and o/ref(llv(c,3),1)<1.03 and c=hhv(c,4),1)
+and v/ref(v,1)>2 and 突破 and ma(c,60)>ma(c,120) and ma(c,120)>ma(c,250);
+
+二次突破:=ref(count(突破,10) and count(缩量 and 回调,3)=3,1)
+and v/ref(v,1)>2 and 突破 and ma(c,120)>0;
+
+突破包三 or 二次突破;
+
+
+
+=====================
+突破包小三
+突破:=h=hhv(h,120) and h/o>1.05;
+缩量:=v/hhv(v,5);
+回调:=h/ref(c,1)<1.05 and l<ma(c,5) and 突破=0;
+突破包三:ref(count(突破,10) and count(缩量 and 回调,3)=3,1)
+and ref(o/ref(llv(o,3),1)<1.03 and o/ref(llv(c,3),1)<1.03 and c=hhv(c,4),1)
+and v/ref(v,1)>2 and 突破 and ma(c,60)>ma(c,120) and ma(c,120)>ma(c,250);
+公式二 二次突破
+二次突破:ref(count(突破,10) and count(缩量 and 回调,3)=3,1)
+and v/ref(v,1)>2 and 突破 and ma(c,120)>0;

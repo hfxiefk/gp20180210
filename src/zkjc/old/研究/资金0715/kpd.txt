@@ -1,0 +1,24 @@
+http://www.55188.com/viewthread.php?tid=7587016&extra=&page=1
+
+VAR1:=EMA(EMA(C,13),13);
+控盘:=(VAR1-REF(VAR1,1))/REF(VAR1,1)*1000;
+{JJ:=DYNAINFO(11);}
+JJ:=AMOUNT/100/V;
+P:=55;S:=8;M1:=3;
+能量:=(EMA(C,S)-EMA(C,P))*10;
+空头:=EMA(能量,M1);
+BTJ11:=(C-JJ)/JJ<-0.03;
+BTJ2:=控盘>REF(控盘,1) AND 控盘<-0.2;
+BTJ3:=CROSS(能量,空头) AND  能量<-0.3;
+有庄:FILTER(BTJ11 AND BTJ2 AND BTJ3,13);
+ 
+ 
+ 
+ 怎样替换DYNAINFO（11）函数
+ AMOUNT/100/V
+楼主试过用这个替换么均价么
+DYNAINFO（11）参与在买卖点中,信号是不可信的,我也遇到过这样的指标
+永远使用当日的均价来计算并标上之前的买卖点
+
+DYNAINFO(7);现价  DYNAINFO(11);均价  
+DYNAINFO(17);量比  CAPITAL流通盘

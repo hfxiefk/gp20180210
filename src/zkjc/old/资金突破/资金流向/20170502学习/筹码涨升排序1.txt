@@ -1,0 +1,63 @@
+{筹码涨升排序}
+内外盘:=(DYNAINFO(23)<>DYNAINFO(22)) AND (DYNAINFO(7)>DYNAINFO(3)); 
+盘:=CAPITAL/100;
+换:=V/盘;
+换手率1:=BETWEEN(换,2.10,40);
+量比1 :=DYNAINFO(17)>2.14; 
+流通盘:=CAPITAL/1000000<=7.59;
+股价:=C>=5.60 AND C<11.69;
+去创业板:=IF(CODELIKE('300'),0,1);
+去停牌:=DYNAINFO(17)>0;
+D22:=IF(NAMELIKE('S'),0,1);
+D33:=IF(NAMELIKE('*'),0,1);
+去ST:=D22 AND D33 AND 流通盘 AND 股价 AND 内外盘
+ AND 去停牌 AND 量比1 AND 换手率1 AND 去创业板;
+
+均线向上:=EMA(C,144)>=REF(EMA(C,144),1) AND  EMA(C,233)>=REF(EMA(C,233),1);
+均线多头:=MA(C,10)>MA(C,20) AND MA(C,20)>MA(C,30) AND MA(C,30)>MA(C,40);
+换手较高:=SUM(VOL/CAPITAL*100,20)*3>SUM(VOL/CAPITAL*100,40);
+振幅较小:=(HHV(H,20)-LLV(L,20))/LLV(L,20)<0.2;
+筹码集中:=WINNER(C)*100<80;
+必有条件:= 换手较高  AND 振幅较小 AND 筹码集中;
+
+
+DIF:=EMA(CLOSE,6)-EMA(CLOSE,10);
+ DEA:=EMA(DIF,5);
+ MACD:=(DIF-DEA)*2;
+绿点翻红:= REF(MACD<0,1) AND CROSS(MACD,0) 
+OR CROSS(DIF,DEA)  OR DEA>-0.05 OR REF(DIF,1)<>0 AND DIF>0;
+RSV:=(CLOSE-LLV(LOW,9))/(HHV(HIGH,9)-LLV(LOW,9))*100;
+K:=SMA(RSV,3,1);
+D:=SMA(K,3,1);
+J:=3*K-2*D;
+N:=12;
+J大于昨天:=J-REF(J,1)>=N ;
+
+连涨天数:=BARSLASTCOUNT(C>REF(C,1));
+连续涨幅:=IF(C>REF(C,1),(C-REF(C,连涨天数))/REF(C,连涨天数)*100,0);
+换手跟踪:=IF(连涨天数,SUM(VOL,连涨天数)/CAPITAL*100,0);
+日均换手:=IF(连涨天数,换手跟踪/连涨天数,0);
+连涨换手:=连涨天数>3 AND 连续涨幅>5 AND 日均换手>4 AND 换手跟踪>20;
+
+A1:=COST(85); 
+A2:=COST(15); 
+A3:=A1-A2; 
+A4:=(A1+A2)/2; 
+获利盘:=A3/A4*100<>14.45;
+
+SW:=38;BW:=66;
+CJ:=(H+L+2*O+3*C)/7;
+DN:=INTPART(276/POW(PERIOD+3-1.7,2)-1.1);
+DS:=INTPART(1.8*DN);
+DB:=INTPART(0.5*DN);
+DC:=INTPART(0.67*DN);
+短筹:=SMA(FORCAST(PWINNER(SW,BW*CJ/100)*100,DC),DS,DS-1);
+抢筹:=IF(SLOPE(短筹,DB)>=0,SLOPE(短筹,DB)*POW(DN/2.71,1.5),0);
+活筹:=短筹/4.8+1.2*抢筹-2,COLORWHITE,LINETHICK2;
+XC:=BARSLAST(活筹>=短筹/2);
+吸筹:=HHV(XC,DB);
+上涨角:=HHV(ATAN(SLOPE(活筹,DC)*2.1)*180/3.14159,DC);
+条件:=吸筹<>100 OR 上涨角<>30 OR  CROSS(活筹,短筹) OR 活筹>短筹;
+筹码集中度70%:="SCR.SCR"<=5 AND WINNER(C)>0.6;
+连涨换手 OR 条件 AND 绿点翻红 AND J大于昨天  AND
+"SCR.SCR"<>5 AND 必有条件 AND 获利盘  AND  去ST;

@@ -1,0 +1,13 @@
+-------------------------------------------------------
+http://www.55188.com/viewthread.php?tid=3475608&extra=&page=92
+A1:=C>O AND (REF(C,1)>REF(O,1) AND REF(C,2)>REF(O,2));
+A2:=V>REF(V,1) AND (REF(V,1)>REF(V,2));
+过滤:= "CCI.CCI">REF("CCI.CCI",1)AND A1 AND A2;
+
+VARR:=(C+H+O+L)/4;
+上轨:=EMA(VARR,10)*1.09;
+盘整突破:((H-L)/REF(C,10)<0.2) AND VOL>REF(VOL,1)*1.5 AND C>REF(C,1)*1.03
+AND "DMI.PDI">"DMI.MDI" AND"DMI.ADXR">"DMI.MDI"AND "DMI.PDI">"DMI.ADX" 
+AND(CROSS("DMI.ADX","DMI.ADXR")OR("DMI.ADX">"DMI.ADXR"))
+AND"KDJ.D">REF("KDJ.D",1) AND"KDJ.D"<75 AND C<上轨 AND 过滤;
+-------------------------------------------------------

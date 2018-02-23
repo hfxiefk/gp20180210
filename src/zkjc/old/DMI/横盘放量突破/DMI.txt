@@ -1,0 +1,343 @@
+http://www.55188.com/viewthread.php?tid=3475608
+http://wenku.baidu.com/link?url=SvpI6RjZVe32dPBVN1eytv2OFy4ksDpOo0MdEO27hNkdv9ObWPIkqMyGfsYKCPZU3RPxCDi6W-q-uKdCvg987nH8Rqp6wLfEqlJHxXw50lO
+
+//DMI中PDI上穿其它三线的指标
+CROSS("DMI.PDI",MAX(MAX("DMI.MDI","DMI.ADX"),"DMI.ADXR"));
+//
+
+LAST((H-L)/REF(C,1)<0.1,20,0) 
+AND VOL>REF(VOL,1)*2 
+AND C>REF(C,1)*1.03
+AND "DMI.PDI">"DMI.MDI" 
+AND CROSS("DMI.ADX","DMI.ADXR")
+AND "DMI.ADXR">"DMI.MDI" 
+AND "DMI.PDI">"DMI.ADX" 
+AND "KDJ.j">REF("KDJ.j",1);
+
+修改版
+LAST((H-L)/REF(C,1)<0.1,20,0) AND VOL>REF(VOL,1)*2 AND C>REF(C,1)*1.03
+AND "DMI.PDI">"DMI.MDI" AND"DMI.ADXR">"DMI.MDI"AND "DMI.PDI">"DMI.ADX" 
+AND(CROSS("DMI.ADX","DMI.ADXR")OR("DMI.ADX">"DMI.ADXR"))
+AND"KDJ.D">REF("KDJ.D",1)；
+
+AND"KDJ.D">REF("KDJ.D",1);
+修改版
+其实我的愿意，是让高手们帮助添加条件剔除伪信号，比如加布林线的上轨。。。。。这也是我在一直努力摸索着，也希望大家一起交流。
+
+第五次优化源码
+VARR:=(C+H+O+L)/4;
+上轨:=EMA(VARR,10)*1.09;
+盘整突破:LAST((H-L)/REF(C,1)<0.1,20,0) AND VOL>REF(VOL,1)*1.5 AND C>REF(C,1)*1.03
+AND "DMI.PDI">"DMI.MDI" AND"DMI.ADXR">"DMI.MDI"AND "DMI.PDI">"DMI.ADX" 
+AND(CROSS("DMI.ADX","DMI.ADXR")OR("DMI.ADX">"DMI.ADXR"))
+AND"KDJ.D">REF("KDJ.D",1) AND"KDJ.D"<75 AND C<上轨；
+第五次优化源码
+
+LAST((H-L)/REF(C,1)<0.1,20,0) 　定义横盘，条件太宽松。
+
+鉴于有同志反映条件太宽的意见，有进行了优化，效果需要观察。
+A1:=C>O AND (REF(C,1)>REF(O,1) AND REF(C,2)>REF(O,2));
+A2:=V>REF(V,1) AND (REF(V,1)>REF(V,2));
+过滤:= "CCI.CCI">REF("CCI.CCI",1)AND A1 AND A2;
+
+VARR:=(C+H+O+L)/4;
+上轨:=EMA(VARR,10)*1.09;
+盘整突破:((H-L)/REF(C,10)<0.2) AND VOL>REF(VOL,1)*1.5 AND C>REF(C,1)*1.03
+AND "DMI.PDI">"DMI.MDI" AND"DMI.ADXR">"DMI.MDI"AND "DMI.PDI">"DMI.ADX" 
+AND(CROSS("DMI.ADX","DMI.ADXR")OR("DMI.ADX">"DMI.ADXR"))
+AND"KDJ.D">REF("KDJ.D",1) AND"KDJ.D"<75 AND C<上轨 AND 过滤；
+http://www.55188.com/viewthread.php?tid=3475608&extra=&page=51
+
+把<上轨改成 <EMA(VARR,10)*1.09;
+即可通过
+
+乖离率
+http://www.55188.com/viewthread.php?tid=3475608&extra=&page=72
+乖离率:=(C-MA(C,250))/MA(C,250)*100;
+盘整突破:LAST((H-L)/REF(C,1)<0.1,10,0) AND VOL>REF(VOL,1)*1.5 
+AND C>REF(C,1)*1.03 AND "DMI.PDI">"DMI.MDI" AND CROSS("DMI.ADX","DMI.ADXR")
+AND"DMI.ADXR">"DMI.MDI" AND "DMI.PDI">"DMI.ADX"AND 乖离率<25;
+
+
+http://www.55188.com/viewthread.php?tid=3475608&extra=&page=77
+STICKLINE(C/REF(C,1)>1.09,O,C,3,0),COLORMAGENTA;
+STICKLINE(V/REF(V,1)>1.9,O,C,2,0),COLORYELLOW;
+　
+
+-------------------------------------------------------
+http://www.55188.com/viewthread.php?tid=3475608&extra=&page=78
+TYP:=(H+L+3*C+O)/6;
+CC1:=(TYP-MA(TYP,13))/(0.015*AVEDEV(TYP,13))/2 COLORBLUE;
+CCI背离:DRAWTEXT(CROSS(CC1,-95),0,'CCI背离'),COLORWHITE;
+
+DIF:=EMA(CLOSE,12)-EMA(CLOSE,26);
+底背离:L=LLV(L,10)AND DIF>LLV(DIF,10);
+背离系数:DIF/LLV(DIF,10);
+-------------------------------------------------------
+
+长下影选股
+(h-l)/l*100>6 and (MIN(O,C)-L)/L*100>3 and v/CAPITAL*100>5;
+-------------------------------------------------------
+放量上涨突破年线
+年线:CROSS(C,MA(C,250)) AND (V>1*MA(V,6) OR V>2*MA(V,6) OR V>3*MA(V,6)) AND C/REF(C,1)>1.02;
+-------------------------------------------------------
+振幅:=(H-REF(L,5))/REF(L,5)*100;
+换手:=(V/CAPITAL*100);
+五日换手:=SUM(换手,5);
+活跃度:(振幅/5+换手/5)/2;
+
+-------------------------------------------------------
+DOWN:=OPEN>CLOSE;
+{去停牌和ST股}
+ST:=STRFIND(stkname,'ST',1)>0;
+S:=STRFIND(stkname,'S',1)>0;
+股价偏离:(c/ref(c,4)-1)*100<-20 and O/REF(LOW,1)<1.01 and COUNT(DOWN,3)=3 AND not(ST)   and not(S);
+
+站上60日均线果断介入源码：
+
+EMA30:=EMA(C,30),COLORWHITE,LINETHICK2;
+EMA60:=EMA(C,60),COLORFF00FF;
+EMA90:=EMA(C,90),COLORYELLOW;
+EMA120:=EMA(C,120),COLORFFCC66;
+EMA250:=EMA(C,250),COLORBLUE;
+SS:=CROSS(EMA30,EMA60) AND C>O AND C>REF(C,1) AND C/REF(C,1)>=1.018
+OR CROSS(EMA30,EMA120) AND C>O AND C>REF(C,1) AND C/REF(C,1)>=1.018
+OR CROSS(EMA60,EMA90) AND C>O AND C>REF(C,1) AND C/REF(C,1)>=1.018
+OR CROSS(EMA30,EMA90) AND C>O AND C>REF(C,1) AND C/REF(C,1)>=1.018 {AND CROSS(EMA30,EMA120)};
+{DRAWICON(SS,L-0.04,1);}
+
+DD:=CROSS(EMA60,EMA90) AND C>O AND C>REF(C,1) AND C/REF(C,1)>=1.018
+OR CROSS(EMA60,EMA250) AND C>O AND C>REF(C,1) AND C/REF(C,1)>=1.018
+OR CROSS(EMA90,EMA120) AND C>O AND C>REF(C,1) AND C/REF(C,1)>=1.018
+OR CROSS(EMA60,EMA120) AND C>O AND C>REF(C,1) AND C/REF(C,1)>=1.018 AND CROSS(EMA30,EMA250);
+{DD:=CROSS(EMA30,EMA250);}
+{DRAWICON(DD,L-0.04,3);};
+理想论坛介入:SS OR DD;
+-------------------------------------------------------
+
+趋势:3*SMA((CLOSE-LLV(LOW,27))/(HHV(HIGH,27)-LLV(LOW,27))*100,5,1)-2*SMA
+(SMA((CLOSE-LLV(LOW,27))/(HHV(HIGH,27)-LLV(LOW,27))*100,5,1),3,1),POINTDOT,COLORRED;
+启动在即: IF(CROSS(趋势,3),100,0),COLORFF00FF;秘密买点: IF(趋势<=3,25,0),COLORRED;
+机构建仓: IF(趋势<5,45,0),COLORWHITE;
+-------------------------------------------------------
+
+DIF:EMA(CLOSE,12)-EMA(CLOSE,27);
+DEA:EMA(DIF,9);
+MACD:(DIF-DEA)*2,COLORSTICK;
+{DIF划线}
+OB:=DIF;
+A1:=REF(OB,P)=HHV(OB,2*P+1);
+B1:=FILTER(A1,P);
+C1:=BACKSET(B1,P+1);
+D1:=FILTER(C1,P);{高点}
+A2:=REF(OB,P)=LLV(OB,2*P+1);
+B2:=FILTER(A2,P);
+C2:=BACKSET(B2,P+1);
+D2:=FILTER(C2,P);{低点}
+R11:=BACKSET(ISLASTBAR,BARSLAST(D1)+1); 
+
+S11:=R11>REF(R11,1);
+压力线:DRAWLINE(D1,OB,S11,OB,1),LINETHICK2,COLORCC33CC;
+T11:=BACKSET(ISLASTBAR,BARSLAST(D2)+1);
+U11:=T11>REF(T11,1);
+支撑线:DRAWLINE(D2,OB,U11,OB,1),LINETHICK2,COLOR00CCCC;
+
+A:=BARSLAST(REF(CROSS(DIF,DEA),1));
+背离:=REF(CLOSE,A+1)>CLOSE AND DIF>REF(DIF,A+1) AND CROSS(DIF,DEA);
+底M背:DRAWLINE(A=0,DEA,背离,DEA,0),COLORRED,LINETHICK2;
+-------------------------------------------------------
+
+自己存查，去掉一字涨停或者跌停
+TP:=NOT(DYNAINFO(4)=0);
+AA:=C>REF(C,1) AND L=H;
+BB:=C<REF(C,1) AND L=H;
+XG:TP AND NOT(AA) AND NOT(BB);
+
+跳空不补
+
+A:=L>REF(H,1);
+N:=BARSLAST(A);
+跳空不补:LLV(L,5)>REF(H,5);
+
+ZT:=(C-REF(C,1))/REF(C,1)*100;
+AA:=BARSLAST(ZT>9.645 AND C=H AND L>REF(H,1));
+跳空不补:COUNT(L>REF(H,AA+1),AA+1)=AA+1 AND AA+1>1;
+-------------------------------------------------------
+http://www.55188.com/viewthread.php?tid=3475608&extra=&page=92
+A1:=C>O AND (REF(C,1)>REF(O,1) AND REF(C,2)>REF(O,2));
+A2:=V>REF(V,1) AND (REF(V,1)>REF(V,2));
+过滤:= "CCI.CCI">REF("CCI.CCI",1)AND A1 AND A2;
+
+VARR:=(C+H+O+L)/4;
+上轨:=EMA(VARR,10)*1.09;
+盘整突破:((H-L)/REF(C,10)<0.2) AND VOL>REF(VOL,1)*1.5 AND C>REF(C,1)*1.03
+AND "DMI.PDI">"DMI.MDI" AND"DMI.ADXR">"DMI.MDI"AND "DMI.PDI">"DMI.ADX" 
+AND(CROSS("DMI.ADX","DMI.ADXR")OR("DMI.ADX">"DMI.ADXR"))
+AND"KDJ.D">REF("KDJ.D",1) AND"KDJ.D"<75 AND C<上轨 AND 过滤；
+-------------------------------------------------------
+
+自留存查  6日成交量线连续小于18日量线9天或9天以上源码
+XG:BARSLASTCOUNT(MA(V,6)<MA(V,18))>=9;
+另种表达式：
+XG:ALL(MA(V,6)<MA(V,18),9);
+
+均线粘合
+A5:=MA(C,5);
+A10:=MA(C,10);
+A20:=MA(C,20);
+A30:=MA(C,30);
+p:=MAX(MAX(A5,A10),MAX(A20,A30))/MIN(MIN(A5,A10),MIN(A20,A30))<1.01;
+sum(p,n)=n;
+-------------------------------------------------------
+
+筹码空间:=IF(WINNER(CLOSE),WINNER(CLOSE)*100,20); 
+VAR1:=CLOSE/REF(CLOSE,1)<1.04 AND 筹码空间>REF(筹码空间,1) 
+AND REF(筹码空间,1)>REF(筹码空间,2) ;
+VAR2:=HIGH>REF(HIGH,1) ;
+VAR3:=CLOSE>MA(CLOSE,5);
+VAR4:=筹码空间<60;
+温和上涨1:VAR1 AND VAR2 AND VAR3 AND VAR4 AND 筹码空间>REF(筹码空间,1) 
+AND REF(筹码空间,1)>REF(筹码空间,2);
+VAR1J:=LLV(LOW,21); 
+VAR2J:=HHV(HIGH,21); 
+K:=EMA((CLOSE-VAR1J)/(VAR2J-VAR1J)*100,6); 
+D:=EMA(0.667*REF(K,1)+0.333*K,2); 
+温和上涨2:LONGCROSS(K,D,0.1);
+-------------------------------------------------------
+
+成交笔数:=DYNAINFO(50),NODRAW;
+每笔均量:DYNAINFO(8)/DYNAINFO(50),NODRAW;
+换手:=DYNAINFO(8)/CAPITAL*100;
+每笔换手:换手/成交笔数*100,NODRAW;
+分钟笔数:成交笔数/FROMOPEN,NODRAW;
+-------------------------------------------------------
+
+http://www.55188.com/viewthread.php?tid=3475608&extra=&page=118
+A1:=HHV(H,50)/LLV(L,100)>1.5;
+A2:=(HHV(H,50)-L)/(HHV(H,50)-LLV(L,100));
+A3:=(LOW-LLV(L,100))/(HHV(H,50)-LLV(L,100));
+A4:=HHVBARS(H,50)<LLVBARS(L,100);
+A5:=A1 AND A2>0.5 AND A3>0.3 AND A4;
+A6:=COUNT(A5,20)=1;
+洗盘结束:A6 AND A5;
+{A1赋值:50日内最高价的最高值/100日内最低价的最低值>1.5
+A2赋值:(50日内最高价的最高值-最低价)/(50日内最高价的最高值-100日内最低价的最低值)
+A3赋值:(最低价-100日内最低价的最低值)/(50日内最高价的最高值-100日内最低价的最低值)
+A4赋值:50日内最高价距今天数<100日内最低价距今天数
+A5赋值:A1 AND A2>0.5 AND A3>0.3 AND A4
+A6赋值:统计20日中满足A5的天数=1}
+-------------------------------------------------------
+http://www.55188.com/viewthread.php?tid=3475608&extra=&page=118  
+OKKKKKKKKKKKKKKKKKKKKKKKK
+盘整突破:(REF(HHV(C,20),1)/((H+L)/2)<=1.12 
+AND((H+L)/2)/REF(LLV(C,20),1)<=1.12)
+AND V>REF(V,1)*1.5 AND BETWEEN(V/CAPITAL*100,2,6)
+AND"DMI.PDI">"DMI.MDI"AND CROSS("DMI.ADX","DMI.ADXR")
+AND"DMI.ADXR">"DMI.MDI"AND"DMI.PDI">"DMI.ADX"
+AND(CROSS(C,REF(O,BARSLAST(MOD(MONTH,6)=0)-1))
+OR (C>MA(C,9.98)AND CROSS(C,MA(C,89))))
+AND C/INDEXC>MA(C/INDEXC,30)AND C/INDEXC>MA(C/INDEXC,60);
+
+起爆:"KDJ.J"-REF("KDJ.J",1)>30  AND C/REF(C,1)>1.043 
+AND "MACD.MACD">0 AND "MACD.DEA">0;
+
+内外盘:=DYNAINFO(23)>DYNAINFO(22);{买盘大於卖盘}
+昨天涨幅:=REF(C,1)/REF(C,2)<1.05;{前一天的涨幅不宜过大}
+对比大盘:=C/REF(C,1)>INDEXC/REF(INDEXC,1);{当天应强於大盘}
+分时均价线:=DYNAINFO(7)>DYNAINFO(11);{股价运行在分时均价线上}
+突破:=C>=REF(H,1);{股价突破前一天的最高价，因上攻时一般在前天高点附近都有机会洗盘}
+超级短线:突破 AND DYNAINFO(17)>1.5 AND 内外盘 
+AND 对比大盘 AND 分时均价线 AND 昨天涨幅;
+
+-------------------------------------------------------
+
+
+???????
+TJ1:=REF(O/C>1.04,1);
+TJ2:=O<=REF(C,1) AND C>REF(H,1);
+TJ3:=IF(O>EXPMA(C,10),O/EXPMA(C,10)<1.05,O*0.97<EXPMA(C,10) AND C*1.03>EXPMA(C,10));
+TJ4:=EXPMA(C,10)>EXPMA(C,60) AND EXPMA(C,10)/EXPMA(C,60)<1.25;
+XG:TJ1 AND TJ2 AND TJ3 AND TJ4;
+
+DMI指标的实战技巧主要集中在DMI指标的 PDI、 MDI 、 ADX和ADXR这四条曲线的交叉情况
+以及PDI曲线所处的位置和运行方向等两个方面
+（注：分析家软件上的PDI曲线和MDI曲线就是钱龙等软件上的+DI曲线和﹣DI曲线）。
+下面以分析家软件上的日参数为（42，72）的DMI指标为例，来揭示DMI指标的买卖和观望功能。
+（注：钱龙软件42日指标参数与分析家软件上这个参数相对应，其使用方法大体相同）。
+
+PDI 代表多方在市场中的地位
+MDI 代表空方在市场中的地位
+ADX 快速转向回拉力线,ADX越走高,转向回拉的力度越强
+ADXR 慢速回拉力线
+
+
+{公式分析：PDI上穿三线，并且涨幅大于5%，并且成交量大于昨日}
+CROSS("DMI.PDI","DMI.MDI") 
+AND CROSS("DMI.PDI","DMI.ADX") 
+AND CROSS("DMI.PDI","DMI.ADXR") 
+AND C>REF(C,1)*1.05 
+AND VOL>REF(VOL,1)
+
+
+
+3.炒股一招鲜系列之三——CCI背离抄底
+
+公式分析：近5日 5日均线一直在10均线下方，并且CCI一直变大，CCI上穿-100
+
+1: CCI背离抄底
+
+LAST(MA(C,5)<MA(C,10),5,0) AND "CCI.CCI">REF("CCI.CCI",1) AND CROSS("CCI.CCI",-100);
+
+2: CCI背离抄底加限制
+
+LAST(MA(C,5)<MA(C,10),5,0) AND "CCI.CCI">REF("CCI.CCI",1) AND CROSS("CCI.CCI",-100);
+
+AND MA(C,60)>REF( MA(C,60),1);
+
+
+
+//第六次修改
+LAST((H-L)/REF(C,1)<0.1,20,0) 
+AND VOL>REF(VOL,1)*2 
+AND C>REF(C,1)*1.03
+AND "KDJ.j">REF("KDJ.j",1);
+
+AND "DMI.PDI">"DMI.MDI"  {多方大于空方}
+AND "DMI.PDI">"DMI.ADX"  {多方大于快速转向回拉力线}
+AND "DMI.ADXR">"DMI.MDI" 
+
+AND CROSS("DMI.ADX","DMI.ADXR")
+
+=====================================
+CROSS("DMI.PDI","DMI.MDI") 
+AND CROSS("DMI.PDI","DMI.ADX") 
+AND CROSS("DMI.PDI","DMI.ADXR") 
+=====================================
+
+PDI 代表多方在市场中的地位
+MDI 代表空方在市场中的地位
+ADX 快速转向回拉力线,ADX越走高,转向回拉的力度越强
+ADXR 慢速回拉力线
+
+加速拉升的买点：
+当指标紫线(ADX)上穿绿线时(ADXR)，//CROSS("DMI.ADX","DMI.ADXR")
+股票将进入一波快速拉升，这时候的买点就是我们所梦寐以求的，
+在最短时间获的最大利润的阶段！
+紫线上穿绿线时，要注意白线(PDI)向上与黄线(MDI)向下的角度，//CROSS("DMI.PDI","DMI.MDI") 
+同时关注绿紫线的上涨角度，他们决定了股票上涨的力度！
+
+KDJ_K:="KDJ.K"(9,3,3);KDJ_D:="KDJ.D"(9,3,3);KDJ_J:="KDJ.J"(9,3,3);
+买1:=CROSS(KDJ_J,0) OR (CROSS(KDJ_J,KDJ_K) AND KDJ_D<26);
+买2:=CROSS("RSI.RSI1"(6,2,2),20) OR CROSS("RSI.RSI1"(6,12,24),"RSI.RSI2"(6,12,24));
+买3:=CROSS("MACD.DIF","MACD.DEA") OR CROSS("MACD.MACD",0);
+买0:=买1+买2+买3;
+{买:IF(买0>1,买0,0);}
+
+DRAWICON(买0>1,L*0.98,16);
+
+
+
+
+
+
+

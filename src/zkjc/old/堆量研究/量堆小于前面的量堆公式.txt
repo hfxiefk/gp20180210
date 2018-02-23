@@ -1,0 +1,14 @@
+图片也不发个全图，至少的给出代码吧，这样也好比对。
+求助也遮遮掩掩，真不知道你是咋想的？
+【量堆是以MACD金叉到价格峰值的累加,故此MACD须走完一个循环选股，否则无效】
+AA:=HHV(C,0);
+AC:=C=AA;
+AE:=IF(REFX(CROSS(0.1,AC),1),AC,0);
+XX:=BARSLAST(AE);
+高点天数:=REF(XX,1);
+MCD天数:=BARSLAST("MACD.DIF"<"MACD.DEA");
+今累加:=IF(MCD天数>0,SUM(V,MCD天数),0);
+前累加:=REF(今累加,高点天数+1);
+AE AND 今累加<前累加;
+http://www.55188.com/thread-4254909-1-1.html
+

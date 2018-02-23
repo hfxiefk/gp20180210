@@ -1,0 +1,86 @@
+count(c/ref(c,1)>1.098,30)>=4;
+
+http://www.55188.com/viewthread.php?tid=5291480&highlight=###
+{有庄}
+VAR1:=EMA(EMA(C,13),13);
+控盘:=(VAR1-REF(VAR1,1))/REF(VAR1,1)*1000;
+JJ:=DYNAINFO(11); //DYNAINFO(11)取得最新动态行情: 均价
+{JJ:=AMOUNT/100/V;}
+P:=55;S:=8;M1:=3;
+能量:=(EMA(C,S)-EMA(C,P))*10;
+空头:=EMA(能量,M1);
+BTJ11:=(C-JJ)/JJ<-0.03;
+BTJ2:=控盘>REF(控盘,1) AND 控盘<-0.2;
+BTJ3:=CROSS(能量,空头) AND  能量<-0.3;
+有庄:FILTER(BTJ11 AND BTJ2 AND BTJ3,13);
+
+VAR1赋值:收盘价的13日指数移动平均的13日指数移动平均
+控盘赋值:(VAR1-1日前的VAR1)/1日前的VAR1*1000
+JJ赋值:均价
+P赋值:55
+S赋值:8
+M1赋值:3
+能量赋值:(收盘价的S日指数移动平均-收盘价的P日指数移动平均)*10
+空头赋值:能量的M1日指数移动平均
+BTJ11赋值:(收盘价-JJ)/JJ<-0.03
+BTJ2赋值:控盘>1日前的控盘 AND 控盘<-0.2
+BTJ3赋值:能量上穿空头 AND  能量<-0.3
+输出有庄:BTJ11ANDBTJ2ANDBTJ3的13日过滤
+
+{操盘手}
+VAR4:=VOL/REF(MA(VOL,5),1);
+量比:=V/(REF(MA(V,5),1)/240*FROMOPEN);
+突然放量:=VOL>REF(HHV(VOL,10),1)*1.5;
+LG:= VAR4>2 AND CROSS(C,MA(C,20)) AND 量比>2 AND C/REF(C,1)>1.05 AND 突然放量;
+
+A:=(C*2+H+L)/4*10;
+A1:=EMA(A,13)-EMA(A,34);
+A2:=EMA(A1,5);
+A3:=2*(A1-A2)*5.5;
+A4:=IF(A3>=0,A3,0);
+A5:=A4>REF(A4,1) AND REF(A3<0,1);
+A6:=REF(A4,1)<=REF(A4,2)AND A4>REF(A4,1);
+A7:= C/REF(C,1)>1.07;
+A5 OR A6 AND A7 AND LG;
+
+VAR4赋值:成交量(手)/1日前的成交量(手)的5日简单移动平均
+量比赋值:成交量(手)/(1日前的成交量(手)的5日简单移动平均/240*当前离开盘分钟数)
+突然放量赋值:成交量(手)>1日前的10日内成交量(手)的最高值*1.5
+LG赋值: VAR4>2 AND 收盘价上穿收盘价的20日简单移动平均 AND 量比>2 AND 收盘价/1日前的收盘价>1.05 AND 突然放量
+A赋值:(收盘价*2+最高价+最低价)/4*10
+A1赋值:A的13日指数移动平均-A的34日指数移动平均
+A2赋值:A1的5日指数移动平均
+A3赋值:2*(A1-A2)*5.5
+A4赋值:如果A3>=0,返回A3,否则返回0
+A5赋值:A4>1日前的A4 AND 1日前的A3<0
+A6赋值:1日前的A4<=2日前的A4AND A4>1日前的A4
+A7赋值: 收盘价/1日前的收盘价>1.07
+A5 OR A6 AND A7 AND LG
+
+
+http://www.55188.com/viewthread.php?tid=5291480&extra=&highlight=&page=9
+N:=9;M:=3;P:=2; 
+RAV:=(CLOSE-LLV(LOW,N)); 
+RAV1:=(HHV(HIGH,N)-LLV(LOW,N)); 
+RAV2:=RAV/RAV1; 
+RAV3:= (HIGH + LOW + CLOSE+REF(C,1)+O)/5; 
+RAV4:=RAV2*100; 
+RAV5:=SMA(RAV4,M,1); 
+RAV6:=SMA(RAV5,M,1); 
+RAV7:=SUM(IF(RAV3>REF(RAV3,1),RAV3*VOL,0),N)/SUM(IF(RAV3<REF(RAV3,1),RAV3*VOL,0),N); 
+资金趋势:=100-(100/(1+RAV7)); 
+
+AA:=(M*RAV5-P*RAV6)*1.1;
+XG:CROSS(AA,资金趋势) AND 资金趋势<50 AND AA>20;
+
+------------------------
+主力持仓指标：
+描述：紫线向上穿绿线即为买点，紫线向下穿到黄线为为卖点
+以下为代码：
+
+主力持仓:EMA(100*(CLOSE-LLV(LOW,34))/(HHV(HIGH,34)-LLV(LOW,34)),3),colorff00ff,linethick2;
+指数趋势:
+EMA(100*(INDEXC-LLV(INDEXL,34))/(HHV(INDEXH,34)-LLV(INDEXL,34)),3),COLORFFAA66,LINETHICK3; 
+强弱分界: 80,coloryellow;
+主力筹码集中度:WINNER(C)*100 ,colorred,linethick2;
+散筹筹码集中度WINNER(C*1.1)-WINNER(C*0.9))*100 ,colorgreen,linethick2

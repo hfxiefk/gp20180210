@@ -1,0 +1,79 @@
+http://www.55188.com/viewthread.php?tid=5512186&extra=&authorid=2524096&page=5
+这是任我行老师写的分时均价公式、可用于多日分时图中、信号准确、合理……
+SJ:=BARSLAST(TIME<=931)+1;
+JJ:SUM(C*V,SJ)/SUM(V,SJ),COLORYELLOW;
+DRAWNUMBER(ISLASTBAR,JJ,JJ),COLORYELLOW;
+
+
+http://www.55188.com/viewthread.php?tid=5526770&extra=&highlight=&page=1
+
+请老师帮助编写一个公式
+1、全天任一时段；
+2、30分钟之内（时间越短越好）、分时均价线涨幅超过4%（指相对于30分钟内的最低价、不是指相对于前收盘价）；
+3、画图标提示；
+
+
+简单的选股公式、供参考：
+TJG:=DYNAINFO(8)>0 AND IF(NAMELIKE('S'),0,1) AND IF(NAMELIKE('*'),0,1),COLORWHITE;
+A1:=AMOUNT/100000000>10;
+A2:=MA(AMOUNT/100000000,5)>10;
+A3:=MA(AMOUNT/100000000,5)>MA(AMOUNT/100000000,20);
+A4:="MACD.MACD">0;
+A5:=MA(C,7)>MA(C,15) AND MA(C,15)>MA(C,30);
+
+选股:TJG AND A1 AND A2 AND A3 AND A4 AND A5;{收盘用}
+统计:COUNT(XG,2),NODRAW;{盘中用}
+
+------------------------------------------------------------
+通用公式：
+TJG:=DYNAINFO(8)>0 AND IF(NAMELIKE('S'),0,1) AND IF(NAMELIKE('*'),0,1),COLORWHITE;
+A1:=AMOUNT/100000000>10;
+A2:=MA(AMOUNT/100000000,5)>10;
+A3:=MA(AMOUNT/100000000,5)>MA(AMOUNT/100000000,20);
+A4:="MACD.MACD">0;
+A5:=MA(C,7)>MA(C,15) AND MA(C,15)>MA(C,30);
+A6:=C>MA(C,250);
+
+选股:=TJG AND A1 AND A2 AND A3 AND A4 AND A5 AND A6;{今天}
+统计:COUNT(选股,3)>0;{三天内};
+
+
+=======================
+雪寻股老师的筹码公式
+http://www.55188.com/viewthread.php?tid=5843227&extra=&authorid=2524096&page=17
+听雪老师将筹码K线控制在0-100之间
+这为我们叠加其他公式提供便利
+
+NOTEXT100:100,COLORGRAY;
+NOTEXT90:90,COLORGRAY,DOTLINE;
+NOTEXT80:80,COLORGRAY,DOTLINE;
+NOTEXT70:70,COLORGRAY,DOTLINE;
+NOTEXT60:60,COLORGRAY,DOTLINE;
+NOTEXT50:50,COLORGRAY;
+NOTEXT40:40,COLORGRAY,DOTLINE;
+NOTEXT30:30,COLORGRAY,DOTLINE;
+NOTEXT20:20,COLORGRAY,DOTLINE;
+NOTEXT10:10,COLORGRAY,DOTLINE;
+NOTEXT0:0,COLORGRAY;
+
+CH:=WINNER(H)*100;
+CO:=WINNER(O)*100;
+CL:=WINNER(L)*100;
+CC:=WINNER(C)*100,NODRAW;
+DRAWKLINE(CH,CO,CL,CC);
+
+
+
+http://www.55188.com/blog.php?tid=5113318
+公式：
+A1:=L>REF(H,1); {跳空缺口}
+A2:=H=HHV(H,60);{创60天新高}
+XG:A1 AND A2;
+
+增加对影线的要求
+A1:=L>REF(H,1); {跳空缺口}
+A2:=H=HHV(H,60);{创60天新高}
+A3:=ABS(C-O)<H-MAX(C,O) OR ABS(C-O)<MIN(C,O)-L;{影线大于实体}
+
+XG1:=A1 AND A2;
+XG2:A1 AND A2 AND A3;

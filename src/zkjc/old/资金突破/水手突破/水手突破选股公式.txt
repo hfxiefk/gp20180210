@@ -1,0 +1,44 @@
+http://www.55188.com/thread-7594708-1-1.html
+要求，当指标出现黄块和紫块 的时候，出现选股信号，意思就是，无论出黄色还是紫色的，都出信号
+
+上趋势:MA(LOW,20)*1.2,COLORMAGENTA,CROSSDOT;
+次上趋势:MA(LOW,20)*1.1,COLORYELLOW;
+次下趋势:MA(HIGH,20)*0.9,COLORWHITE;
+下趋势:MA(HIGH,20)*0.8,COLORGREEN,CROSSDOT;
+ZD:=(C-REF(C,1))/REF(C,1)*100;
+HDZF:=(HHV(H,20)-C)/(HHV(H,20)-LLV(L,20));
+趋势强度:=IF(C>次上趋势,IF(C>上趋势,4,3),IF(C>次下趋势 AND C<次上趋势,2,IF(C<下趋势,0,1)));
+STICKLINE(趋势强度=0,H,L,3,1),COLORBLUE;
+STICKLINE(趋势强度=1,H,L,3,1),COLORGREEN;
+STICKLINE(趋势强度=2,H,L,3,1),COLORGRAY;
+STICKLINE(趋势强度=3,H,L,3,1),COLORYELLOW;
+STICKLINE(趋势强度=4,H,L,3,1),COLORMAGENTA;
+STICKLINE(趋势强度=0,C,O,2,0),COLORBLUE;
+STICKLINE(趋势强度=1,C,O,2,0),COLORGREEN;
+STICKLINE(趋势强度=2,C,O,2,0),COLORGRAY;
+STICKLINE(趋势强度=3,C,O,2,0),COLORYELLOW;
+STICKLINE(趋势强度=4,C,O,2,0),COLORMAGENTA;
+
+
+{水手突破选股}
+上趋势:=MA(LOW,20)*1.2;
+次上趋势:=MA(LOW,20)*1.1;
+次下趋势:=MA(HIGH,20)*0.9;
+下趋势:=MA(HIGH,20)*0.8;
+ZD:=(C-REF(C,1))/REF(C,1)*100;
+HDZF:=(HHV(H,20)-C)/(HHV(H,20)-LLV(L,20));
+趋势强度:=IF(C>次上趋势,IF(C>上趋势,4,3),IF(C>次下趋势 AND C<次上趋势,2,IF(C<下趋势,0,1)));
+XG:趋势强度>=3;
+
+{水手突破选股1}
+上趋势:=MA(LOW,20)*1.2;
+次上趋势:=MA(LOW,20)*1.1;
+次下趋势:=MA(HIGH,20)*0.9;
+下趋势:=MA(HIGH,20)*0.8;
+ZD:=(C-REF(C,1))/REF(C,1)*100;
+HDZF:=(HHV(H,20)-C)/(HHV(H,20)-LLV(L,20));
+趋势强度:=IF(C>次上趋势,IF(C>上趋势,4,3),IF(C>次下趋势 AND C<次上趋势,2,IF(C<下趋势,0,1)));
+
+A1:=次上趋势>REF(次上趋势,1) AND 次下趋势>REF(次下趋势,1);
+
+XG:趋势强度>=3 AND A1;

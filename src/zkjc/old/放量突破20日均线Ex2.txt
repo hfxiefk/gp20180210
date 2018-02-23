@@ -1,0 +1,9 @@
+{突破20日EX1}
+{放量突破20日均线}
+VAR4:=VOL/REF(MA(VOL,5),1);
+量比:=V/(REF(MA(V,5),1)/240*FROMOPEN);
+
+二十日换手率:=BETWEEN(SUM(HSCOL,20),30,200);
+LG:= VAR4>2 AND CROSS(C,MA(C,20)) AND 量比>2 AND C/REF(C,1)>1.05 AND 二十日换手率;
+
+TEST:LG;

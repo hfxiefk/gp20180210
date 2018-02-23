@@ -1,0 +1,17 @@
+http://www.55188.com/viewthread.php?tid=4813076&highlight=%D7%CA%BD%F0%B2%A9%DE%C4###
+
+通达信用的！需要l2数据！   资金博弈.txt (379 Bytes)
+
+资金博弈
+
+
+
+
+JGV:=(L2_VOL(0,0) - L2_VOL(0,1))*VOL/10000;
+DHV:=(L2_VOL(1,0) - L2_VOL(1,1))*VOL/10000;
+ZHV:=(L2_VOL(2,0) - L2_VOL(2,1))*VOL/10000;
+SHV:=(L2_VOL(3,0) - L2_VOL(3,1))*VOL/10000;
+机构资金:EMA(JGV,60)*60/CAPITAL,COLORMAGENTA;
+游资资金:EMA(DHV,60)*60/CAPITAL,COLOR3399FF ;
+中户资金:EMA(ZHV,60)*60/CAPITAL,COLORCYAN;
+散户资金:EMA(SHV,60)*60/CAPITAL,COLORGREEN;

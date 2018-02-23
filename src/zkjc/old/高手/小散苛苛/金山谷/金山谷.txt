@@ -1,0 +1,26 @@
+http://www.55188.com/viewthread.php?tid=4933144&highlight=
+http://www.55188.com/viewthread.php?tid=5782962&extra=&highlight=&page=2###
+
+本人刚刚编写的一个指标，目前还不成熟那位高手能优化一下就好了，我自己也在优化，不过效果很不显著。
+具体的就是出现金山谷选出。
+1：深度下跌后筑底的过程中
+2：一波上涨后回调后再上涨
+3：第一波的上涨成交量要明显放大且温和放大
+4：最近的两个地点不断抬高
+
+{大牛底附图}
+X1:=CROSS(MA(C,5),MA(C,10));
+X2:=CROSS(MA(C,5),MA(C,30));
+X3:=CROSS(MA(C,10),MA(C,30));
+银山谷:=BARSLAST(X1)>BARSLAST(X2)AND BARSLAST(X2)>BARSLAST(X3)AND X3;
+金山谷:=BARSLAST(银山谷)<=89 AND BARSLAST(银山谷);
+NOT(金山谷) AND LLV(L,100)<LLV(L,25) AND LLV(L,100)=LLV(L,200)AND C>MA(C,5) AND MA(C,5)>MA(C,10)AND MA(C,10)>MA(C,30);
+
+{大牛底Alarm}
+X1:=CROSS(MA(C,5),MA(C,10));
+X2:=CROSS(MA(C,5),MA(C,30));
+X3:=CROSS(MA(C,10),MA(C,30));
+银山谷:=BARSLAST(X1)>BARSLAST(X2)AND BARSLAST(X2)>BARSLAST(X3)AND X3;
+金山谷:=BARSLAST(银山谷)<=89 AND BARSLAST(银山谷);
+NOT(金山谷) AND LLV(L,100)<LLV(L,25) AND LLV(L,100)=LLV(L,200)AND C>MA(C,5) AND MA(C,5)>MA(C,10)AND MA(C,10)>MA(C,30);
+NOT(金山谷) AND LLV(L,100)<LLV(L,25) AND LLV(L,100)=LLV(L,200)AND C>MA(C,5) AND MA(C,5)>MA(C,10)AND MA(C,10)>MA(C,30);

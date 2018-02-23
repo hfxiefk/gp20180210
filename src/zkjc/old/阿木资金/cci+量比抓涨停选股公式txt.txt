@@ -1,0 +1,7 @@
+﻿http://www.55188.com/viewthread.php?tid=4651303&highlight=
+
+量比:=DYNAINFO(17)>=3;
+TYP:=(HIGH+LOW+CLOSE)/3;
+CCI:=(TYP-MA(TYP,14))/(0.015*AVEDEV(TYP,14));
+上穿:=CCI>100;
+CCI选股:上穿 AND 量比;

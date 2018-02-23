@@ -1,0 +1,114 @@
+http://www.55188.com/viewthread.php?tid=3702976&extra=page%3D1%26amp%3Bfilter%3Dtype%26amp%3Btypeid%3D38&page=26
+其实就算有这三句也只是划线参考用的，和rsi信号没关系，余下的backset则是前前高低圆点画线作大趋势的判断用，
+更是与买卖关系不大的，rsi本来在日线特别是60分钟对判断高低就很准确，
+你如不信可将这三句前面的源码和后面与前相关的源码删除看看，就知道没有了未来函数有没有影响。
+你可以放心，我的源码就算有未来是对买卖点都没影响的。
+
+
+http://www.55188.com/viewthread.php?tid=3702976&extra=page%3D1%26amp%3Bfilter%3Dtype%26amp%3Btypeid%3D38&page=9
+红方块为BIAS买入
+{RSI战神修改版}
+P  2 100 5  N1 2 100 6  HIGHN 2 100 20
+LC:=REF(CLOSE,1);
+RSI1:SMA(MAX(CLOSE-LC,0),6,1)/SMA(ABS(CLOSE-LC),6,1)*100,COLORWHITE;
+AA:=REF(RSI1,HIGHN)=HHV(RSI1,2*HIGHN+1);
+QY:=BACKSET(AA,HIGHN+1);
+CC:=FILTER(QY,HIGHN) AND RSI1=HHV(RSI1,HIGHN+1);
+DDD:=BARSLAST(CC);
+GDTS:=IF(CC,CURRBARSCOUNT,0);
+DINGBUTS:=IF(DDD,REF(GDTS,DDD),GDTS);
+GDCS1:=CONST(DINGBUTS);
+DINGBUTS1:=REF(DINGBUTS,DDD+1);
+GDCS2:=CONST(DINGBUTS1);
+AA1:=REF(RSI1,HIGHN)=LLV(RSI1,2*HIGHN+1);
+QY1:=BACKSET(AA1,HIGHN+1);
+CC1:=FILTER(QY1,HIGHN) AND RSI1=LLV(RSI1,HIGHN+1);
+DD1:=BARSLAST(CC1);
+DDTS:=IF(CC1,CURRBARSCOUNT,0);
+DDTS1:=IF(DD1,REF(DDTS,DD1),DDTS);
+DDCS1:=CONST(DDTS1);
+DDTS2:=REF(DDTS1,DD1+1);
+DDCS2:=CONST(DDTS2);
+A1:=REF(RSI1,P)=HHV(RSI1,2*P+1);
+B1:=FILTER(A1,P);
+C1:=BACKSET(B1,P+1);
+D1:=FILTER(C1,P);
+A2:=REF(RSI1,P)=LLV(RSI1,2*P+1);
+B2:=FILTER(A2,P);
+C2:=BACKSET(B2,P+1);
+D2:=FILTER(C2,P);
+R11:=BACKSET(ISLASTBAR,BARSLAST(D1)+1);
+S11:=R11>REF(R11,1);
+T11:=BACKSET(ISLASTBAR,BARSLAST(D2)+1);
+U11:=T11>REF(T11,1);
+MID:=MA(RSI1,20);
+UPPER:=MID + 2*STD(RSI1,20);
+LOWER:=MID - 2*STD(RSI1,20);
+高:=REF(HHV(RSI1,360),1);
+低:=REF(LLV(RSI1,240),1);
+BIAS1:=(C-MA(C,6))/MA(C,6)*100;
+BIAS2:=(C-MA(C,12))/MA(C,12)*100;
+BIAS3:=(C-MA(C,24))/MA(C,24)*100;
+BIAS:=(BIAS1+2*BIAS2+3*BIAS3)/6;
+乖离:=MA(BIAS,6);
+前高:REF(RSI1,BARSLAST(D1)),COLORFF00FF,NODRAW;
+前低:REF(RSI1,BARSLAST(D2)),COLOR00FF00,NODRAW;
+相对能量:(RSI1-前低)/(前高-前低)*100,COLORYELLOW,NODRAW; 
+
+上轨:UPPER,COLOR993300;
+下轨:LOWER,COLOR993300;
+DRAWICON(CC,RSI1*1.03,2);
+DRAWICON(CC1,RSI1*0.97,1);  
+高压:DRAWLINE(CURRBARSCOUNT=GDCS2,RSI1,CURRBARSCOUNT=GDCS1,RSI1,1) COLORBLUE,POINTDOT,LINETHICK4;
+低支:DRAWLINE(CURRBARSCOUNT=DDCS2,RSI1,CURRBARSCOUNT=DDCS1,RSI1,1) COLORRED,POINTDOT,LINETHICK4;
+阻力:DRAWLINE(D1,RSI1,S11,RSI1,1),COLORYELLOW; 
+支撑:DRAWLINE(D2,RSI1,U11,RSI1,1),COLOR00FF00; 
+DRAWTEXT(CROSS(RSI1,LOWER),LOWER,'抄'),COLOR00FF00;
+DRAWTEXT(CROSS(LOWER,RSI1),LOWER,'▼'),COLOR00FF00;
+DRAWTEXT(CROSS(RSI1,高),MID,'年高'),COLORYELLOW;
+DRAWTEXT(CROSS(低,RSI1),MID,'年低'),COLORYELLOW;
+DRAWTEXT(CROSS(UPPER,RSI1),UPPER,'逃'),COLORYELLOW;
+DRAWTEXT(CROSS(RSI1,UPPER),UPPER,'▲'),COLORYELLOW;
+VM:MA(RSI1,N1),COLORFF00FF,NODRAW;
+STICKLINE(CROSS(BIAS,乖离)  AND 乖离<-9,6,0,2,0),COLORRED;
+DRAWTEXT(ISLASTBAR AND RSI1>REF(RSI1,1),VM,' ▲'),COLORDD00FF;
+DRAWTEXT(ISLASTBAR AND RSI1<REF(RSI1,1),VM,' ▼'),COLORCCEE00;
+DRAWTEXT(CURRBARSCOUNT=60,10,' ☆  东家指标  ☆'),COLORGREEN; 
+
+有的股友对前高低的划线用的未来函数提出怀疑，我认为这里只用作趋势的判断，不是买卖信号，大可放心使用。
+
+
+
+
+backset()函数的高级用法：
+ 一、问题：如何在最后一根K线的前第6天，作上标记？
+1、先建立一个名为backset-test的指标，代码如下：
+islastbar{该周期是否最后一个周期。最后一个周期返回值为1，其余为0}
+观察指标线的图形，正如注释所述，最后一天显示为1，这个1我们可理解为信号（条件）成立。其余时间，指标的数值为0，可理解为信号（条件）不成立。
+2、巧用backset()函数：
+①bacdset(x,n)注释：向前赋值，若X非0则把当前周期及前N－1周期的数值设置为1;
+ ②示例：把信号向前移。
+tj1:=islastbar;{最后一天的条件}
+tj2:backset(tj1,6);
+观察tj2指标线图，发现最后6天的tj2信号都是1，即一个高度为1的矩形。指标中，还无法判断哪天是倒数第6天。
+3、显然倒数第6天，是上面矩形的前沿，如何在指标中，表达这个矩形的前沿？
+ 容易想到的办法：
+①倒数第6天的当天，tj2为1，更早的1天tj2=0，因此可以编出如下代码：
+tj1:=islastbar;{最后一天的条件}
+tj2:=backset(tj1,6);tj3:tj2 and ref(tj2,1)=0;
+ ②倒数第6天的当天，tj2为1，更早的1天tj2=0，即当天tj2比早一天的tj2更大，因此可以编出如下代码：
+tj1:=islastbar;{最后一天的条件}
+tj2:=backset(tj1,6);
+ tj3:tj2>ref(tj2,1);
+ ③倒数第6天的当天，tj2为1，更早的1天tj2=0，可以想象为tj2指标线上穿了一条高度为0.5的水平线，因此可以编出如下代码：
+tj1:=islastbar;{最后一天的条件}
+tj2:=backset(tj1,6);
+ tj3:cross(tj2,0.5);
+ ④巧用filter()过滤函数，filter(x,N)，若X非0，可以让X保持当天的值不变，且过滤其后N个周期使之数值为0。
+tj1:=islastbar;{最后一天的条件}
+tj2:=backset(tj1,6);
+ tj3:filter(tj2,5);{第1次的tj2保持为1不变，其后的5个周期过滤为0}
+这样就初步找到了4种方法，可以标记倒数第6天，若想用图标来标记的话，代码例举如下：tj1:=islastbar;{最后一天的条件}
+tj2:=backset(tj1,6);
+ tj3:=tj2>ref(tj2,1);
+ drawicon(tj3,L,1);

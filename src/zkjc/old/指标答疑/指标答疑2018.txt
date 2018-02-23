@@ -1,0 +1,25 @@
+形态选股：
+条件如下：20日内某天放出60天以来的最大成交量，今日收盘价站上最大成交量当日的最高价。
+http://www.55188.com/viewthread.php?tid=8244536&page=1#pid148092818
+{方法1}
+JZX:=HHV(V,60)=V;
+T:=BARSLAST(JZX);
+XG:CROSS(C,REF(H,T)) AND T<=20;
+
+{方法2}
+N:=20;
+M:=60;
+T1:=BARSCOUNT(C)<M-1;
+T2:=VOL=HHV(VOL,N);
+T3:=IF(T2,IF(HHV(VOL,N)=HHV(VOL,M),1,0),0);
+T4:=BARSLAST(T3=1);
+T5:=RANGE(T4,0,N);
+T6:=CLOSE>REF(HIGH,T4);
+XG:IF(T1,0,IF(T2,0,IF(T5,IF(T6,1,0),0)));
+
+{方法3}
+最大量:VOL=HHV(VOL,60);
+距今:=BARSLAST(最大量);
+C>REF(H,距今) AND V<REF(V,距今);
+
+

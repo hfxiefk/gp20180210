@@ -1,0 +1,11 @@
+http://www.55188.com/thread-7390395-1-1092.html
+
+REF(C/REF(C,1)>1.095 AND C=H AND V<REF(V,1),1)=1 AND O>REF(C,1);
+
+{这种模式 次日有一定抓板成功率。也曾总结过，但是凡事没绝对}
+缩量涨停:ref(if(c<5,c=h and c/ref(c,1)>1.0934,c=h and c/ref(c,1)>=1.0943),1)  and ref(v<ref(v,1),1)
+and l>ref(h,1);
+
+
+请老师帮忙写一个 低位价格以涨停的方式启动，后第二天高开走出明显的回落，并以收盘价未跌破前一个涨停收盘价的假阴线方式收盘。（真阴线和阳线不算）
+ref(c/ref(c,1)>1.095 and c=h,1) and c<o and c>ref(c,1) and c<ma(c,60);

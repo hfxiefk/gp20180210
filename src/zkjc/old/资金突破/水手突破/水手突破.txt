@@ -1,0 +1,76 @@
+http://www.55188.com/viewthread.php?tid=6151693&highlight=%CB%AE%CA%D6%CD%BB%C6%C6
+{水手突破OK} 
+上趋势:MA(LOW,20)*1.2,COLORMAGENTA,CROSSDOT;
+次上趋势:MA(LOW,20)*1.1,COLORYELLOW;
+次下趋势:MA(HIGH,20)*0.9,COLORWHITE;
+下趋势:MA(HIGH,20)*0.8,COLORGREEN,CROSSDOT;
+ZD:=(C-REF(C,1))/REF(C,1)*100;
+HDZF:=(HHV(H,20)-C)/(HHV(H,20)-LLV(L,20));
+趋势强度:=IF(C>次上趋势,IF(C>上趋势,4,3),IF(C>次下趋势 AND C<次上趋势,2,IF(C<下趋势,0,1)));
+STICKLINE(趋势强度=0,H,L,6,1),COLORBLUE;
+STICKLINE(趋势强度=1,H,L,6,1),COLORGREEN;
+STICKLINE(趋势强度=2,H,L,6,1),COLORGRAY;
+STICKLINE(趋势强度=3,H,L,6,1),COLORYELLOW;
+STICKLINE(趋势强度=4,H,L,6,1),COLORMAGENTA;
+STICKLINE(趋势强度=0,C,O,5,0),COLORBLUE;
+STICKLINE(趋势强度=1,C,O,5,0),COLORGREEN;
+STICKLINE(趋势强度=2,C,O,5,0),COLORGRAY;
+STICKLINE(趋势强度=3,C,O,5,0),COLORYELLOW;
+STICKLINE(趋势强度=4,C,O,5,0),COLORMAGENTA;
+
+
+{水手突破} 
+上趋势:MA(LOW,20)*1.2,color0080ff,linethick2;
+次上趋势:MA(LOW,20)*1.1,COLORYELLOW;
+次下趋势:MA(HIGH,20)*0.9,COLORWHITE;
+下趋势:MA(HIGH,20)*0.8,COLORGREEN,linethick2;
+ZD:=(C-REF(C,1))/REF(C,1)*100;
+HDZF:=(HHV(H,20)-C)/(HHV(H,20)-LLV(L,20));
+趋势强度:=IF(C>次上趋势,IF(C>上趋势,4,3),IF(C>次下趋势 AND C<次上趋势,2,IF(C<下趋势,0,1)));
+STICKLINE(趋势强度=0,H,L,6,1),COLORBLUE;
+STICKLINE(趋势强度=1,H,L,6,1),COLORGREEN;
+STICKLINE(趋势强度=2,H,L,6,1),COLORGRAY;
+STICKLINE(趋势强度=3,H,L,6,1),COLORYELLOW;
+STICKLINE(趋势强度=4,H,L,6,1),COLORMAGENTA;
+STICKLINE(趋势强度=0,C,O,5,0),COLORBLUE;
+STICKLINE(趋势强度=1,C,O,5,0),COLORGREEN;
+STICKLINE(趋势强度=2,C,O,5,0),COLORGRAY;
+STICKLINE(趋势强度=3,C,O,5,0),COLORYELLOW;
+STICKLINE(趋势强度=4,C,O,5,0),COLORMAGENTA;
+
+
+
+{水手突破} 
+上趋势:MA(LOW,20)*1.2,color0080ff,linethick2;
+次上趋势:MA(LOW,20)*1.1,COLORYELLOW;
+次下趋势:MA(HIGH,20)*0.9,COLORWHITE;
+下趋势:MA(HIGH,20)*0.8,COLORGREEN,linethick2;
+ZD:=(C-REF(C,1))/REF(C,1)*100;
+HDZF:=(HHV(H,20)-C)/(HHV(H,20)-LLV(L,20));
+趋势强度:=IF(C>次上趋势,IF(C>上趋势,4,3),IF(C>次下趋势 AND C<次上趋势,2,IF(C<下趋势,0,1)));
+STICKLINE(趋势强度=0,H,L,6,1),COLORBLUE;
+STICKLINE(趋势强度=1,H,L,6,1),COLORGREEN;
+STICKLINE(趋势强度=2,H,L,6,1),COLORGRAY;
+STICKLINE(趋势强度=3,H,L,6,1),COLORYELLOW;
+STICKLINE(趋势强度=4,H,L,6,1),COLORMAGENTA;
+STICKLINE(趋势强度=0,C,O,5,0),COLORBLUE;
+STICKLINE(趋势强度=1,C,O,5,0),COLORGREEN;
+STICKLINE(趋势强度=2,C,O,5,0),COLORGRAY;
+STICKLINE(趋势强度=3,C,O,5,0),COLORYELLOW;
+STICKLINE(趋势强度=4,C,O,5,0),COLORMAGENTA;
+
+
+http://www.55188.com/thread-6902550-1-1.html
+经传的水手突破指标，通达信版本的
+1、水手突破的通道线对于股价有支撑和压力的作用。
+2、个股长期处于水手突破灰色区域突然某天水手突破由灰色进入黄色状态切勿盲目追高，
+   很容易出现阶段性的高点。经过统计，该情况出现冲高回落的概率非常大，更多的属于主力试盘的行为。
+3、水手突破组合
+    组合A:水手突破出现连续三天站稳次上趋势（黄线），后期股价回档软件智能辅助线买入或者再次进入突破状态时买入。止损点：破位智能辅助线。
+    组合B:水手突破前期有过2——3次试探性突破（不一定要连续三天站稳黄线上方），后期股价回档软件智能辅助线买入或者再次进入突破状态时买入。止损点：破位智能辅助线。
+
+
+
+
+
+

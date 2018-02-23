@@ -1,0 +1,11 @@
+{突破箱体}
+涨幅:=BETWEEN(CLOSE/REF(CLOSE,1),1.03,1.110) ; 
+二十日换手率:=BETWEEN(SUM(HSCOL,20),30,200);
+{箱体}
+DFO:=(C-REF(C,1))/REF(C,1)*100<-5;
+AAO:=BARSLAST(DFO);                  
+突破箱体:=CROSS(C,REF(O,AAO));
+
+KP:=O>REF(C,1)*1.01; {跳空高开}
+
+买点:涨幅 and 二十日换手率 and 突破箱体 and KP;

@@ -1,0 +1,76 @@
+http://www.55188.com/viewthread.php?tid=5426670&highlight=%CB%AE%CA%D6%CD%BB%C6%C6
+
+1、水手突破的通道线对于股价有支撑和压力的作用。
+2、个股长期处于水手突破灰色区域突然某天水手突破由灰色进入黄色状态切勿盲目追高，很容易出现阶段性的高点。经过统计，
+   该情况出现冲高回落的概率非常大，更多的属于主力试盘的行为。
+3、水手突破组合
+    组合A:水手突破出现连续三天站稳次上趋势（黄线），后期股价回档软件智能辅助线买入或者再次进入突破状态时买入。止损点：破位智能辅助线。
+    组合B:水手突破前期有过2——3次试探性突破（不一定要连续三天站稳黄线上方），后期股价回档软件智能辅助线买入或者再次进入突破状态时买入。
+	止损点：破位智能辅助线。
+4、试探性突破定义：水手突破没有出现连续三天站稳次上趋势（黄色状态）的突破我们称之为试探性突破。
+
+{水手突破附图}
+上趋势:MA(LOW,19)*1.18,COLORMAGENTA,CROSSDOT;
+次上趋势:MA(LOW,19)*1.08,COLORYELLOW;
+次下趋势:MA(HIGH,19)*0.9,COLORWHITE;
+下趋势:MA(HIGH,19)*0.8,COLORGREEN,CROSSDOT;
+ZD:=(C-REF(C,1))/REF(C,1)*100;
+HDZF:=(HHV(H,19)-C)/(HHV(H,19)-LLV(L,19));
+趋势强度:=IF(C>次上趋势,IF(C>上趋势,4,3),IF(C>次下趋势 AND C<次上趋势,2,IF(C<下趋势,0,1)));
+STICKLINE(趋势强度=0,H,L,3,1),COLORBLUE;
+STICKLINE(趋势强度=1,H,L,3,1),COLORGREEN;
+STICKLINE(趋势强度=2,H,L,3,1),COLORGRAY;
+STICKLINE(趋势强度=3,H,L,3,1),COLORYELLOW;
+STICKLINE(趋势强度=4,H,L,3,1),COLORMAGENTA;
+STICKLINE(趋势强度=0,C,O,2,0),COLORBLUE;
+STICKLINE(趋势强度=1,C,O,2,0),COLORGREEN;
+STICKLINE(趋势强度=2,C,O,2,0),COLORGRAY;
+STICKLINE(趋势强度=3,C,O,2,0),COLORYELLOW;
+STICKLINE(趋势强度=4,C,O,2,0),COLORMAGENTA;
+
+
+{水手突破选股指标（高位突破）}
+C1:=MA(LOW,19)*1.18;
+C2:=MA(LOW,19)*1.08;
+C3:=MA(HIGH,19)*0.9;
+C4:=MA(HIGH,19)*0.8;
+C11:=REF(C1,1);
+C12:=REF(C2,1);
+C13:=REF(C3,1);
+C14:=REF(C4,1);
+C21:=REF(C1,2);
+C22:=REF(C2,2);
+C23:=REF(C3,2);
+C24:=REF(C4,2);
+C31:=REF(C1,3);
+C32:=REF(C2,3);
+C33:=REF(C3,3);
+C34:=REF(C4,3);
+CP:= IF(C>C2,IF(C>C1,4,3),IF(C>C3 AND C<C2,2,IF(C<C4,0,1)));
+CP1:=IF(REF(C,1)>C12,IF(REF(C,1)>C11,4,3),IF(REF(C,1)>C13 AND REF(C,1)<C12,2,IF(REF(C,1)<C14,0,1)));
+CP2:=IF(REF(C,2)>C22,IF(REF(C,2)>C21,4,3),IF(REF(C,2)>C23 AND REF(C,2)<C22,2,IF(REF(C,2)<C24,0,1)));
+CP3:=IF(REF(C,3)>C32,IF(REF(C,3)>C31,4,3),IF(REF(C,3)>C33 AND REF(C,3)<C32,2,IF(REF(C,3)<C34,0,1)));
+趋势强度: CP=3 AND CP1<=2 AND CP2<=2 AND CP3<=2 AND (LOW-MA(C,60))/MA(C,60)>0.01;
+
+本人经常用的，结合量能和回调，效果不错啊。
+
+感兴趣的朋友可以结合以下形态副图指标，这样就一目了然了，随便找个个股验证一下都可以的，成功率还是不错的。
+
+
+上趋势:MA(LOW,19)*1.18,COLORMAGENTA,CROSSDOT;
+次上趋势:MA(LOW,19)*1.08,COLORYELLOW;
+次下趋势:MA(HIGH,19)*0.9,COLORWHITE;
+下趋势:MA(HIGH,19)*0.8,COLORGREEN,CROSSDOT;
+ZD:=(C-REF(C,1))/REF(C,1)*100;
+HDZF:=(HHV(H,19)-C)/(HHV(H,19)-LLV(L,19));
+趋势强度:=IF(C>次上趋势,IF(C>上趋势,4,3),IF(C>次下趋势 AND C<次上趋势,2,IF(C<下趋势,0,1)));
+STICKLINE(趋势强度=0,H,L,3,1),COLORBLUE;
+STICKLINE(趋势强度=1,H,L,3,1),COLORGREEN;
+STICKLINE(趋势强度=2,H,L,3,1),COLORGRAY;
+STICKLINE(趋势强度=3,H,L,3,1),COLORYELLOW;
+STICKLINE(趋势强度=4,H,L,3,1),COLORMAGENTA;
+STICKLINE(趋势强度=0,C,O,2,0),COLORBLUE;
+STICKLINE(趋势强度=1,C,O,2,0),COLORGREEN;
+STICKLINE(趋势强度=2,C,O,2,0),COLORGRAY;
+STICKLINE(趋势强度=3,C,O,2,0),COLORYELLOW;
+STICKLINE(趋势强度=4,C,O,2,0),COLORMAGENTA;

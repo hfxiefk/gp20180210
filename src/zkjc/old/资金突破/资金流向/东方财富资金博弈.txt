@@ -1,0 +1,73 @@
+http://www.55188.com/viewthread.php?tid=4927258&extra=&highlight=%D7%CA%BD%F0%B2%A9%DE%C4&page=1
+
+最近研究东方财富通资金博弈指标，发现这个指标还是很不错的，其中一条经验与大家分享，
+如果股票在调整的过程中（震荡下行或横盘整理或缓慢盘升），
+资金博弈线的散户指标（绿色线）往下走，超大线（红色线）保持不变甚至上走，
+则有一天放量上涨，则该股将迎来一波主升浪，主升浪的高度视放量的大小，
+或均线态势而定，但是可以肯定的是，此时股票连续上涨的概率比较大，
+这是我研究了很多历史数据的经验上得出的。
+
+东方财富：资金博弈源码；
+jgV:=(BIGORDER(1,3)-BIGORDER(2,3))*vol;
+dhV:=(BIGORDER(1,2)-BIGORDER(2,2)-BIGORDER(1,3)+BIGORDER(2,3))*vol;
+zhV:=(BIGORDER(1,1)-BIGORDER(2,1)-BIGORDER(1,2)+BIGORDER(2,2))*vol;
+shV:=(BIGORDER(2,1)-BIGORDER(1,1))*vol;
+tD:=COUNT(BIGORDER(1,0),0);
+myD:=min(tD,60);
+超级资金:ema(jgV,myD)*myD/capital,COLORMAGENTA;
+大户资金:ema(dhV,myD)*myD/capital,color3399FF ;
+中户资金:ema(zhV,myD)*myD/capital,colorcyan;
+散户资金:ema(shV,myD)*myD/capital,colorgreen;
+0,color333333,PRECIS0,layer7;
+
+
+源码可能是这个
+
+资金博弈源码；
+jgV:=(BIGORDER(1,3)-BIGORDER(2,3))*vol;
+dhV:=(BIGORDER(1,2)-BIGORDER(2,2)-BIGORDER(1,3)+BIGORDER(2,3))*vol;
+zhV:=(BIGORDER(1,1)-BIGORDER(2,1)-BIGORDER(1,2)+BIGORDER(2,2))*vol;
+shV:=(BIGORDER(2,1)-BIGORDER(1,1))*vol;
+tD:=COUNT(BIGORDER(1,0),0);
+myD:=min(tD,60);
+超级资金:ema(jgV,myD)*myD/capital,COLORMAGENTA;
+大户资金:ema(dhV,myD)*myD/capital,color3399FF ;
+中户资金:ema(zhV,myD)*myD/capital,colorcyan;
+散户资金:ema(shV,myD)*myD/capital,colorgreen;
+0,color333333,PRECIS0,layer7;
+
+
+在通达信软件上使用的 ‘资金博弈’指标
+GV:=(L2_VOL(0,0) - L2_VOL(0,1))*VOL/10000;
+DHV:=(L2_VOL(1,0) - L2_VOL(1,1))*VOL/10000;
+ZHV:=(L2_VOL(2,0) - L2_VOL(2,1))*VOL/10000;
+SHV:=(L2_VOL(3,0) - L2_VOL(3,1))*VOL/10000;
+机构资金:EMA(JGV,60)*60/CAPITAL,COLORMAGENTA;
+游资资金:EMA(DHV,60)*60/CAPITAL,COLOR3399FF ;
+中户资金:EMA(ZHV,60)*60/CAPITAL,COLORCYAN;
+散户资金:EMA(SHV,60)*60/CAPITAL,COLORGREEN;
+
+
+试一下这个  这个指标改得好，与东方财富的相近了。
+SUPER:=(L2_VOL(0,0) - L2_VOL(0,1))*VOL/10000;
+BIG:=(L2_VOL(1,0) - L2_VOL(1,1))*VOL/10000;
+MIDDLE:=(L2_VOL(2,0) - L2_VOL(2,1))*VOL/10000;
+SMALL:=(L2_VOL(3,0) - L2_VOL(3,1))*VOL/10000;
+B:=MIN(BARSCOUNT(C),60);
+超大:EMA(SUPER,B)*B,COLORRED;
+大户:EMA(BIG,B)*B,COLORYELLOW;
+中户:EMA(MIDDLE,B)*B,COLORCYAN;
+散户:EMA(SMALL,B)*B,COLORGREEN;
+
+主力资金主要是超大资金和大户资金的复合，即第一条资金线；
+而第二条资金线，是从大户资金中抽取一部分，主要是单独成交比较偏向中户的资金与中户资金的复合，这就是第二条资金线。
+由于是复合，故这两条资金线均与现有的股软上的资金线有些不同，应该说是
+有些时候与现有股软的资金线完全一致，但更多的时候是有所不同。
+
+《主力资金流向》为第一条线；
+《资金流向ZJLX》为第二条线。
+
+光辉说得不错，我们不要只对着一天或是几天作出判断，更不要只对什么什么指标就说好。
+背离，缩量，控盘，基因，这些都是主升阶段里的星星点点而已。
+短线强势个股均有个特点，就如光辉所说，都是天量或巨量之后的缩量。
+所以，放量缩量才是关键，阶段的放量后缩量再小放量，如果资金配合，那都是强势个股了。

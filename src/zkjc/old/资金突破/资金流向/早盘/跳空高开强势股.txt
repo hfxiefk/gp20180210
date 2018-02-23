@@ -1,0 +1,60 @@
+http://www.kekegold.com/stock/hm/2015-04-23/344407.html
+
+
+
+{跳空高开}
+O>REF(C,1)*1.02;
+
+http://www.55188.com/thread-6941959-1-1.html
+这个用得好！真正的高手！学习啦！
+稍整理：
+
+A:=MAX(MAX(MAX(MAX(MA(C,5),MA(C,10)),MA(C,20)),MA(C,60)),MA(C,120));
+
+XG:REF(H<A,1) AND O>A AND    {昨天低于所有均线，今天站在所有均线之上}
+  L>REF(H,1) AND L=O AND     {今天的跳空高开，无下影}
+  C>O AND C/REF(C,1)<=1.06;  {收阳，今比昨高6%}
+
+
+
+
+
+
+LOW > REF(HIGH,1);
+
+跳空高开强势股
+结合底部公式，跳空缺口当天回补不了正明这股强势
+缺口选:LOW > REF(HIGH,1);
+
+
+结合底部公式，跳空缺口当天回补不了正明这股强势
+缺口选:LOW > REF(HIGH,1);
+
+
+;{跳空高开 早盘9；26分预警也可直接选股}
+放量:=DYNAINFO(9)>999;
+涨幅:=DYNAINFO(14)>2/100 AND DYNAINFO(14)<5/100;
+股价:=C>4.5 AND C<25;
+量比:=DYNAINFO(17)>1.5;
+流通盘1:=FINANCE(7)<1000000000 AND FINANCE(7)>200000000 AND DYNAINFO(9)>999;
+流通盘2:=FINANCE(7)<=200000000 AND DYNAINFO(9)>499;
+去ST:=IF(NAMELIKE('*ST'),0,1) AND IF(NAMELIKE('S'),0,1);
+XG:涨幅 AND 股价 AND (流通盘1 OR 流通盘2) AND 去ST AND 量比; 
+
+这个公式通不过是怎么用的
+
+
+O>REF(C,1)*1.02 AND DYNAINFO(17)>1.5 AND DYNAINFO(7)>DYNAINFO(4);
+{跳空高开 副图公式}
+O>REF(C,1)*1.02;
+{跳空高开 早盘9；26分预警也可直接选股}
+放量:=DYNAINFO(9)>999;
+{WWW.GUPANG.COM 股旁网_通达信股票指标公式}
+涨幅:=DYNAINFO(14)>2/100 AND DYNAINFO(14)<5/100;
+股价:=C>4.5 AND C<25;
+量比:=DYNAINFO(17)>1.5;
+流通盘1:=FINANCE(7)<1000000000 AND FINANCE(7)>200000000 AND DYNAINFO(9)>999;
+流通盘2:=FINANCE(7)<=200000000 AND
+DYNAINFO(9)>499;
+去ST:=IF(NAMELIKE('*ST'),0,1) AND IF(NAMELIKE('S'),0,1);
+XG:涨幅 AND 股价 AND (流通盘1 OR 流通盘2) AND 去ST AND 量比;

@@ -1,0 +1,14 @@
+
+【选龙头】选股预警源码
+
+
+Z1:=MA(C,13);
+ ZX:=REF(Z1,13/2+1);
+ A1:=SMA(HIGH,21,2)*1.05;
+ A2:=SMA(LOW,21,2)*0.95;
+ A3:=SMA(LOW,5,1);
+ A4:=SMA(CLOSE,2,1);
+ 波段买入:=IF(CROSS(A4,A3),A1*1.05,A3);
+ 龙头:=IF(CROSS(A4,A1),A1*1.10,A2);
+ XG:IF(龙头>A2 OR 波段买入>A3 AND CROSS(C,ZX) AND VOL>0,10,0);
+ 

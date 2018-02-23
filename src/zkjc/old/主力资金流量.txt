@@ -1,0 +1,73 @@
+主力资金流量
+AA:=VOL/((HIGH-LOW)*2-ABS(CLOSE-OPEN));
+买量:=IF(CLOSE>OPEN,AA*(HIGH-LOW),IF(CLOSE<OPEN,AA*((HIGH-OPEN)+ (CLOSE-LOW)),VOL/2)),LINETHICK0,COLORRED;
+卖量:=IF(CLOSE>OPEN,0-AA*((HIGH-CLOSE)+(OPEN-LOW)),IF(CLOSE<OPEN,0- AA*(HIGH-LOW),0-VOL/2)),LINETHICK0,COLORGREEN;
+进出量:=买量+卖量,COLOR00FFFF;STICKLINE(进出量<0,0,进出量,1,0),COLORFF6600;
+STICKLINE(进出量<0,0,进出量,3,0),COLORFF9900;
+STICKLINE(进出量<0,0,进出量,1.5,0),COLORFFCC00;
+STICKLINE(进出量<0,0,进出量,0.5,0),COLORCYAN;
+STICKLINE(进出量>0,0,进出量,3,0),COLOR000099;
+STICKLINE(进出量>0,0,进出量,3,0),COLOR0000CC;
+STICKLINE(进出量>0,0,进出量,1.0,0),COLOR0000FF;
+STICKLINE(进出量>0,0,进出量,0.5,0),COLORCC66FF;N:=1;QJ0:= (HIGH+LOW+CLOSE)/3;
+QJ1:=IF(HIGH=LOW,1,HIGH-MAX(OPEN,CLOSE));
+QJ2:=IF(HIGH=LOW,1,MAX(CLOSE,OPEN)-QJ0);
+QJ3:=IF(HIGH=LOW,1,MIN(OPEN,CLOSE)-LOW);
+QJ4:=IF(HIGH=LOW,1,QJ0-MIN(CLOSE,OPEN));
+QJ5:=VOL/(IF(HIGH=LOW,4,HIGH-LOW));
+QJ6:="MACD.DIF">"MACD.DEA" AND "MACD.DEA"<0;
+QJ7:="KDJ.K">"KDJ.D" AND "KDJ.D"<30;
+QJ8:="MACD.DIF"<"MACD.DEA";
+QJ9:="KDJ.K"<"KDJ.D" AND "KDJ.K">80;
+特大:QJ4*QJ5,NODRAW;大单:QJ3*QJ5,NODRAW;
+中单:QJ1*QJ5,NODRAW;小单:QJ2*QJ5,NODRAW;
+W1:=SUM(大单,N)+SUM(特大,N);W2:=SUM(小单,N)+SUM(中单,N);
+量振1:=特大>大单 AND 大单>小单;
+量振2:=特大<小单 AND 大单<小单;
+标振1:=QJ6 AND QJ7;
+标振2:=QJ8 AND QJ9;
+A:=W1-W2;A0:=IF(A>0,A,0);B0:=IF(A<0,A,0);
+STICKLINE(A0,0,A0,1,0),COLOR000044;主力持仓:EMA(100*(CLOSE- LLV(LOW,34))/(HHV(HIGH,34)-LLV(LOW,34)),3),COLORFF00FF;主力筹码集中度:WINNER(C)*100,COLORRED;
+
+
+
+
+AA赋值:成交量(手)/((最高价-最低价)*2-收盘价-开盘价的绝对值)
+买量赋值:如果收阳线,返回AA*(最高价-最低价),否则返回如果收阴线,返回AA*((最高价-开盘价)+(收盘价-最低价)),否则返回成交量(手)/2,线宽为0,画红色
+卖量赋值:如果收阳线,返回0-AA*((最高价-收盘价)+(开盘价-最低价)),否则返回如果收阴线,返回0-AA*(最高价-最低价),否则返回0-成交量(手)/2,线宽为0,画绿色
+进出量赋值:买量+卖量,COLOR00FFFF
+当满足条件进出量<0时,在0和进出量位置之间画柱状线,宽度为1,0不为0则画空心柱.,COLORFF6600
+当满足条件进出量<0时,在0和进出量位置之间画柱状线,宽度为3,0不为0则画空心柱.,COLORFF9900
+当满足条件进出量<0时,在0和进出量位置之间画柱状线,宽度为1.5,0不为0则画空心柱.,COLORFFCC00
+当满足条件进出量<0时,在0和进出量位置之间画柱状线,宽度为0.5,0不为0则画空心柱.,画青色
+当满足条件进出量>0时,在0和进出量位置之间画柱状线,宽度为3,0不为0则画空心柱.,COLOR000099
+当满足条件进出量>0时,在0和进出量位置之间画柱状线,宽度为3,0不为0则画空心柱.,COLOR0000CC
+当满足条件进出量>0时,在0和进出量位置之间画柱状线,宽度为1.0,0不为0则画空心柱.,COLOR0000FF
+当满足条件进出量>0时,在0和进出量位置之间画柱状线,宽度为0.5,0不为0则画空心柱.,COLORCC66FF
+N赋值:1
+QJ0赋值: (最高价+最低价+收盘价)/3
+QJ1赋值:如果最高价=最低价,返回1,否则返回最高价-开盘价和收盘价的较大值
+QJ2赋值:如果最高价=最低价,返回1,否则返回收盘价和开盘价的较大值-QJ0
+QJ3赋值:如果最高价=最低价,返回1,否则返回开盘价和收盘价的较小值-最低价
+QJ4赋值:如果最高价=最低价,返回1,否则返回QJ0-收盘价和开盘价的较小值
+QJ5赋值:成交量(手)/(如果最高价=最低价,返回4,否则返回最高价-最低价)
+QJ6赋值:"平滑异同平均的DIF">"平滑异同平均的DEA" AND "平滑异同平均的DEA"<0
+QJ7赋值:"KDJ的K">"KDJ的D" AND "KDJ的D"<30
+QJ8赋值:"平滑异同平均的DIF"<"平滑异同平均的DEA"
+QJ9赋值:"KDJ的K"<"KDJ的D" AND "KDJ的K">80
+输出特大:QJ4*QJ5,NODRAW
+输出大单:QJ3*QJ5,NODRAW
+输出中单:QJ1*QJ5,NODRAW
+输出小单:QJ2*QJ5,NODRAW
+W1赋值:大单的N日累和+特大的N日累和
+W2赋值:小单的N日累和+中单的N日累和
+量振1赋值:特大>大单 AND 大单>小单
+量振2赋值:特大<小单 AND 大单<小单
+标振1赋值:QJ6 AND QJ7
+标振2赋值:QJ8 AND QJ9
+A赋值:W1-W2
+A0赋值:如果A>0,返回A,否则返回0
+B0赋值:如果A<0,返回A,否则返回0
+当满足条件A0时,在0和A0位置之间画柱状线,宽度为1,0不为0则画空心柱.,COLOR000044
+输出主力持仓:100*(收盘价-34日内最低价的最低值)/(34日内最高价的最高值-34日内最低价的最低值)的3日指数移动平均,COLORFF00FF
+输出主力筹码集中度:以收盘价计算的获利盘比例*100,画红色

@@ -1,0 +1,62 @@
+http://www.55188.com/blog.php?tid=5034276&page=2
+
+主力线的数值可以看作是主力控盘比例，只有主力控盘达到20%左右，才有拉升突破筹码峰的可能
+{主力控盘}
+STICKLINE(C>0,25,25,6,0),COLORMAGENTA;
+均价:=(0.618*(0.809*C+0.191*o)+0.382*(if(H=C,C,H)+if(L=C,C,L))/2);
+lj:=if(STKTYPE=0,均价,AMOUNT/(V*100));
+R:=(0.809*if(L=C,C,L)+0.191*lj);R1:=(0.809*if(H=C,C,H)+0.191*lj);
+主力:WMA(WINNER(R)*61.8,1),COLORRED;
+市场:WMA(WINNER(lj)*50,5),COLORWHITE;
+散户:WMA(WINNER(R1)*50,8),COLORAAAA00;
+PARTLINE(主力<散户,主力),COLORYELLOW;
+PARTLINE(主力<市场,主力),COLORGREEN;
+上为飞狐，下为通达信
+STICKLINE(C>0,25,25,6,0),COLORMAGENTA;
+均价:=(0.618*(0.809*C+0.191*o)+0.382*(if(H=C,C,H)+if(L=C,C,L))/2);
+lj:=if(INDEXC=C,均价,AMOUNT/(V*100));
+R:=(0.809*if(L=C,C,L)+0.191*lj);R1:=(0.809*if(H=C,C,H)+0.191*lj);
+主力:MA(WINNER(R)*61.8,1),COLORRED;
+市场:MA(WINNER(lj)*50,5),COLORWHITE;
+散户:MA(WINNER(R1)*50,8),COLORAAAA00;
+IF(主力<散户,主力,DRAWNULL),COLORYELLOW;
+IF(主力<市场,主力,DRAWNULL),COLORGREEN;
+
+原帖由 寻庄问底 于 2012-12-2 10:26 发表 
+主力线的数值可以看作是主力控盘比例，只有主力控盘达到20%左右，才有拉升突破筹码峰的可能
+STICKLINE(C>0,25,25,6,0),COLORMAGENTA;
+均价:=(0.618*(0.809*C+0.191*o)+0.382*(if(H=C,C,H)+if(L=C,C,L))/2);
+lj: ...     
+你用的什么软件？通达信不认：当前公式 : 主力筹码线 (指标画线公式)  
+错误句 : 
+LJ:=IF(STKTYPE=0,均价,AMOUNT/(V*100)) 
+详细信息 : 未知字符串 STKTYPE 
+错误起始位置 : 115 ; 长度: 7	
+
+INDEXC=c用它可以在通达信通过，与STKTYPE=0一样，在飞狐中也可以这样用	
+
+大智慧
+STICKLINE(C>0,25,25,6,0),COLORMAGENTA;
+均价:=(0.618*(0.809*C+0.191*o)+0.382*(if(H=C,C,H)+if(L=C,C,L))/2);
+lj:=if(INDEXC=C,均价,AMOUNT/(V*100));
+R:=(0.809*if(L=C,C,L)+0.191*lj);R1:=(0.809*if(H=C,C,H)+0.191*lj);
+主力:MA(WINNER(R)*61.8,3),COLORRED;
+市场:MA(WINNER(lj)*50,5),COLORWHITE;
+散户:MA(WINNER(R1)*50,8),COLORAAAA00;
+PARTLINE(主力,主力<散户,RGB(255,255,0),主力<市场,RGB(0,255,0));	
+
+
+没有突破就不能说是失败。1.时间不够，高位下跌底部换手率低，庄家没有收集好筹码；
+                        2.在小箱体内运行，构筑双底，震荡运行，很多时候是对称的；
+                        3.大势不配合，当前正在下跌，拉升费力不讨好，赔本的买卖庄家不傻  
+                        4.DDX等指标红柱不多，没有大量吃货；
+                        5.周线图很清楚，一看就明白。	
+						
+						
+						
+{单峰密集}						
+A1:=COST(85); 
+A2:=COST(15); 
+A3:=A1-A2; 
+A4:=(A1+A2)/2; 
+单峰密集:A3/A4*100<14.45;							

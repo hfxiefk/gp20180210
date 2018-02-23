@@ -1,0 +1,17 @@
+请老师把（高度控盘）的指标改为如图，选出来的就是第一天出现的高度控盘
+http://www.55188.com/viewthread.php?tid=8218565&page=1#pid147822354
+
+VAR1:=EMA(EMA(CLOSE,9),9);
+控盘:=(VAR1-REF(VAR1,1))/REF(VAR1,1)*1000;
+VAR2:=100*WINNER(CLOSE*0.95);
+高度控盘:=IF(VAR2>50 AND COST(85)<CLOSE AND 控盘>0,控盘,0);
+CROSS(高度控盘>REF(高度控盘,1),0.5);
+
+
+{解答}
+VAR1:=EMA(EMA(CLOSE,9),9);
+控盘:=(VAR1-REF(VAR1,1))/REF(VAR1,1)*1000;
+VAR2:=100*WINNER(CLOSE*0.95);
+高度控盘:=VAR2>50 AND COST(85)<CLOSE AND 控盘>0;
+
+XG:CROSS(高度控盘>0,0.5) AND REF(控盘<0,1);

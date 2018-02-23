@@ -1,0 +1,27 @@
+VAR4:=VOL/REF(MA(VOL,5),1);
+量比:=V/(REF(MA(V,5),1)/240*FROMOPEN);
+突然放量:=VOL>REF(HHV(VOL,10),1)*1.5;
+LG:= VAR4>2 AND CROSS(C,MA(C,20)) AND 量比>2 AND C/REF(C,1)>1.05 AND 突然放量;
+
+A:=(C*2+H+L)/4*10;
+A1:=EMA(A,13)-EMA(A,34);
+A2:=EMA(A1,5);
+A3:=2*(A1-A2)*5.5;
+A4:=IF(A3>=0,A3,0);
+A5:=A4>REF(A4,1) AND REF(A3<0,1);
+A6:=REF(A4,1)<=REF(A4,2)AND A4>REF(A4,1);
+A7:= C/REF(C,1)>1.07;
+A5 OR A6 AND A7 AND LG;
+
+
+
+http://www.55188.com/viewthread.php?tid=6999447&highlight=%B3%EF%C2%EB
+一阳穿三线+筹码突破（两个选股公式）
+阳穿三线往往预示着后续走势将有良好的表现，综合筹码突破进行选股，往往能选到比较好的牛股，话不多说，宝贝送给有缘人！
+
+{筹码突破}
+KK:=EMA(WINNER(C)*70,3);
+DD:=EMA((WINNER(C*1.1)-WINNER(C*0.9))*70,3);
+JJ:=DD-KK;
+SS:=CROSS(KK,JJ);
+SS;

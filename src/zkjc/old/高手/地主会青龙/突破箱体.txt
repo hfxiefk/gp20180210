@@ -1,0 +1,65 @@
+{箱体}
+DF:=(C-REF(C,1))/REF(C,1)*100<-5;
+AA:=BARSLAST(DF);
+突破箱体:=CROSS(C,REF(C,AA));
+箱顶:DRAWLINE(DF,O,REF(DF,1),REF(O,1),1),COLORMAGENTA LINETHICK2;
+箱底:LLV(MIN(L,REF(L,AA)),AA),COLORCYAN,LINETHICK2;
+DRAWTEXT(ISLASTBAR,箱顶,' 箱顶');
+
+{如果不喜欢输出 箱底 可以在箱底:= 冒号后插入等号}
+
+感谢青龙的分享，我发现把这个指标用在周线上效果更好，特别是突破一些长期横盘的个股，或者短期大幅下探后再拉起的个股，获利较大。
+
+//其他人说的，只供参考
+这样就不含未来函数了
+DF:=(C-REF(C,1))/REF(C,1)*100<-5;
+箱顶:REF(O,BARSLAST(DF)),COLORCYAN,CIRCLEDOT;
+
+再次感谢！！！ 优化了源码 哈哈 谢谢
+
+谢谢！！！ 呵呵 其实这个无所谓的 再次感谢
+因为在这里 有没有未来函数 不影响使用
+第一 这个是盘后使用 大跌5点以上在开盘价划线
+第二 第二天以后起码要有5点以上的涨幅才能上穿箱顶
+大阴可以连续跌 但是收阳就好办 就止跌了 呵呵
+也就是说这个条件就限制了漂移 他不可能在倒回头去划线
+我们把突破箱体作为买点 根本就不会漂移
+
+
+有关 V型反转 的技术类型 在专贴里有描述
+技术类型非常简单
+1.超跌
+2.在3日内 突破箱体
+箱体指标在专贴的6楼可以下载
+
+
+
+DMI2趋势描述的不二利器
+http://www.55188.com/viewthread.php?tid=5218291&highlight=
+
+
+改个N天内股价两次上穿布林中轨的选股公式
+老师帮忙，用通达信自带的布林副图公式，改个选股公式，选出N天内股价两次上穿布林中轨的个股，N可调。先谢谢了。
+
+BOLL:MA(CLOSE,M);
+UB:BOLL+2*STD(CLOSE,M);
+LB:BOLL-2*STD(CLOSE,M);
+
+M 2 999 20
+
+
+回复 楼主 @红阳2010 的帖子
+M:=20;
+BOLL:=MA(CLOSE,M);
+UB:=BOLL+2*STD(CLOSE,M);
+LB:=BOLL-2*STD(CLOSE,M);
+
+N:=10;
+COUNT(CROSS(C,BOLL),N)=2;
+
+
+
+如何找到60天的最高价(不包括今天）
+http://www.55188.com/viewthread.php?tid=6960425&highlight=
+除今天以外，就是昨天开始
+REF(BARSLAST(H>=HHV(H,60)),1);

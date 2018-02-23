@@ -1,0 +1,6 @@
+REF(C,1)<MA(C,5) AND CROSS(C,MA(C,5));
+
+
+上穿5天线(加入到公式条件选股）
+MA5:=MA(c,5);
+REF(c,1)<MA5 and c>=MA5;

@@ -1,0 +1,98 @@
+http://blog.sina.com.cn/s/blog_512b3c9d0102ejgg.html
+ 正确计算ZJBY（资金博弈）的源码如下（单位：万元）：
+《资金博弈(阿木改)》
+ 
+超B:=L2_AMO(0,0)/10000.0;
+大B:=L2_AMO(1,0)/10000.0;
+中B:=L2_AMO(2,0)/10000.0;
+小B:=L2_AMO(3,0)/10000.0;
+超S:=-L2_AMO(0,1)/10000.0;
+大S:=-L2_AMO(1,1)/10000.0;
+中S:=-L2_AMO(2,1)/10000.0;
+小S:=-L2_AMO(3,1)/10000.0;
+主力净流入:(超B+大B+超S+大S),NODRAW;
+超大单:(超B)+(超S);
+大单:(大B)+(大S);
+中单:(中B)+(中S);
+小单:(小B)+(小S);
+总成交金额:AMOUNT/10000,NODRAW;
+
+
+
+1 资金趋势:(主图)
+     指标由白色分水岭、黄色做多趋势线、粉色支撑线、绿色做空趋势线及灰色阻力线组成，在平常的使用中我们主要关注绿色做空趋势线在K线的上下来判断买卖。 使用方法：当K线位于绿色作空资金趋势线下方时， 表示空方力量较强，股价处于调整阶段，可观望；当K线位于绿色的作空资金趋势线上方，并且站稳支撑线时，显示股价处于强势， 具有上涨潜力，可买进。建议周线使用效果教好或结合其他指标使用。当K线位于绿色作空资金趋势线下方时，表示空方力量较弱，股价处于调整阶段。 
+   Var1:=(HIGH+LOW+OPEN+CLOSE)/4;
+   分水岭: MA(3*Var1-2*SMA(Var1,2,1),12),colorwhite; 
+  上涨: IF(Var1>分水岭,Var1,分水岭),COLORYELLOW; 
+  支撑: REVERSE(上涨)+2*分水岭; 
+   Var2:=IF(Var1<分水岭,Var1,分水岭); 
+   Var3:=2*EMA(LLV(Var1,7),10)-Var1; 
+   做空趋势: 3*Var3-2*SMA(Var3,10,1),COLORGREEN; 
+  阻力: REVERSE(Var2)+2*分水岭,ColorFFFFFF;
+  
+  
+  所谓关注，是把它收录到自己短线操作的板块上，作为自己的自选股进行关注。这时，不是要求你即时就买入，而是出现买入点时才进行介入的。
+那什么地方才是最好的介入点呢？这应该与你自己设定的交易系统有关系，也与你自己所选择或是熟悉的交易策略有关。
+举个例子，就以2026为例吧，它在12月20日产生关注信号后，一直回调不破趋势的趋势线上的所有点都是好的介入点，但有战友说，
+我不知道会否在我介入的那一刻后会下破趋势呢？给大家一个提示，[VOLL]、[资金长短趋势]、[ZJLJC]等指标如果处于好的趋势，那么，在你进入时下破趋势的可能性非常小。
+如果认为这个买入点不好把握，那么，可以在30分钟的周期内选择低位介入。
+实际的操作是，如果不是为了埋伏，那么是在开市时择自选股中出现强势的个股，在分时图上择位介入。
+由于每个人的操作风格和系统以及时间的不同，故介入的位置都不尽相同的。
+
+不回补缺口，30分钟或60分钟[长短资金趋势]走好可以介入。
+
+通达信长短资金指标公式
+TS:=BARSCOUNT(CLOSE);J0:=(HIGH+LOW)/2;QJ:=EMA(J0,3);
+J1:=IF(CLOSE>QJ,VOL,0);J2:=IF(CLOSE<QJ,VOL,0);
+SE:=(SUM(J1-J2,3)-(VOL/CLOSE<REF(CLOSE,1)))/10000;
+SZ:=(SUM(J1-J2,5)-(VOL/CLOSE<REF(CLOSE,1)))/10000;
+长资金:EMA(SZ,55),COLOR0000FF,LINETHICK3;
+长趋势:WMA(长资金,360),COLORBLUE,LINETHICK3;
+{www.gupang.com 股旁网_通达信股票指标公式}
+资金:SMA(SE,3,1),LINETHICK2;趋势:WMA(资金,6),LINETHICK2;
+短选股:=FILTER(CROSS(趋势,资金),5) AND "KDJ.D">60;
+DRAWICON(短选股,资金,4);DRAWICON(BB,资金,5);
+DRAWICON(短选股 AND 长资金>长趋势,趋势,10);
+DRAWICON(BB AND 长资金<长趋势,趋势,12);
+DRAWICON(CROSS(长资金,长趋势),长资金,1);
+DRAWICON(CROSS(长趋势,长资金),长资金,2);
+
+最牛的长短资金指标
+TS:=BARSCOUNT(CLOSE);J0:=(HIGH+LOW)/2;QJ:=EMA(J0,3);
+J1:=IF(CLOSE>QJ,VOL,0);J2:=IF(CLOSE
+SE:=(SUM(J1-J2,3)-(VOL/CLOSE
+SZ:=(SUM(J1-J2,5)-(VOL/CLOSE
+长资金:EMA(SZ,55),COLOR0000FF,LINETHICK3;
+长趋势:WMA(长资金,360),COLORBLUE,LINETHICK3;
+资金:SMA(SE,3,1),LINETHICK2;趋势:WMA(资金,6),LINETHICK2;
+BB:=FILTER(CROSS(趋势,资金),5) and "kdj.d">60;
+DRAWICON(短选股,资金,4);DRAWICON(BB,资金,5);
+DRAWICON(短选股 and 长资金>长趋势,趋势,10);
+DRAWICON(BB and 长资金<长趋势,趋势,12);
+DRAWICON(CROSS(长资金,长趋势),长资金,1);
+DRAWICON(CROSS(长趋势,长资金),长资金,2);
+
+
+趋势量能(副图指标 贴图 通达信大智慧通用源码）
+80,DOTLINE,COLOREEEE00;
+20,DOTLINE,COLOR32CD32;
+N:=5; M:=21;
+VARF:=3*SMA((C-LLV(L,13))/(HHV(H,13)-LLV(L,13))*100,5,1)-2*SMA(SMA((C-LLV(L,13))/(HHV(H,13)-LLV(L,13))*100,5,1),3,1);
+VARG:=(HHV(HIGH,25)-LLV(LOW,25))/EMA((CLOSE-LLV(LOW,25)),5);
+趋势:IF(VARF-VARG,VARF,VARF),COLORBB11AA,LINETHICK0;
+底部:IF(VARG-VARF,VARG,VARF),COLORGRAY;
+STICKLINE(VARF<10,4,1,10,1),COLOR8E236B;
+STICKLINE(VARF>90,100,103,10,1),COLORCYAN;
+STICKLINE(趋势> REF(趋势,1),趋势,REF(趋势,1),2,0),COLOR0000CC;
+STICKLINE(趋势<=REF(趋势,1),趋势,REF(趋势,1),2,0),COLORFF7700;
+趋势1:=EMA(VARF,8);
+趋势均线:=MA(趋势1,7);
+趋势天数:BARSLAST(VARF < 趋势1),COLORBLUE,LINETHICK0;
+
+
+
+
+
+
+
+

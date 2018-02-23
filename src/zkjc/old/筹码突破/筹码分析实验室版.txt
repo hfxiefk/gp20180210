@@ -1,0 +1,14 @@
+http://www.55188.com/thread-3377876-1-1.html
+http://www.55188.com/thread-3988510-1-1.html
+
+http://www.55188.com/space-uid-2388359.html
+
+http://www.55188.com/search.php?searchid=2120&orderby=dateline&ascdesc=desc&searchsubmit=yes
+
+K线形态，量，换手，筹码，资金流向，分时情况，盘口。我就从这几个方面学习了
+
+
+TYP := (IF(ISNULL(HIGH),CLOSE,HIGH) + IF(ISNULL(LOW),CLOSE,LOW) + CLOSE)/3;
+游侠CCI:EMA((TYP-MA(TYP,36.0270012))/(0.015*AVEDEV(TYP,36.0270012)),2.0332,1),colorwhite;
+STICKLINE(游侠CCI<-150,游侠CCI,-150,10,0),COLOR0000BB;
+STICKLINE(C>0,-150,-151,6,0),colorblue;

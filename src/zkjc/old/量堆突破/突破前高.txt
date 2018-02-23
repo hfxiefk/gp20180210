@@ -1,0 +1,19 @@
+http://www.55188.com/viewthread.php?tid=4279768&extra=&page=1
+量堆突破
+均线:=IF(BETWEEN(C/(SUM(AMOUNT,0)/SUM(VOL*100,0)),
+1.05,0.95)=0,MA(C,0),(SUM(AMOUNT,0)/SUM(VOL*100,0))),COLORYELLOW;
+均线H:=(均线*1.007 ),COLORFF6600;
+放量:=SUM(VOL,6)>REF(MA(VOL,30),1)*10;
+横盘:=((HHV(CLOSE,BARSCOUNT(CLOSE))-LLV(CLOSE,BARSCOUNT(CLOSE)))/CLOSE)<1;
+横涨:=横盘 AND 放量 AND (C>均线H);
+突破:FILTER(横涨,100);
+
+
+如下面的图形如何选出来600353旭光股份
+前面出现价突破前高，但量小于前面的量堆的K线图形后再缩量下跌
+量不好用公式表示出来，突破前高时K线距今天有一定时间,我自己试着编了下，但编不下去了，量应该用10日均线的峰值表示，那这个峰值如何用公式写出来呢，
+在突破前高后再缩量下跌又如何编写呢
+
+n 1 360 180
+CROSS(C,REF(HHV(H,N),1)) AND
+REF(MA(V,10),BARSSINCE(REF(HHV(H,180),1)))>MA(V,10)

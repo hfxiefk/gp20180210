@@ -1,0 +1,6 @@
+http://www.55188.com/viewthread.php?tid=8198130&page=1###
+在K线旁边显示涨跌幅和振幅
+MM:=(C-REF(C,1))/REF(C,1)*100;
+NN:=(H-L)/REF(C,1)*100;
+DRAWTEXT(CURRBARSCOUNT=1,H,STRCAT('    涨跌',CON2STR(MM,2))),COLORD800D8;
+DRAWTEXT(CURRBARSCOUNT=1,L,STRCAT('    振幅',CON2STR(NN,2))),COLORD85800;

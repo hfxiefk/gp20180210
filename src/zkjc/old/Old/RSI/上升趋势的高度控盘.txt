@@ -1,0 +1,34 @@
+http://www.55188.com/thread-8155046-1-7.html
+
+N:=35;M:=35;N1:=3;
+B1:=(HHV(H,N)-C)/(HHV(H,N)-LLV(LOW,N))*100- M;
+B2:=SMA(B1,N,1)+100;
+B3:=(C-LLV(L,N))/(HHV(H,N)- LLV(L,N))*100;
+B4:=SMA(B3,3,1);
+B5:=SMA(B4,3,1)+100;
+B6:=B5-B2;
+控盘程度:(IF(B6>N1,B6-N1+2,0))*2.5,COLORYELLOW;
+控盘度:100,COLORRED;
+STICKLINE( 控盘程度,0,控盘程度 ,1.7,0 ),COLOR00FFFF;
+STICKLINE( 控盘程度 AND 控盘程度>100,100,控盘程度 ,1.7,0 ),COLORRED;
+
+
+B1:=(HHV(H,35)-C)/(HHV(H,35)-LLV(LOW,35))*100- 35;
+B2:=SMA(B1,35,1)+100;
+B3:=(C-LLV(L,35))/(HHV(H,35)- LLV(L,35))*100;
+B4:=SMA(B3,3,1);
+B5:=SMA(B4,3,1)+100;
+B6:=B5-B2;
+控盘程度:=(IF(B6>3,B6-3+2,0))*2.5;
+FILTER(控盘程度>100,18);
+
+清心a 
+B1:=(HHV(H,35)-C)/(HHV(H,35)-LLV(LOW,35))*100- 35;
+B2:=SMA(B1,35,1)+100;
+B3:=(C-LLV(L,35))/(HHV(H,35)- LLV(L,35))*100;
+B4:=SMA(B3,3,1);
+B5:=SMA(B4,3,1)+100;
+B6:=B5-B2;
+控盘程度:=(IF(B6>3,B6-3+2,0))*2.5;
+B7:=MA(C,30)>REF(MA(C,30),1);
+FILTER(控盘程度>100,18)  AND B7;

@@ -1,0 +1,42 @@
+{DMIC}
+MTR:=EMA(MAX(MAX(HIGH-LOW,ABS(HIGH-REF(CLOSE,1))),ABS(REF(CLOSE,1)-LOW)),13);
+HD :=HIGH-REF(HIGH,1);
+LD :=REF(LOW,1)-LOW;
+DMP:=EXPMEMA(IF(HD>0&&HD>LD,HD,0),13);
+DMM:=EXPMEMA(IF(LD>0&&LD>HD,LD,0),13);
+PDI:=DMP*100/MTR;
+MDI:=DMM*100/MTR;
+D:=PDI-22;
+K:=MDI-22;
+A:=D-K;
+STICKLINE(A>0 ,D,K,0,-1),COLORRED;
+STICKLINE(A<=0,K,D,0,-1),COLORCYAN;
+多:D,COLORWHITE;
+空:K,COLORYELLOW;
+ADX:EXPMEMA((PDI-MDI)/(MDI+PDI)*100,3),COLORMAGENTA;
+ADXR:EXPMEMA(ADX,5),COLORGREEN;
+趋势:EMA(ADX,13),DOTLINE,COLORGRAY;
+
+
+//////////////////////////////////////////////////////
+强势股定义：
+MDI<20 AND PDI>35
+主升浪定义：
+MDI<20 AND PDI>ADX;
+ADX>35 AND ADX>ADXR;
+
+都是0和1的输出结果，简单明了，输出1显示强势股或者主升浪，0则是不输出
+
+分析周期选择日线排序.
+
+寻找强势股，最简单的就是在强势股排序中选择当前交易的股票。
+
+自己写的简单代码，希望对大家有用。
+
+Tj1:=MDI<20 AND PDI>ADX;
+Tj2:=ADX>35 AND ADX>ADXR;
+
+If(TJ1 AND TJ2,1,0);
+
+//////////////////////////////////////////////////////
+http://www.55188.com/viewthread.php?tid=3493688&highlight=DMI

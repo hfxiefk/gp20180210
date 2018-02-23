@@ -1,0 +1,86 @@
+{主力控盘度}
+V1:=LLV(H,20); 
+飞鱼:100*(C-V1)/V1,COLORRED,LINETHICK1; 
+V2:=HHV(H,20); 
+海洋:100*(V2-C)/C,COLORWHITE,LINETHICK1; 
+V3:=SUM(VOL,5)/CAPITAL; 
+CYF5:=100-(100/(1+V3));
+DRAWICON(CROSS(飞鱼,海洋),海洋+0,1);
+DRAWICON(CROSS(海洋,飞鱼),海洋+0,2);
+{空转强}
+买点准备: IF((3*SMA((CLOSE-LLV(LOW,27))/(HHV(HIGH,27)-LLV(LOW,27))*100,5,1)-
+2*SMA(SMA((CLOSE-LLV(LOW,27))/(HHV(HIGH,27)-LLV(LOW,27))*100,5,1),3,1))<=10,50,0);
+VAR18:=REF((LOW+OPEN+CLOSE+HIGH)/4,1);
+VAR28:=SMA(ABS(LOW-VAR18),13,1)/SMA(MAX(LOW-VAR18,0),10,1);
+VAR38:=EMA(VAR28,10);
+VAR48:=LLV(LOW,33);
+VAR58:=EMA(IF(LOW<=VAR48,VAR38,0),3);
+主力进场8:STICKLINE(VAR58>REF(VAR58,1),0,VAR58,7,1 ),COLORRED;
+洗盘8:STICKLINE(VAR58<REF(VAR58,1),0,VAR58,7,1),COLORGREEN;
+VAR1:=EMA(EMA(CLOSE,9),9);
+控盘:=(VAR1-REF(VAR1,1))/REF(VAR1,1)*1000;
+STICKLINE(控盘<0,控盘,0,1,0),COLORWHITE;
+A10:=CROSS(控盘,0);
+无庄控盘:IF(控盘<0,控盘,0),COLORWHITE,NODRAW;
+开始控盘:IF(A10,50,0),LINETHICK1,COLORYELLOW,LINETHICK1;
+STICKLINE(控盘>REF(控盘,1) AND 控盘>0,控盘,0,1,0),COLORRED;
+有庄控盘:IF(控盘>REF(控盘,1) AND 控盘>0,控盘,0),COLORRED,NODRAW;
+VAR2:=100*WINNER(CLOSE*0.95);
+STICKLINE(VAR2>50 AND COST(85)<CLOSE AND 控盘>0,控盘,0,1,0),COLORFF00FF;
+高度控盘:IF(VAR2>50 AND COST(85)<CLOSE AND 控盘>0,控盘,0),COLORFF00FF,NODRAW;
+STICKLINE(控盘<REF(控盘,1) AND 控盘>0,控盘,0,1,0),COLOR00FF00;
+主力出货:IF(控盘<REF(控盘,1) AND 控盘>0,控盘,0),COLOR00FF00,NODRAW;
+VAR3:=AMOUNT/VOL/7;
+VAR4:=(3*HIGH+LOW+OPEN+2*CLOSE)/7;
+VAR7:=REF((LOW+OPEN+CLOSE+HIGH)/4,1);
+VAR8:=SMA(ABS(LOW-VAR7),13,1)/SMA(MAX(LOW-VAR7,0),20,1);
+VAR9:=EMA(VAR8,10);
+VAR10:=LLV(LOW,33);
+VAR11:=EMA(IF(LOW<=VAR10,VAR9,0),3);
+进场:IF(VAR11>REF(VAR11,1),VAR11,0),COLOR00FFFF,NODRAW;
+STICKLINE(VAR11>REF(VAR11,1),0,VAR11,1,0 ),COLOR00FFFF;
+洗盘:IF(VAR11<REF(VAR11,1),VAR11,0),COLORFFFF00,NODRAW;
+STICKLINE(VAR11<REF(VAR11,1),0,VAR11,1,0),COLORFFFF00;
+
+
+
+V1赋值:20日内最高价的最低值
+输出 飞鱼:100*(收盘价-V1)/V1,画红色,线宽为1
+V2赋值:20日内最高价的最高值
+输出 海洋:100*(V2-收盘价)/收盘价,画白色,线宽为1
+V3赋值:成交量(手)的5日累和/当前流通股本(手)
+CYF5赋值:100-(100/(1+V3))
+当满足条件飞鱼上穿海洋时,在海洋+0位置画1号图标
+当满足条件海洋上穿飞鱼时,在海洋+0位置画2号图标
+输出买点准备: 如果(3*(收盘价-27日内最低价的最低值)/(27日内最高价的最高值-27日内最低价的最低值)*100的5日[1日权重]移动平均-2*(收盘价-27日内最低价的最低值)/(27日内最高价的最高值-27日内最低价的最低值)*100的5日[1日权重]移动平均的3日[1日权重]移动平均)<=10,返回50,否则返回0
+VAR18赋值:1日前的(最低价+开盘价+收盘价+最高价)/4
+VAR28赋值:最低价-VAR18的绝对值的13日[1日权重]移动平均/最低价-VAR18和0的较大值的10日[1日权重]移动平均
+VAR38赋值:VAR28的10日指数移动平均
+VAR48赋值:33日内最低价的最低值
+VAR58赋值:如果最低价<=VAR48,返回VAR38,否则返回0的3日指数移动平均
+输出主力进场8:当满足条件VAR58>1日前的VAR58时,在0和VAR58位置之间画柱状线,宽度为7,1不为0则画空心柱.,画红色
+输出洗盘8:当满足条件VAR58<1日前的VAR58时,在0和VAR58位置之间画柱状线,宽度为7,1不为0则画空心柱.,画绿色
+VAR1赋值:收盘价的9日指数移动平均的9日指数移动平均
+控盘赋值:(VAR1-1日前的VAR1)/1日前的VAR1*1000
+当满足条件控盘<0时,在控盘和0位置之间画柱状线,宽度为1,0不为0则画空心柱.,画白色
+A10赋值:控盘上穿0
+输出无庄控盘:如果控盘<0,返回控盘,否则返回0,画白色,NODRAW
+输出开始控盘:如果A10,返回50,否则返回0,线宽为1,画黄色,线宽为1
+当满足条件控盘>1日前的控盘AND控盘>0时,在控盘和0位置之间画柱状线,宽度为1,0不为0则画空心柱.,画红色
+输出有庄控盘:如果控盘>1日前的控盘AND控盘>0,返回控盘,否则返回0,画红色,NODRAW
+VAR2赋值:100*以收盘价*0.95计算的获利盘比例
+当满足条件VAR2>50ANDCOST(85)<CLOSEAND控盘>0时,在控盘和0位置之间画柱状线,宽度为1,0不为0则画空心柱.,COLORFF00FF
+输出高度控盘:如果VAR2>50ANDCOST(85)<CLOSEAND控盘>0,返回控盘,否则返回0,COLORFF00FF,NODRAW
+当满足条件控盘<1日前的控盘AND控盘>0时,在控盘和0位置之间画柱状线,宽度为1,0不为0则画空心柱.,COLOR00FF00
+输出主力出货:如果控盘<1日前的控盘AND控盘>0,返回控盘,否则返回0,COLOR00FF00,NODRAW
+VAR3赋值:成交额(元)/成交量(手)/7
+VAR4赋值:(3*最高价+最低价+开盘价+2*收盘价)/7
+VAR7赋值:1日前的(最低价+开盘价+收盘价+最高价)/4
+VAR8赋值:最低价-VAR7的绝对值的13日[1日权重]移动平均/最低价-VAR7和0的较大值的20日[1日权重]移动平均
+VAR9赋值:VAR8的10日指数移动平均
+VAR10赋值:33日内最低价的最低值
+VAR11赋值:如果最低价<=VAR10,返回VAR9,否则返回0的3日指数移动平均
+输出进场:如果VAR11>1日前的VAR11,返回VAR11,否则返回0,COLOR00FFFF,NODRAW
+当满足条件VAR11>1日前的VAR11时,在0和VAR11位置之间画柱状线,宽度为1,0不为0则画空心柱.,COLOR00FFFF
+输出洗盘:如果VAR11<1日前的VAR11,返回VAR11,否则返回0,COLORFFFF00,NODRAW
+当满足条件VAR11<1日前的VAR11时,在0和VAR11位置之间画柱状线,宽度为1,0不为0则画空心柱.,COLORFFFF00

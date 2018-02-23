@@ -1,0 +1,62 @@
+﻿http://www.55188.com/thread-3244968-1-1.html
+主要看黄色净流入线和零轴蓝色基准线
+如果黄色线上穿蓝色线，买入；
+如果股价新高，而黄色线未创新高，顶背离，卖出。
+
+{资金流入流出}
+CN1:=HHV(V,5);{5日最高量}
+CN2:=O>C;
+CN02:=C>O;
+CN03:=C=O;
+CN04:=((SUM(V,5)/CN1));
+CN05:=IF(CN04>0.3,1,0);{大资金}
+CN06:=IF(CN2 AND CN05,V,0);{大资金流出}
+CN07:=IF(CN02 AND CN05,V,0);{大资金流入}                 
+CN08:=IF(CN03 AND CN05,V,0);{不明流向大资金}
+累积流入:SUM(CN07,9)/10000,COLORBLACK,LINETHICK1;
+累积流出:SUM(CN06,9)/10000,COLORBLACK,LINETHICK1;
+净流入:(累积流入-累积流出),COLORYELLOW,LINETHICK2;
+净流入角度:ATAN((净流入/REF(净流入,1)-1)*100)*57.3,NODRAW;
+VAR1:=LLV(LOW,21);
+VAR2:=HHV(HIGH,21);
+TX1:1,COLORBLUE,LINETHICK2;
+
+这个公式比较有价值，在分钟线一样有参考价值
+
+CN1赋值:5日内成交量(手)的最高值
+CN2赋值:收阴线
+CN02赋值:收阳线
+CN03赋值:平盘
+CN04赋值:((成交量(手)的5日累和/CN1))
+CN05赋值:如果CN04>0.3,返回1,否则返回0
+CN06赋值:如果CN2ANDCN05,返回成交量(手),否则返回0
+CN07赋值:如果CN02ANDCN05,返回成交量(手),否则返回0
+CN08赋值:如果CN03ANDCN05,返回成交量(手),否则返回0
+输出累积流入:CN07的9日累和/10000,画黑色,线宽为1
+输出累积流出:CN06的9日累和/10000,画黑色,线宽为1
+输出净流入:(累积流入-累积流出),画黄色,线宽为2
+输出净流入角度:(净流入/1日前的净流入-1)*100的反正切*57.3,NODRAW
+VAR1赋值:21日内最低价的最低值
+VAR2赋值:21日内最高价的最高值
+输出TX1:1,画蓝色,线宽为2
+
+
+http://blog.sina.com.cn/s/blog_526a31c60100j26v.html
+预警
+CN1:=HHV(V,5);
+CN2:=O>C;
+CN02:=C>O;
+CN03:=C=O;
+CN04:=((SUM(V,5)/CN1));
+CN05:=IF(CN04>0.3,1,0);
+CN06:=IF(CN2 AND CN05,V,0);
+CN07:=IF(CN02 AND CN05,V,0);
+CN08:=IF(CN03 AND CN05,V,0);
+AD:SUM(CN07,3),COLORYELLOW;
+DA:=SUM(CN06,3);
+AZ:(AD-DA),COLOR0000FF;
+AF:=AZ=AD;
+AX:=AD*0.6;
+SA:=BETWEEN(AZ,AD,AX);
+0,COLORGRAY;
+

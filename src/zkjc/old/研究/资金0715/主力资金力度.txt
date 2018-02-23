@@ -1,0 +1,96 @@
+https://wenku.baidu.com/view/88eea90203d8ce2f00662362.html
+
+https://wenku.baidu.com/view/88eea90203d8ce2f00662362.html
+
+
+http://blog.sina.com.cn/s/blog_9e2ba1d50101dkfz.html
+2、技术指标比较
+　　运用传统的技术指标结合分析家强大的公式平台我们同样可以直观的比较个股和大盘的相对强弱。 我们以RSI指标为例来看看具体的分析方法。
+　　RSI指标即相对强弱指数，主要计算某一段时间内买卖双方之间的力量对比情况来统计市场的强弱。由RSI的公式可以看出，它反应了股价变动的四个因素： 上涨的天数、下跌的天数、上涨的幅度、下跌的幅度。对股价的四个构成要素都加以了考虑，用它来比较个股的强弱正合适。我们现在利用分析家的公式编制平台编写一个公式，公式内容如下：
+　　Var1:=REF(CLOSE,1);
+　　Var2:=REF(INDEXC,1);
+　　个股: SMA(MAX(CLOSE-Var1,0),N,1)/SMA(ABS(CLOSE-Var1),N,1)*100;
+　　大盘: SMA(MAX(INDEXC-Var2,0),N,1)/SMA(ABS(INDEXC-Var2),N,1)*100;
+　　参数N取20
+
+3、技术指标排序
+　　上面两种方法能够直观地个股相对于大盘的强弱，缺点是无法进行个股横向间的强弱比较，怎么办，指标排序能够解决这个问题，以石开β系数为基本指导思路，编制以下公式：
+　　C1:=(INDEXC-REF(INDEXC,1))/REF(INDEXC,1);
+　　C2:=(CLOSE-REF(CLOSE,1))/REF(CLOSE,1);
+　　K:=IF(C1>0.01,0.9,IF(C1<-0.05,1,1.2));
+　　β:=K*(C2-C1)*100;
+　　实际上石开的β系数主要用于分析个股与大盘走势的背离程度。是作为在行情即时交易中寻找市场强势股的一种辅助定量计算工具，β系数并不要求计算得很准确，只要能够定性比较哪只股β系数更大一些就行了，从实践看，β系数在强势市场中作用不大，而在弱势市场或调整市道中却较为有用。连续好几天都在β系数排行榜的前列，注意。
+
+
+
+
+通达信代表攻击力度的公式：均线价角指标源码 选股 预警
+
+双节长假，送代表攻击力度的公式：均线价角（源码 选股 预警 附图）
+ 
+    公式的价值在於其独特的内在思维，而好的内在思维都是从实践中产生的！！！
+ 不停的学习，是为了让理性照耀自己前行的脚步！！！智者的思维无不闪耀着理性的光辉！！！
+ 
+{均线价角预警}
+ HS:=V/CAPITAL*100;
+ 十天换手:=SUM(HS,10)>20;
+ 均线:=MA(C,1);
+ 均线角度:=ATAN((均线/REF(均线,1)-1)*100)*57.3;
+ XG:均线角度>45 AND DYNAINFO(17)>1.5 AND C>REF(C,1)*0.99
+ AND HS>1.5 AND 十天换手 AND C/REF(C,1)<1.05;
+ 
+{均线价角选股}
+ HS:=V/CAPITAL*100;
+ 十天换手:=SUM(HS,10)>20;
+ 均线:=MA(C,1);
+ 均线角度:=ATAN((均线/REF(均线,1)-1)*100)*57.3;
+ XG:均线角度>45 AND DYNAINFO(17)>2.5 AND C>REF(C,1)*0.99
+ AND HS>3 AND 十天换手 {AND C/REF(C,1)<1.05};
+ 
+大家要明白：
+ 
+预警和选股不是完全一回事，他不等同于选股，但它有选股的功能和效果。
+ 
+预警的主要目的是捕捉可能启动的个股。
+ 
+选股的主要目的是总结以前走势，提供以后可能上涨的个股。
+ 
+所以预警和盘后选股的有些参数需要调整！！！
+
+
+
+
+
+http://www.360doc.com/content/15/0307/23/18509697_453426809.shtml
+
+http://www.55188.com/thread-6139578-1-1.html
+http://www.58188.com/gpgs/news/2012/10-8/18896.html
+
+http://www.gszx.com.cn/html/dazhihuigongshi/gs120317.html
+http://www.55188.com/thread-6057266-1-1.html
+
+
+使用心得：
+1、用法同KDJ；
+2、K、D、J值高位密集或相等，向下变盘，反之则向上；
+3、J值向下穿越K线实体（多为阴线）开盘价，卖出；
+
+用排序选股，方便，，，内容应有，资金+趋势+起爆点+..........共振越多越好！
+
+
+
+
+http://blog.sina.com.cn/s/blog_ed3116fd0101rb7a.html
+http://www.guhai.com.cn/download/GS/tong-da-xin/57142.html
+http://bbs.laoqianzhuang.com/thread-2133506-1-1.html
+
+http://www.gupang.com/201507/0F53DD2015.html
+http://www.gszx.com.cn/html/tongdaxingongshi/gs238686.html
+http://www.55188.com/thread-3514434-1-1.html
+http://master.10jqka.com.cn/20160722/c591903695.shtml
+http://www.88gs.com/soft/sort013/sort05/down-54815.html
+http://www.cxh99.com/2016/07/16/37279.shtml
+http://www.sohu.com/a/23160888_139461
+http://blog.sina.com.cn/s/blog_7236b8f301014xf2.html
+http://blog.sina.com.cn/s/blog_4c1f445e0102vq0v.html
+

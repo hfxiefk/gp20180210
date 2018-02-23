@@ -1,0 +1,46 @@
+http://www.55188.com/thread-7781530-1-1.html
+{第一种 突破前高}
+涨幅:=(C-REF(C,1))/REF(C,1)*100>9.9 AND C=H;
+TY:=H;
+AA1:=REF(TY,10)=HHV(TY,2*10+1);
+BA1:=FILTER(AA1,10);
+CA1:=BACKSET(BA1,10+1);
+HD:=FILTER(CA1,10);
+AA2:=REF(TY,10)=LLV(TY,2*10+1);
+BA2:=FILTER(AA2,10);
+CA2:=BACKSET(BA2,10+1);
+LD:=FILTER(CA2,10);
+前高:=REF(H,BARSLAST(HD));
+突破前高:CROSS(C,前高) AND 涨幅;
+
+{第二种 突破前高}
+涨幅:=(C-REF(C,1))/REF(C,1)*100>9.9 AND C=H;
+P:=V/(REF(MA(V,5),1))<0.9;
+TY:=H;
+AA1:=REF(TY,10)=HHV(TY,2*10+1);
+BA1:=FILTER(AA1,10);
+CA1:=BACKSET(BA1,10+1);
+HD:=FILTER(CA1,10);
+AA2:=REF(TY,10)=LLV(TY,2*10+1);
+BA2:=FILTER(AA2,10);
+CA2:=BACKSET(BA2,10+1);
+LD:=FILTER(CA2,10);
+前高:=REF(H,BARSLAST(HD));
+突破前高:CROSS(C,前高) AND P;
+
+龙出水战法』选股的3个条件：
+①个股出现跳空涨停；
+②此涨停板直接脱离前期震荡结构区间；
+③此涨停必须为缩量涨停(重要)。
+『龙出水战法』的买点：
+第二天股价高开即可买入，到达短期利润目标后随时获利出局
+
+{分时均线过顶}
+开盘第一个10分钟K线是标志性K线，10点前分时均线必须站在10分钟k线头部位置，9点45分站上10分钟K线头部位置最好。
+
+
+http://www.55188.com/viewthread.php?tid=7889979&pid=144229669&page=1&extra=#pid144229669
+第二：选股当日全部的非ST涨停板！【一定要封死的涨停板 越早封死的越好！盘口挂单良好 删除一坨屎 留下一把利剑】
+源码：
+ZT:=(CLOSE>=ZTPRICE(REF(CLOSE,1),0.1)); N:=1;
+ZTO:EXIST(ZT,N); 

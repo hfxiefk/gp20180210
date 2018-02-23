@@ -1,0 +1,452 @@
+http://www.55188.com/space.php?1532969/myblogs
+这种箱体类型为我独创 没有链接 它的原理是 大阴 当跌幅在5%以上在开盘价画延长线
+当股票急速超跌反弹时 涨幅都比较好 所以我有一种抄底类型 叫 V型反转.
+20日换手率
+有2个区间 低位启动和高位回调2次启动
+低位一般大于30比较好 20也行
+高位的我没有统计过
+20日换手率只是作为N选一的一个选项
+均线是指99线 但是这种情况比较少 轨道比较多.
+
+
+{箱体}
+DF:=(C-REF(C,1))/REF(C,1)*100<-5;
+AA:=BARSLAST(DF);
+突破箱体:=CROSS(C,REF(C,AA));
+箱顶:DRAWLINE(DF,O,REF(DF,1),REF(O,1),1),COLORMAGENTA LINETHICK2;
+箱底:LLV(MIN(L,REF(L,AA)),AA),COLORCYAN,LINETHICK2;
+DRAWTEXT(ISLASTBAR,箱顶,' 箱顶');
+不想输出箱底的就在箱底 : 号后面插入 = 号
+
+
+这个 箱体 的设计思路 来源于 地主会 融胜大队长 
+是我在地主会搞定的 559楼 543楼 前面 还有一些设计时的想法 你去看看
+http://www.55188.com/viewthread.php?tid=3587232&extra=&authorid=2320560&page=28
+http://www.55188.com/viewthread.php?tid=3587232&extra=&authorid=2320560&page=28
+
+
+茶会首发 本指标由 老大提供思路  北沙设计箱顶 武弟设计箱底  嘉浩 武弟提供选股公式 
+由本人测试 验证。在此过程中 理想bjlf  提议参考 筹码峰 感谢他们的付出。
+
+此思路由 融队提出，经验证，思路超强，对付 主力拉升 前的 挖坑 动作，有 奇效！！！
+选出股票后，可结合 轨道 和 筹码峰 寻找 买卖点 。
+选股公式, 在主图上看，存在N多的 假突破 在此 只能设计一个框架，各位可结合自己的选股经验，加入限制条件，切记切记！！！。
+主图源码：
+DF:=(C-REF(C,1))/REF(C,1)*100<-5;
+AA:=BARSLAST(DF);
+BB:=HHV(C,AA);
+XG:=CROSS(C,REF(O,AA));
+箱顶:DRAWLINE(DF,O,REF(DF,1),REF(O,1),1),COLORMAGENTA,LINETHICK2;
+{箱底源码由 武弟 优化}
+箱底:LLV(MIN(L,REF(L,AA)),AA);
+DRAWICON(XG,L*0.98,1);
+DRAWTEXT(ISLASTBAR,箱顶,' 箱顶');
+
+选股公式：
+DF:=(C-REF(C,1))/REF(C,1)*100<-5;
+AA:=BARSLAST(DF);
+BB:=HHV(C,AA);
+XG:CROSS(C,REF(O,AA));
+
+筹码峰副图源码：（使用 筹码峰 公式 一定要截图 用以分析每日的筹码移动情况）
+TS:=130;N:=99;M:=3;
+DA1:=IF(TS>TOTALBARSCOUNT,TOTALBARSCOUNT,TS);
+DA:=IF(CURRBARSCOUNT>DA1,0,DA1);
+HI:=REFDATE(HHV(H,DA),DATE);
+LO:=REFDATE(LLV(L,DA),DATE);
+C1:=IF(CURRBARSCOUNT<=DA,C,DRAWNULL);
+GZ:=EXP(LN(HI/LO)/10);
+LH1:=SUM(IF(C1>=(HI/GZ),V,0),DA);
+LH2:=SUM(IF(C1>=(HI/POW(GZ,2)) AND C1<(HI/GZ),V,0),DA);
+LH3:=SUM(IF(C1>=(HI/POW(GZ,3)) AND C1<(HI/POW(GZ,2)),V,0),DA);
+LH4:=SUM(IF(C1>=(HI/POW(GZ,4)) AND C1<(HI/POW(GZ,3)),V,0),DA);
+LH5:=SUM(IF(C1>=(HI/POW(GZ,5)) AND C1<(HI/POW(GZ,4)),V,0),DA);
+LH6:=SUM(IF(C1>=(HI/POW(GZ,6)) AND C1<(HI/POW(GZ,5)),V,0),DA);
+LH7:=SUM(IF(C1>=(HI/POW(GZ,7)) AND C1<(HI/POW(GZ,6)),V,0),DA);
+LH8:=SUM(IF(C1>=(HI/POW(GZ,8)) AND C1<(HI/POW(GZ,7)),V,0),DA);
+LH9:=SUM(IF(C1>=(LO*GZ) AND C1<LO*POW(GZ,2),V,0),DA);
+LH10:=SUM(IF(C1>=LO AND C1<LO*GZ,V,0),DA);
+L1:=REFDATE(HHV(LH1,DA),DATE),LINETHICK0;
+L2:=REFDATE(HHV(LH2,DA),DATE),LINETHICK0;
+L3:=REFDATE(HHV(LH3,DA),DATE),LINETHICK0;
+L4:=REFDATE(HHV(LH4,DA),DATE);
+L5:=REFDATE(HHV(LH5,DA),DATE);
+L6:=REFDATE(HHV(LH6,DA),DATE);
+L7:=REFDATE(HHV(LH7,DA),DATE);
+L8:=REFDATE(HHV(LH8,DA),DATE);
+L9:=REFDATE(HHV(LH9,DA),DATE);
+L10:=REFDATE(HHV(LH10,DA),DATE),NODRAW;
+SS:=(L1+L2+L3+L4+L5+L6+L7+L8+L9+L10);
+STICKLINE(CEILING(DA*L1/SS)*3>=CURRBARSCOUNT,HI*N/100,HI/GZ,9,0)COLOR656565,LINETHICK2;
+STICKLINE(CEILING(DA*L2/SS)*3>=CURRBARSCOUNT,HI/POW(GZ,1)*N/100,HI/POW(GZ,2),9,0)COLOR656565,LINETHICK2;
+STICKLINE(CEILING(DA*L3/SS)*3>=CURRBARSCOUNT,HI/POW(GZ,2)*N/100,HI/POW(GZ,3),9,0)COLOR656565,LINETHICK2;
+STICKLINE(CEILING(DA*L4/SS)*3>=CURRBARSCOUNT,HI/POW(GZ,3)*N/100,HI/POW(GZ,4),9,0)COLOR656565,LINETHICK2;
+STICKLINE(CEILING(DA*L5/SS)*3>=CURRBARSCOUNT,HI/POW(GZ,4)*N/100,HI/POW(GZ,5),9,0)COLOR656565,LINETHICK2;
+STICKLINE(CEILING(DA*L6/SS)*3>=CURRBARSCOUNT,HI/POW(GZ,5)*N/100,HI/POW(GZ,6),9,0)COLOR656565,LINETHICK2;
+STICKLINE(CEILING(DA*L7/SS)*3>=CURRBARSCOUNT,HI/POW(GZ,6)*N/100,HI/POW(GZ,7),9,0)COLOR656565,LINETHICK2;
+STICKLINE(CEILING(DA*L8/SS)*3>=CURRBARSCOUNT,LO*POW(GZ,2),LO*POW(GZ,3)*N/100,9,0)COLOR656565,LINETHICK2;
+STICKLINE(CEILING(DA*L9/SS)*3>=CURRBARSCOUNT,LO*POW(GZ,1),LO*POW(GZ,2)*N/100,9,0)COLOR656565,LINETHICK2;
+STICKLINE(CEILING(DA*L10/SS)*3>=CURRBARSCOUNT,LO,LO*POW(GZ,1)*N/100,9,0)COLOR656565,LINETHICK2;
+N1:=10;
+T1:=CONST(HHVBARS(V,10)),COLOR0000FF,LINETHICK1;
+量能平台:IF(CURRBARSCOUNT<=N1+15,CONST(IF(T1=0,C,REF(C,T1))),DRAWNULL)COLOR0000FF,LINETHICK2;
+新量能点:IF(CURRBARSCOUNT=T1+1,量能平台,DRAWNULL),CIRCLEDOT,COLORLIGRAY,LINETHICK1;
+DRAWTEXT(ISLASTBAR,量能平台,' 量能平台');
+DRAWKLINE(H,O,L,C);
+
+{这段源码需要 通达信 最新版本 如不能显示请删除}
+DRAWTEXT_FIX(1,0.50,0,0,'所属行业：')COLOR0080FF;
+DRAWTEXT_FIX(1,0.54,0,0,HYBLOCK)COLOR0080FF;
+DRAWTEXT_FIX(1,0.58,0,0,'所属地区：')COLOR00FFFF;
+DRAWTEXT_FIX(1,0.62,0,0,DYBLOCK)COLOR00FFFF;
+
+
+筹码 是移动的，因为 存在着 买 和 卖。
+由于 筹码 每日都会移动，建议每日截图，用以研究每日筹码的变动，一般最长的那条代表 筹码集中的价位区间，
+股价运动到它下方，而 筹码峰 没有变动，当股价重新上涨到此区间，就要面临严重的抛压，非放大量不能突破。
+你可以看看我前面的 正和股份 的截图。
+
+各位茶会同学，我下午发的 公式源码 虽然简单，但是 老大的选股思路超强，经过验证，此方法对主力拉升前的 挖坑 行为有 奇效 。
+拉升后，可根据 轨道原理，跌破 上轨 减仓，跌破 中轨 凊仓，
+
+
+
+
+茶会的同学们请注意：箱体突破 指标，只是一个初选公式，它能把主力挖完坑后，即将拉升的pp选出。
+使用方法
+1.完成初选后，用自己熟悉预警公式监控。
+2.用自己熟悉的选股公式，在里面精选。
+验证自己指标的有效性的方法。
+把用自己的预警或选股 公式选出来的股，观察3天，看涨幅
+预警公式的要求是老大说的，当天出预警，要有2点以上的涨幅。
+选股公式的要求是，选出的股3天涨幅在5点以上。如不能达到，请仔细研究能够达到的那些股。
+股市里的钱，只会分享给那些勤奋的，爱它的人。谢谢！！！。
+
+
+http://www.55188.com/viewthread.php?tid=3965048&highlight=
+麻烦在下面源码中加上一句：股价回踩99日EMA均线预警，并在主图K线和分时图上标记预警价位。
+aa:=REF(C,1);
+bb:=barslast((C-aa)*100/aa>=(10-0.01*100/aa));
+cc:=DYNAINFO(4)>0 and bb>0 and bb<5;
+B5:=(CLOSE-MA(CLOSE,5))/MA(CLOSE,5)*100;
+ff:=(ref(count(B5<-6.8,bb-1),1)=0);
+cc and ff and B5<-6.8;
+
+
+
+
+aa:=REF(C,1);
+bb:=barslast((C-aa)*100/aa>=(10-0.01*100/aa));
+cc:=DYNAINFO(4)>0 and bb>0 and bb<5;
+B5:=(CLOSE-MA(CLOSE,5))/MA(CLOSE,5)*100;
+ff:=(ref(count(B5<-6.8,bb-1),1)=0);
+drawicon(cc and ff and B5<-6.8,l,25);
+这样？
+
+不好意思，刚才源码搞错，不过他们是同一个系统的，非常感谢，那么晚了还为我编指标，再次感谢！！！！！
+
+
+
+
+去除停牌:=DYNAINFO(17)!=0;{量比不为0}
+去除高低价:=DYNAINFO(7)>6 AND DYNAINFO(7)<17;{股价取6至17元}
+去除大小盘股:=CAPITAL/1000000>1 AND CAPITAL/1000000<8; {流通盘取1亿至8亿}
+ST停牌创业板:=NOT(DYNAINFO(4)=0) AND NOT(NAMELIKE('S') OR NAMELIKE('*') OR CODELIKE('3'));
+粗选:=去除停牌 AND 去除高低价 AND 去除大小盘股 AND ST停牌创业板;
+
+
+
+http://www2.55188.com/viewthread.php?tid=3943890
+
+
+
+
+短线王
+V1:=MA(C,3)=HHV(MA(C,3),7);
+V2:=MA(C,3)>MA(C,5);
+V3:=MA(V,5)>MA(V,10)*1.01;
+V4:=COUNT(MA(C,1)>REF(C,1),2)=2;
+LC20:=REF(CLOSE,1);
+RSI20:=SMA(MAX(CLOSE-LC20,0),4.1,1)/SMA(ABS(CLOSE-LC20),4.1,1)*100;
+STICKLINE(CROSS(RSI20,11)*1,-10,20,2,0),COLORYELLOW;
+VAR3A:=3;
+VAR2A:=3*SMA((CLOSE-LLV(LOW,27))/(HHV(HIGH,27)-LLV(LOW,27))*100,5,1)-2*SMA(SMA((CLOSE-LLV(LOW,27))/(HHV(HIGH,27)-LLV(LOW,27))*100,5,1),3,1);
+MTM:=C-REF(C,1);
+DX:=100*EMA(EMA(MTM,6),6)/EMA(EMA(ABS(MTM),6),6);
+YXF:=IF(LLV(DX,2)=LLV(DX,7) AND COUNT(DX<0,2) AND CROSS(DX,MA(DX,2)),1,0);
+加仓:IF(FILTER(YXF=1,5),20,-10),STICK,COLORLIBLUE,LINETHICK3;
+A51:=3*SMA((C-LLV(L,55))/(HHV(H,55)-LLV(L,55))*100,5,1)-2*SMA((C-LLV(L,55))/(HHV(H,55)-LLV
+(L,55))*100,5,1);
+FY:=EMA(A51,5);
+A54:=((C-LLV(L,21))/(HHV(H,21)-LLV(L,21)))*100;
+QS:(MA(3*SMA(A54,6,1)-2*SMA(SMA(A54,5,1),5,1),2)),LINETHICK2,COLORRED;
+源码不少，是不是看到头疼。看好了，非常简单。
+1.从最后一行 开始 用 剪切 每 剪切 一行，点击 确定 看看图的效果。一定要用 剪切，错了 再把它 粘贴 回去。
+然后看图
+
+
+
+N:=102;M:=7;
+AA:=MA((2*CLOSE+HIGH+LOW)/4,5);
+通道1:=AA*N/100;
+通道2:=AA*(200-N)/100;
+CC:=ABS((2*CLOSE+HIGH+LOW)/4-MA(CLOSE,20))/MA(CLOSE,20);
+DD:=DMA(CLOSE,CC);
+通道3:=(1+M/100)*DD;
+通道4:=(1-M/100)*DD;
+选股:通道1>通道2 AND 通道2>通道3 AND 通道3>通道4;
+
+
+那我谈谈
+没有满意的选股公式之前，轻仓，绝对要轻仓。
+把 止损 这个动作变为 潜意识 动作，不能赚钱，起码要保证 少亏。
+验证选股公式，把它改为 副图 翻看它的 成功率。
+选出的股 起码3天保证5点以上，不行 就在选股公式里加入 限制条件或放弃。
+
+
+
+
+
+你再把那天给你的2条线加在以下源码上面。
+EMA5:EMA(C,5) LINETHICK2 COLORYELLOW;
+EMA13:EMA(C,13) LINETHICK2 COLORCYAN;
+
+牛熊分界线:DMA(MA(CLOSE+REF(CLOSE,5)/CLOSE*0.098,90),VOL),LINETHICK2,COLORYELLOW;
+年线:DMA(MA(CLOSE+REF(CLOSE,5)/CLOSE*0.098,250),VOL),COLORCYAN LINETHICK2;
+CC:=ABS((2*CLOSE+HIGH+LOW)/4-MA(CLOSE,20))/MA(CLOSE,20);
+DD:=DMA(CLOSE,CC);
+上轨:(1+7/100)*DD,DOTLINE,COLORGREEN;
+下轨:(1-7/100)*DD,DOTLINE,COLORGREEN;
+中轨:(上轨+下轨)/2,DOTLINE,COLORGREEN;
+上轨绿:IF(上轨>=REF(上轨,1),上轨,DRAWNULL),DOTLINE,COLORGREEN,LINETHICK1;
+上轨红:IF(上轨>=REF(上轨,1),上轨,DRAWNULL),DOTLINE,COLORRED,LINETHICK1;
+中轨绿:IF(中轨>=REF(中轨,1), 中轨,DRAWNULL),DOTLINE,COLORGREEN,LINETHICK1;
+中轨红:IF(中轨>=REF(中轨,1), 中轨,DRAWNULL),DOTLINE COLORRED, LINETHICK1;
+下轨绿:IF(下轨>=REF(下轨,1), 下轨,DRAWNULL),DOTLINE,COLORGREEN,LINETHICK1;
+下轨红:IF(下轨>=REF(下轨,1), 下轨,DRAWNULL),DOTLINE COLORRED,LINETHICK1;
+
+可以参考历史图形中阶段性低点量能变化，目前市场量仅是相对比近期有所放量，但没有摆脱下降通道，而且3个交易日才形成阳包阴，所以这个位置我判断是个股修复，具备赚钱效应，但指数高度不会过高。
+后期下方低点还需要夯实。
+融胜解盘
+意思高度有限 还要下跌 注意 见好就收
+
+
+我猜我估计啊青龙哥的意思是，突破14线并回踩不破，就该是全LUO上阵啦
+
+嗯 在地主会 混过 就不一样 明白 轨道 和 均线 原理
+
+个好办 你看看大盘什么时候站上 工作线 第二天确认走势 就是满仓时
+
+
+==================================================================
+能让小资金翻倍的操作模式的探讨
+http://www.55188.com/viewthread.php?tid=4800170&extra=&authorid=2444803&page=33
+本操作模式分为
+一个 大盘主图
+一个 个股主图
+大盘主图用来判断趋势 所有大师必说的一句话
+“顺势而为”
+就是:水往低处流,人往高处走
+任何 逆势而动必死无疑
+很多大师道法高深 预测点位如神一般
+由于无法和大师相比 只好实行拿来主义
+用来判断趋势的主图均线为 王小松 松班 的14日均线
+在此感谢 王小松班长.
+所有成功率的统计都是基于在这条均线内统计
+
+个股主图主要包含了 轨道 箱体 expma5线 expma13线,
+ema60线 ema99线
+非常感谢 融胜大队长 的融胜轨道 箱体概念由本人首创
+具体描述一下本操作模式的操作方法:
+个股主图有3种盈利模式 分别是:
+1.
+涨停板后 第二天的低买模式 (超短 另外有开贴专门描述)
+2.
+抄底模式
+3.
+中短线模式
+抄底模式上图就行 就是 松班 强调的 一招鲜
+V型反转
+这种抄底类型 无需指标 目视即可
+目视条件
+1.急速超跌
+2.在3日内突破箱体
+3.涨停板
+此模式不受条件限制胆大即可
+
+中短线模式
+选一个强势股 在expma5线金叉expma13线后进场
+红色持股 破13线止盈止损
+此模式受大盘限制 受选股限制 趋势好时 胜算较高
+
+操作总则
+1.用大盘主图判断是否进场交易
+2.用大盘主图判断仓位
+操作细则
+止盈止损
+第一种模式为
+5点止盈 3点止损
+持股时间不超过4天
+第二.三种模式为
+自定
+以上方法为框架 还需各位精益求精
+
+
+
+楼主好，最近看了点班那个周末瞎扯蛋的帖子，发现了一个共同点，就是三个帖子都强调纪律，譬如说楼主的是14日均线，爱情海的是25日均线，炒股和人生那个是20日均线，看起来都很成功，为什么啊?请楼主给分析分析！谢谢 ...  
+
+
+
+终于发现秘密 量能很重要 但是又无法定义 也就是没有什么好的说法(短线)
+我在地主会时曾经问过融大 回答是 经验 看历史
+说到底 就是 形态
+所以我这里就是形态选股 你仔细研究上涨股票的形态 也是个好办法
+都是框架 你可以加入你自己的东西 但是建议保留 轨道 箱体
+
+
+目前很多箱体的设计 画法 都是以前期高点 大阳 收盘价划线
+所谓突破前高 这时 对量能要求比较高
+我的箱体不一样 以大阴开盘价划线 那么主力所有的洗盘 挖坑 上升前的下蹲 等动作
+都能监控到 股价不回来就算了 一旦回来 必然突破箱顶 这时主力为了不引人注目
+必然量能不大 一旦放量多数是出货.我做短线 所以把突破箱顶的k线设定为涨停板
+这根k线的涨幅 可以自己设定 不一定要涨停板的
+箱体是好东西 我真是很佩服自己的 哈哈哈  有没有人抛砖砸我
+
+你可以在突破箱顶的时候 使用自己熟悉的指标 因为这个箱体只是一个框架
+存在很多假突破 必须配合其他指标 胜算大点
+
+选股这里主要是形态选股 你可以加入自己熟悉的指标 用我的框框
+去操作
+
+
+
+
+V型反转
+1.急速超跌
+2.3天内突破箱体
+3.涨停板
+
+
+v型反转
+跌幅 没有统计过 好像必要性不大
+只要快速下跌当日跌幅在5点以上 不管原因(洗盘.错杀等)
+然后在3天内快速拉起 突破大阴开盘价的 涨停板 类型
+
+
+我对成交量方面的一些观察
+有没有注意 我这个箱体基本都在底部
+股价突破箱体 涨停板成交量一般都不大
+因为是底部起来所以连续拉板是量越大越跑
+而且涨停板本来就是资金堆积的产物 底部放量太大
+假设是买入 那么就意味作没钱了 连续拉升的动力就减弱
+
+
+突破箱体只是N选一的选项 而且 我这里也只是一个框架
+在这个框架里可任意发挥 只不过一定要统计你自己方法的成功率
+
+
+{大连小飞象}
+http://www.55188.com/thread-4800170-113-1.html
+
+涨停:=BETWEEN(REF(CLOSE,1)/REF(CLOSE,2),1.0983,1.110) AND NOT(NAMELIKE
+
+('ST')) AND NOT(NAMELIKE('*S')) AND BETWEEN(OPEN/REF(CLOSE,1),0.98,1.02)
+
+AND DYNAINFO(8)>0 AND CAPITAL/100<100000 AND CAPITAL/100>10000;
+DF:=(C-REF(C,1))/REF(C,1)*100<-5;
+AA:=BARSLAST(DF);
+突破箱体:=CROSS(C,REF(C,AA));
+箱顶:=DRAWLINE(DF,O,REF(DF,1),REF(O,1),1);
+箱底:=LLV(MIN(L,REF(L,AA)),AA);
+{轨道}
+CC:=ABS((2*CLOSE+HIGH+LOW)/4-MA(CLOSE,20))/MA(CLOSE,20);
+DD:=DMA(CLOSE,CC);
+上轨绿:=(1+7/100)*DD;
+
+休息:=EMA(C,14),COLORGREEN,LINETHICK2;
+工作:=IF(休息>=REF(休息,1),休息,DRAWNULL),COLORRED,LINETHICK2;
+
+CROSS(REF(C,1),箱顶) OR CROSS(REF(C,1),箱底) AND 涨停 AND 上轨绿>REF(上轨绿,1) AND 工作;
+二十日累计换手:=SUM(HSCOL,20)>20;
+
+
+=================================================================================================
+大盘不好，重新研读队长战法：弱问声“K线突破轨道超过1/2以上的(实体部分),放弃操作”中，轨道包括中轨吗？
+嗯 中上轨 下轨的比较少
+
+
+002031符合3个放弃条件
+1.下午涨停板的
+2.k线突破轨道1/2以上的
+3.换手率太小
+成交量也太大
+
+
+工作线决定满仓或半仓
+
+一般开板就几个意思
+1吸货
+2.出货
+3.分时洗盘
+目前 股价在低位 出货不可能
+
+放个pp给各位 观察 000753
+观察上轨 60线 99线附近 下面还有下轨
+
+
+------------------
+以下是源码
+二十日累计换手:SUM(HSCOL,20),NODRAW COLORYELLOW;
+N选1就是多个选一个
+如果有一个早上涨停的pp就不选下午涨停的
+下午涨停的 一个是洗盘厉害 2来可能分2天洗盘
+止损3个点就容易中止损 明白?
+
+
+我不喜欢抄底 我抄底只用v型反转
+
+
+20日换手要达到多少比较合适呢,青龙大师
+最好30以上  20以上勉强
+
+所以尽量不选下午涨停的 还有就是盘中涨停在打开的 洗盘也厉害比如 万马电缆
+
+
+这个帖子潜力很大。好贴 关注中。
+选股（涨停放量），低吸，分时成交量，控制仓位，还有节奏很重要。我也是慢慢往这些靠拢。
+
+还是那句老话 大盘没有站上工作线 注意风险
+
+恩，我的是追涨停，但总希望和龙队的思路共振。选股很多引入了龙队的思路，如：箱顶、换手、均线、盘子大小，我还引入了macd、左侧压力。
+
+完全正确 注意以下条件为放弃 严格执行
+只针对低买部分
+1.开盘价在+-2点以外 就是高开2点以上和低开2点以下
+2.20日换手率低于20以下
+3.k线实体突破轨道1/2以上
+其他条件为N选一条件
+此方法受趋势限制 趋势不好时 尽量围观
+
+
+v型反转 3个条件
+1.急速超跌
+2.3日内突破箱体
+3.涨停板
+4.轨道必须大于昨日,轨道这个东西是看个股趋势的利器
+
+
+青龙老大的这几个看似简单的条件其实就是一个很成熟理论系统，为什么说是系统理论？我自己的股票知识有限，但是我在其中看到了：K线理论  箱体理论  均线理论  轨道理论  换手率      
+     好像还有江恩理论。  大盘有工作线的把握掌控进出，先宏观掌控进出后微观把握个股选择。我个人认为如果能加入量能的话那就更加完美，还有我个人觉得青龙独创的（箱顶）理论是其该系统的核心所在。
+  
+
+      我为什么会有此言论：是因为我按照青龙老大的理论操作股票以后一直在赚钱，因为接触青龙老大的理论比较晚我只操作了3次，但每次的盈利都超过了青龙的盈利要求。我想我这3次的操作也不能说明什么问题（毕竟次数太少不符合统计学）肯定有运气的成分但我主要是严格按照青龙老大的条件在操作，以后的操作中肯定会有许多的失误亏损。
+       声明一下：我不是青龙老大的托，乖孙子才是青龙的托，我只是根据我自己的操作有感而发！！！
+      
+       才疏学浅，班门弄斧了。  望斧正，谢谢！！！
+
+
+
+
+
+
+

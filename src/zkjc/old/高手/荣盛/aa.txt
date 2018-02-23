@@ -1,0 +1,9 @@
+【N参数自己改写，试试看，可以不】
+CC:=ABS((2*CLOSE+HIGH+LOW)/4-MA(CLOSE,20))/MA(CLOSE,20);
+DD:=DMA(CLOSE,CC);
+A1:=(1-7/100)*DD;
+A2:=BARSLAST((C/REF(C,1)-1)*100>=8)=0;
+XG:COUNT(A2,N) AND L<A1 AND C>A1 AND C>O AND A2!=1;
+
+
+http://www.55188.com/viewthread.php?tid=4439810###

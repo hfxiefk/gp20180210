@@ -1,0 +1,11 @@
+http://www.55188.com/viewthread.php?tid=3657417&highlight=RSI
+“RSI变色”指标(通达信)：
+{RSI变色}
+LC:=REF(CLOSE,1);
+RSI6:SMA(MAX(CLOSE-LC,0),6,1)/SMA(ABS(CLOSE-LC),6,1)*100,LINETHICK2;
+
+MA6 :MA(RSI6,6),COLORGREEN;
+IF(MA6>REF(MA6,1) OR RSI6>MA6,MA6,DRAWNULL),COLORRED,LINETHICK2;
+
+大智慧版请见190楼，这里多谢"屡败屡战71"网友!
+一般情况下用60分钟图来买就已经达到很好效果，激进的朋友可以用30分钟图来买！

@@ -1,0 +1,41 @@
+{突然放量}
+TOTAL:=IF(PERIOD=1,5,IF(PERIOD=2,15,IF(PERIOD=3,30,IF(PERIOD=4,60,IF(PERIOD=5,240,1)))));
+MTIME:=MOD(FROMOPEN,TOTAL);
+CTIME:=IF(MTIME<0.5,TOTAL,MTIME);
+VV:=IF(CURRBARSCOUNT=1,V*TOTAL/CTIME,DRAWNULL),NODRAW;
+STICKLINE(CURRBARSCOUNT=1 AND (SETCODE=0||SETCODE=1),VV,0,-1,-1),COLOR00C0C0;
+VUME:V,VOLSTICK;
+MV4:MA(VUME,60),COLORGRAY;
+MV3:MA(VUME,20),COLORMAGENTA;
+MV2:MA(VUME,10),COLORWHITE;
+MV1:MA(VUME,5),COLORGREEN;
+FL4:=V=HHV(V,250);
+FL3:=V=HHV(V,120) AND V!=HHV(V,250);
+FL2:=V=HHV(V,60) AND V!=HHV(V,120) AND V!=HHV(V,250);
+FL1:=V=HHV(V,30) AND V!=HHV(V,60) AND V!=HHV(V,120) AND V!=HHV(V,250);
+DRAWTEXT(FL4,0.93*V,'4'),COLORYELLOW;
+DRAWTEXT(FL3,0.93*V,'3'),COLORYELLOW;
+DRAWTEXT(FL2,0.93*V,'2'),COLORYELLOW;
+DRAWTEXT(FL1,0.93*V,'1'),COLORYELLOW;
+
+XG:SUM(FL1,10),NODRAW;
+
+TOTAL赋值:如果周期类型=1,返回5,否则返回如果周期类型=2,返回15,否则返回如果周期类型=3,返回30,否则返回如果周期类型=4,返回60,否则返回如果周期类型=5,返回240,否则返回1
+MTIME赋值:当前离开盘分钟数关于TOTAL的模
+CTIME赋值:如果MTIME<0.5,返回TOTAL,否则返回MTIME
+VV赋值:如果到最后交易的周期=1,返回成交量(手)*TOTAL/CTIME,否则返回无效数,NODRAW
+当满足条件到最后交易的周期=1AND(市场类型=0或者市场类型=1)时,在VV和0位置之间画柱状线,宽度为-1,-1不为0则画空心柱.,COLOR00C0C0
+输出VUME:成交量(手),VOLSTICK
+输出MV4:VUME的60日简单移动平均,画深灰色
+输出MV3:VUME的20日简单移动平均,画洋红色
+输出MV2:VUME的10日简单移动平均,画白色
+输出MV1:VUME的5日简单移动平均,画绿色
+FL4赋值:成交量(手)=250日内成交量(手)的最高值
+FL3赋值:成交量(手)=120日内成交量(手)的最高值 AND 成交量(手)不等于250日内成交量(手)的最高值
+FL2赋值:成交量(手)=60日内成交量(手)的最高值 AND 成交量(手)不等于120日内成交量(手)的最高值 AND 成交量(手)不等于250日内成交量(手)的最高值
+FL1赋值:成交量(手)=30日内成交量(手)的最高值 AND 成交量(手)不等于60日内成交量(手)的最高值 AND 成交量(手)不等于120日内成交量(手)的最高值 AND 成交量(手)不等于250日内成交量(手)的最高值
+当满足条件FL4时,在0.93*成交量(手)位置书写文字,画黄色
+当满足条件FL3时,在0.93*成交量(手)位置书写文字,画黄色
+当满足条件FL2时,在0.93*成交量(手)位置书写文字,画黄色
+当满足条件FL1时,在0.93*成交量(手)位置书写文字,画黄色
+输出XG:FL1的10日累和,NODRAW

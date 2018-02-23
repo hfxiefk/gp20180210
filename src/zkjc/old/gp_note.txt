@@ -1,0 +1,59 @@
+http://www.55188.com/viewthread.php?tid=3323303&extra=&authorid=1003131&page=5
+从图中DDX和主力资金可以看出
+
+
+http://www.55188.com/viewthread.php?tid=3323303&extra=&authorid=1003131&page=22
+http://www.55188.com/viewthread.php?tid=3323303&extra=&authorid=1003131&page=23
+
+
+
+
+http://www.55188.com/thread-2532142-2369-1.html
+
+大智慧经典版KDJ指标
+
+{精品KDJ}
+STICKLINE(C>0,10,80,6,0),COLOR373829;{背景颜色}
+风险区:STICKLINE(C>0,80,100,6,0),COLOR000068;{背景颜色}
+安全区:STICKLINE(C>0,0,20,6,0),COLOR000068;{背景颜色}
+中轴:STICKLINE(C>0,50,20,6,0),COLOR006500;{背景颜色}
+STICKLINE(C>0,50,80,6,0),COLORGRAY;{背景颜色}
+中k27:"kdj.k"(27,3,3),COLORffffff;
+中d27:"kdj.d"(27,3,3),COLOR00ffff;
+中j27:"kdj.j"(27,3,3),COLOR4080ff;
+长k89:="kdj.k"(89,3,3),COLORffff00;
+长d89:"kdj.d"(89,3,3),COLORff9900,linethick3;
+长j89:="kdj.j"(89,3,3),COLORblue;
+短j3:"kdj.j"(3,3,3),COLORaaaaaa,linethick3;
+
+
+
+TDX指標
+{智能MACD}
+
+DIFF:(EMA(CLOSE,3) - EMA(CLOSE,13)),colorred;
+DEA:EMA(DIFF,9),colorff00ff;
+MACD:0.9*(DIFF-DEA), COLORSTICK;
+if(diff<0,diff,0),coloryellow,linethick1;
+if(diff<0,0,diff),colorred,linethick1;
+if(diff<dea,diff,dea),color00ff00,linethick1;
+if(diff>dea,dea,dea),colorff00ff,linethick1;
+aa:=cross(diff,dea);
+二次金叉买就赢:0 ,LINETHICK0;
+加仓要等绿变红:0 ,LINETHICK0;
+时间之窗做参考:0 ,LINETHICK0;
+见到死叉快点逃:0,LINETHICK0;
+Var1:=(HIGH+LOW+CLOSE)/3;
+Var2:=(EMA(Var1,2)+EMA(Var1,5)+EMA(Var1,8))/3;
+Var3:=(EMA(Var1,6)+EMA(Var1,9)+EMA(Var1,12))/3;
+Var4:=BARSCOUNT(CLOSE);
+Var5:=HHV(HIGH,200);
+Var6:=LLV(LOW,200);
+Var7:=(Var5-Var6)/40;
+Var8:=HIGH+Var7;
+Var9:=LOW-Var7;
+sjzc:=IF((Var4+0)/34=FLOOR((Var4+0)/34),50,0),COLORred,LINESTICK;
+DRAWICON(sjzc ,0.09,1);
+
+DRAWICON(CROSS(DIFF,DEA),DIFF-0.01,4);
+DRAWICON(CROSS(DEA,DIFF),DIFF,2);

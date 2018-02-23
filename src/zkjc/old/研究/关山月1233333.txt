@@ -1,0 +1,32 @@
+找强势回调13日均线时买入
+
+http://55188.com/viewthread.php?tid=7406629&highlight=
+
+必须在13日攻击线之上。这样就过滤掉那些空头股票。
+只出多头，强势的。
+
+VAR1:=VOL/((HIGH-LOW)*2-ABS(CLOSE-OPEN));
+VAR2:=IF(CLOSE>OPEN,VAR1*(HIGH-LOW),IF(CLOSE<OPEN,VAR1*(HIGH-OPEN+CLOSE-LOW),VOL/2));
+日涨幅:=(C-REF(C,1))/REF(C,1)*100;
+
+XG:((VAR2/VOL)>0.95) AND (日涨幅<5 AND 日涨幅>1.5) AND (CROSS(C,MA(C,13))) ;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////
+VAR1:=VOL/((HIGH-LOW)*2-ABS(CLOSE-OPEN));
+VAR2:=IF(CLOSE>OPEN,VAR1*(HIGH-LOW),IF(CLOSE<OPEN,VAR1*(HIGH-OPEN+CLOSE-LOW),VOL/2));
+日涨幅:=(C-REF(C,1))/REF(C,1)*100;
+
+ZT:=(CLOSE/REF(CLOSE,1)-1)*100>9.7;
+
+XG:((VAR2/VOL)>0.95) AND (日涨幅<5 AND 日涨幅>1.5) AND (CROSS(C,MA(C,13))) AND (FINANCE(7)<500000000) AND (COUNT(ZT,10)>=1) ;
+
+10天之内出现过涨停，流通盘小于5亿
+
+
+
+
+{分时放量}
+现价:=DYNAINFO(7);
+均价:=DYNAINFO(11)+(DYNAINFO(11)*0.021);
+条件:IF(现价>均价,1,0);

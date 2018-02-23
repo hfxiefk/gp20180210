@@ -1,0 +1,5 @@
+VAR1:=VOL/((HIGH-LOW)*2-ABS(CLOSE-OPEN));
+VAR2:=IF(CLOSE>OPEN,VAR1*(HIGH-LOW),IF(CLOSE<OPEN,VAR1*(HIGH-OPEN+CLOSE-LOW),VOL/2));
+RZF:=(C-REF(C,1))/REF(C,1)*100;
+XG:RZF>0.9;
+{群号:101453716.都有提示关注沈庆,事实上在群搜索里搜沈庆不就能搜到了么?现在把群号发上来,想加的就加罢,我的群纯交流,不收费}

@@ -1,0 +1,56 @@
+http://www.gupiaoff.com/tongdaxin/2014101128310.html
+使用说明:
+1、出现黄色表示底部快到了，是相对的底部，不是真的底部，这要看你自己的分析了。
+2、红色表示资金进的多，中间的一根黄色线表示穿透力，线越长越好。
+3、蓝色表示资金流出的多少，流出越多越不好, 中间的一根线表示穿透力，线越长越不好.
+4、流量基线是资金趋势，也可以看作股价波动趋势，全凭你自己的分析了。
+资金流向副图，看到红色资金柱或流量基线上穿零轴后进入，会有不错了收益。
+{资金流向}
+ZC_1:=IF(L<(7),0,IF(H>(7),(7)-((7)-H+0.02)/(H-L+0.02),0));
+ZC_2:=DMA(ZC_1,V)*100;
+出货:=IF(ZC_2>0 AND ZC_2>REF(ZC_2,1),ZC_2/20,0);
+轴:0,COLOR00FF00;
+PJJ:=DMA((H + L + C * 2) / 4,0.9);
+JJ:=REF(EMA(PJJ,3),1);
+QJJ:=VOL / ((H - L) * 2 - ABS(C - O));
+XVL:=IF(C > O,QJJ * (H - L),IF(C < O,QJJ * (H - O + (C - L)),VOL / 2)) + IF(C > O,0 - QJJ * (H - C + (O - L)),IF(C < O,0 - QJJ * (H - L),0 - VOL / 2));
+ZLL:=VOL;
+HSL1:=IF(ZLL > 10,10,ZLL);
+HSL:=XVL / 20 / 1.15;
+攻击流量:=HSL * 0.55 + REF(HSL,1) * 0.33 + REF(HSL,2) * 0.22;
+GJJ:=EMA(攻击流量,8);
+LLJX:=EMA(攻击流量,3);
+流量:LLJX,COLORC875B7,COLORRED,NODRAW;
+STICKLINE(流量 > 0,流量,0,2.3,0)COLOR0000FF;
+STICKLINE(流量 < 0,流量,0,2.3,0),COLORFF4242;
+流量基线:GJJ,COLOR00BBBB,COLORGREEN,LINETHICK2;
+STICKLINE(HSL * 0.4 >= 0,HSL * 0.4 * 1.5,0,0,1)COLORYELLOW;
+STICKLINE(HSL * 0.4 < 0,HSL * 0.4 * 1.5,0,0,1)COLORGREEN;
+ZJLL:=REF(LLJX,1);
+QZJJ:=(((LLJX - ZJLL) / ZJLL) * 100);
+流量幅%:IF(((LLJX > 0) AND (ZJLL < 0)),ABS(QZJJ),IF((((LLJX < 0) AND (ZJLL < 0)) AND (LLJX < ZJLL)),(0 - QZJJ),QZJJ))COLORMAGENTA,NODRAW;
+力度:HSL / 1000,COLOR9B37FF,COLORRED,NODRAW;
+周流量:SUM(LLJX,5),COLORFFBFDF,COLORMAGENTA,NODRAW;
+BB:=REF(周流量,1);
+ZQZJJ:=(周流量-BB)/BB*100;
+周幅%:IF(周流量>0 AND BB<0,ABS(ZQZJJ),IF(周流量<0 AND BB<0 AND 周流量<BB,-ZQZJJ,ZQZJJ))COLORMAGENTA,NODRAW;
+VARQ1:=REF((LOW+OPEN+CLOSE+HIGH)/4,1);
+VARQ2:=SMA(ABS(LOW-VARQ1),13,1)/SMA(MAX(LOW-VARQ1,0),10,1);
+VARQ3:=EMA(VARQ2,10);
+VARQ4:=LLV(LOW,33);
+VARQ5:=EMA(IF(LOW<=VARQ4,VARQ3,0),3)*100;
+主力进场:STICKLINE(VARQ5>REF(VARQ5,1) AND 出货<=0,0,VARQ5,7,0 ),COLOR00FFFF;
+
+
+
+资金流向指标（黄色柱）时的选股公式
+QJJ:=VOL / ((H - L) * 2 - ABS(C - O));
+XVL:=IF(C > O,QJJ * (H - L),IF(C < O,QJJ * (H - O + (C - L)),VOL / 2)) + IF(C > O,0 - QJJ * (H - C + (O - L)),IF(C < O,0 - QJJ * (H - L),0 - VOL / 2));
+HSL:=XVL / 20 / 1.15;
+XG:HSL * 0.4 >= 0;
+
+
+
+
+
+

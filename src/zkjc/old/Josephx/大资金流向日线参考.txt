@@ -1,0 +1,67 @@
+http://www.55188.com/viewthread.php?tid=2604870&highlight=%D7%CA%BD%F0%C0%DB%BB%FD###
+http://www.55188.com/thread-2604131-9-1.html
+{大资金流向日线参考}
+CN601:=HHV(V,20);{20日最高量}
+CN602:=O>C;
+CN702:=C>O;
+CN703:=C=O;
+CN704:=((V/CN601));
+CN705:=IF(CN704>0.3,1,0);{大资金}
+CN706:=IF(CN602 AND CN705,V,0);{大资金流出}
+CN707:=IF(CN702 AND CN705,V,0);{大资金流入}
+CN708:=IF(CN703 AND CN705,V,0);{不明流向大资金}
+大资金流出:SUM(CN706,5),COLORCYAN;{5日累积}
+大资金流入:SUM(CN707,5),COLORRED;{5日累积}
+其他大资金:SUM(CN708,5),COLORWHITE;
+CN709:=IF((CN703 OR CN602 OR CN702) AND CN705,V,0);{大资金累积}
+累积大资金总和:SUM(CN709,5),COLORBLUE;{5日累积}
+CN710:=CAPITAL/50;
+CN711:=IF(CN709/CN710<0.5,CN710/2,CN710);
+{当前流通%股本:CN711,COLORMAGENTA;};
+
+
+总和很有用呀！当你看上面的图，当兰线（总和）与红线很接近时（有时甚至重合），这种股票涨势非常凶猛的。你再看看太行水泥，两线基本重合。
+
+
+{选股票}
+CN601:=HHV(V,5);{5日最高量}
+CN602:=O>C;
+CN702:=C>O;
+CN703:=C=O;
+CN704:=((SUM(V,5)/CN601));
+CN705:=IF(CN704>0.3,1,0);{大资金}
+CN706:=IF(CN602 AND CN705,V,0);{大资金流出}
+CN707:=IF(CN702 AND CN705,V,0);{大资金流入}
+CN708:=IF(CN703 AND CN705,V,0);{不明流向大资金}
+累积资金流出:SUM(CN706,9),COLORCYAN;
+累积资金流入:SUM(CN707,9),COLORRED;
+不明流向大资金:SUM(CN708,9),COLORWHITE;
+CN709:=IF((CN703 OR CN602 OR CN702) AND CN705,V,0);{大资金累积}
+累积大资金总和:SUM(CN709,9),COLORBLUE;
+
+{兰、红两线交叉或接近选股}
+CROSS(累积资金流入,累积大资金总和) OR (累积资金流入+1>=累积大资金总和 AND REF(累积资金流入,1)+1<REF(累积大资金总和,1));
+
+
+
+这个指标中，累积资金流入上穿累积资金流出时，在许多情况下，一般都有一轮上涨行情。
+
+
+
+CN601:=HHV(V,5);{5日最高量}
+CN602:=O>C;
+CN702:=C>O;
+CN703:=C=O;
+CN704:=((SUM(V,5)/CN601));
+CN705:=IF(CN704>0.3,1,0);{大资金}
+CN706:=IF(CN602 AND CN705,V,0);{大资金流出}
+CN707:=IF(CN702 AND CN705,V,0);{大资金流入}
+CN708:=IF(CN703 AND CN705,V,0);{不明流向大资金}
+累积资金流出:=SUM(CN706,9),COLORCYAN;
+累积资金流入:=SUM(CN707,9),COLORRED;
+不明流向大资金:=SUM(CN708,9),COLORWHITE;
+CN709:=IF((CN703 OR CN602 OR CN702) AND CN705,V,0);{大资金累积}
+累积大资金总和:=SUM(CN709,9),COLORBLUE;
+
+{兰、红两线交叉或接近选股}
+CROSS(累积资金流入,累积大资金总和) OR (累积资金流入+1>=累积大资金总和 AND REF(累积资金流入,1)+1<REF(累积大资金总和,1));

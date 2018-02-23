@@ -1,0 +1,129 @@
+http://www.55188.com/thread-2532142-2369-1.html
+
+大智慧经典版KDJ指标
+
+{精品KDJ}
+STICKLINE(C>0,10,80,6,0),COLOR373829;{背景颜色}
+风险区:STICKLINE(C>0,80,100,6,0),COLOR000068;{背景颜色}
+安全区:STICKLINE(C>0,0,20,6,0),COLOR000068;{背景颜色}
+中轴:STICKLINE(C>0,50,20,6,0),COLOR006500;{背景颜色}
+STICKLINE(C>0,50,80,6,0),COLORGRAY;{背景颜色}
+中k27:"kdj.k"(27,3,3),COLORffffff;
+中d27:"kdj.d"(27,3,3),COLOR00ffff;
+中j27:"kdj.j"(27,3,3),COLOR4080ff;
+长k89:="kdj.k"(89,3,3),COLORffff00;
+长d89:"kdj.d"(89,3,3),COLORff9900,linethick3;
+长j89:="kdj.j"(89,3,3),COLORblue;
+短j3:"kdj.j"(3,3,3),COLORaaaaaa,linethick3;
+
+
+
+TDX指標
+{智能MACD}
+DIFF:(EMA(CLOSE,3) - EMA(CLOSE,13)),colorred;
+DEA:EMA(DIFF,9),colorff00ff;
+MACD:0.9*(DIFF-DEA), COLORSTICK;
+if(diff<0,diff,0),coloryellow,linethick1;
+if(diff<0,0,diff),colorred,linethick1;
+if(diff<dea,diff,dea),color00ff00,linethick1;
+if(diff>dea,dea,dea),colorff00ff,linethick1;
+aa:=cross(diff,dea);
+二次金叉买就赢:0 ,LINETHICK0;
+加仓要等绿变红:0 ,LINETHICK0;
+时间之窗做参考:0 ,LINETHICK0;
+见到死叉快点逃:0,LINETHICK0;
+Var1:=(HIGH+LOW+CLOSE)/3;
+Var2:=(EMA(Var1,2)+EMA(Var1,5)+EMA(Var1,8))/3;
+Var3:=(EMA(Var1,6)+EMA(Var1,9)+EMA(Var1,12))/3;
+Var4:=BARSCOUNT(CLOSE);
+Var5:=HHV(HIGH,200);
+Var6:=LLV(LOW,200);
+Var7:=(Var5-Var6)/40;
+Var8:=HIGH+Var7;
+Var9:=LOW-Var7;
+sjzc:=IF((Var4+0)/34=FLOOR((Var4+0)/34),50,0),COLORred,LINESTICK;
+DRAWICON(sjzc ,0.09,1);
+
+DRAWICON(CROSS(DIFF,DEA),DIFF-0.01,4);
+DRAWICON(CROSS(DEA,DIFF),DIFF,2);
+
+//////////////////////////////////////////////////////
+http://blog.sina.com.cn/s/blog_722e4f0b0102xb32.html
+2.通达信优化KDJ带K线指标公式股票软件源码如下:
+VAR1:=SMA(MAX(OPEN-REF(OPEN,1),0),6,1)/SMA(ABS(OPEN-REF(OPEN,1)),6,1)*100;
+VAR2:=SMA(MAX(CLOSE- REF(CLOSE,1),0),6,1)/SMA(ABS(CLOSE- REF(CLOSE,1)),6,1)*100;
+VAR3:=SMA(MAX(HIGH-REF(HIGH,1),0),6,1)/SMA(ABS(HIGH-REF(HIGH,1)),6,1)*100;
+VAR4:=SMA(MAX(LOW- REF(LOW,1),0),6,1)/SMA(ABS(LOW- REF(LOW,1)),6,1)*100;
+VAR5:=(CLOSE-LLV(LOW,9))/(HHV(HIGH,9)-LLV(LOW,9))*100;
+短:=SMA(VAR5,6,1),COLORWHITE;
+中:=SMA(短,3,1),COLORYELLOW;
+领先:=3*短-2*中,COLORLIMAGENTA;
+{股旁网-股票公式网站 www.gupanG.com}
+RSV:=(CLOSE-LLV(LOW,9))/(HHV(HIGH,9)-LLV(LOW,9))*100;
+K:SMA(RSV,3,1);
+D:SMA(K,3,1);
+J:3*K-2*D;
+DRAWKLINE(VAR3,VAR1,VAR4,VAR2);
+STICKLINE(短>0 AND 短-中>=0,79,80,6,0),COLORRED;
+STICKLINE(短>0 AND 短-中<0,79,80,6,0),COLORYELLOW;
+STICKLINE(短>0 AND 短-中>=0,49,50,6,0),COLORRED;
+STICKLINE(短>0 AND 短-中<0,49,50,6,0),COLORYELLOW;
+STICKLINE(短>0 AND 短-中>=0,9,10,6,0),COLORRED;
+STICKLINE(短>0 AND 短-中<0,9,10,6,0), COLORYELLOW;
+顶:100, LINETHICK2 ,COLOR55AA77;
+底:0, LINETHICK2 ,COLOR55AA77;
+
+
+
+//////////////////////////////////////////////
+A:=(HIGH+LOW+CLOSE+OPEN)/4;
+BBI:=(MA(A,3)+MA(A,6)+MA(A,12)+MA(A,24))/4;
+中轴:MA(A,21),COLORYELLOW;
+中轴线:IF(中轴>=REF(中轴,1),中轴,DRAWNULL),COLORMAGENTA;
+上轨线:中轴+2*STD(A,21),COLOR0080FF,POINTDOT,LINETHICK2;
+下轨线:中轴-2*STD(A,21),COLORYELLOW,POINTDOT,LINETHICK2;
+
+日均价:=AMOUNT/VOL/100;
+JF1:=SMA(SMA(EMA(日均价,5)*2-MA(日均价,5),3,1),3,1),COLOR999900;
+补偿:=FLOOR(((JF1-MA(JF1,5))/MA(JF1,5)*100));
+欧阳雄风:SMA(SMA((EMA(日均价,(5+ABS(补偿)))),2,1),2,1),COLORFF0000;
+雄风线:IF(欧阳雄风>=REF(欧阳雄风,1),欧阳雄风,DRAWNULL),COLORMAGENTA;
+上轨:欧阳雄风+2*STD(欧阳雄风,10),COLORRED;
+下轨:欧阳雄风-2*STD(欧阳雄风,10),COLORRED;
+
+////////////////////////////////////////////////////////////////
+http://blog.sina.com.cn/s/blog_722e4f0b0101cp1t.html
+五星级收费指标《筹码涨升排序》
+ 五星级收费指标《筹码涨升排序》 五星级收费指标《筹码涨升排序》 
+源码如下：
+通达信
+SW:=38;BW:=66;
+CJ:=(H+L+2*O+3*C)/7;
+DN:=INTPART(276/POW(PERIOD+3-1.7,2)-1.1);
+DS:=INTPART(1.8*DN);
+DB:=INTPART(0.5*DN);
+DC:=INTPART(0.67*DN);
+短筹:SMA(FORCAST(PWINNER(SW,BW*CJ/100)*100,DC),DS,DS-1),COLORRED; 
+抢筹:=IF(SLOPE(短筹,DB)>=0,SLOPE(短筹,DB)*POW(DN/2.71,1.5),0);
+活筹:短筹/4.8+1.2*抢筹-2,COLORWHITE,LINETHICK2;
+XC:=BARSLAST(活筹>=短筹/2);
+吸筹:HHV(XC,DB),NODRAW;
+上涨角:HHV(ATAN(SLOPE(活筹,DC)*2.1)*180/3.14159,DC),NODRAW;
+―――――――――――――――――――――――――――――――――
+大智慧
+input:SW(38,11,111),BW(66,33,111);
+CJ:=(H+L+2*O+3*C)/7;
+DN:=INTPART(276/POW(DATATYPE-1.7,2)-1.1);
+DS:=intpart(1.8*DN);
+DB:=intpart(0.5*DN);
+DC:=intpart(0.67*DN);
+短筹:SMA(forcast(PWINNER(SW,BW*CJ/100)*100,DC),DS,DS-1),colorred; 
+抢筹:=if(slope(短筹,DB)>=0,slope(短筹,DB)*POW(DN/2.71,1.5),0);
+活筹:短筹/4.8+1.2*抢筹-2,colorwhite,linethick2;
+xc:=BARSLAST(活筹>=短筹/2);
+吸筹:HHV(xc,DB),linethick0;
+上涨角:HHV(atan(slope(活筹,DC)*2.1)*180/3.14159,DC),linethick0;
+
+用法如下：
+不要看本公式就只两条简单的线,因为最重要的是他的用法，不知道怎么用，再好的指标也产生不了使用价值,公式的重点是最后不显示的“吸筹”“上涨角”,
+用“吸筹”排序找底部的股票(值越大越好，说明主力拥有大量的筹码)，可以用“上涨角”排序找正在上涨的股票(值越大,说明主力极具向上攻击力)。

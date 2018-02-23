@@ -1,0 +1,35 @@
+基本面选股与黑马起飞排序的结合运用
+
+http://www.55188.com/viewthread.php?tid=3239976&highlight=
+
+http://www.55188.com/thread-3233164-1-1.html
+
+书中的名词解释：
+短线跟踪=黑马跟踪     
+短线换手=换手跟踪    
+股东变化查f10   
+短线涨幅可将250天自改加为20或23天：
+
+N5:=BARSLAST(CROSS(C,MA(C,23)));
+N6:=BARSLAST(CROSS(MA(C,23),C));
+短趋势:=IF(N5<N6,N5+1,0), NODRAW ;
+短线涨幅:(C-REF(C,短趋势))/REF(C,短趋势)*100, NODRAW ;
+
+
+
+=============================================
+涨幅:=DYNAINFO(14)*100,NODRAW ;
+N3:=BARSLAST(CROSS(C,MA(C,20)));
+N4:=BARSLAST(CROSS(MA(C,20),C));
+黑马跟踪:IF(N3<N4,N3+1,0);
+涨幅跟踪:(C-REF(C,黑马跟踪))/REF(C,黑马跟踪)*100;
+换手:VOL/CAPITAL*100 LINETHICK0, NODRAW ;
+百日换手:SUM(换手,100) LINETHICK0, NODRAW ;
+换手跟踪:SUM(换手,0)-REF(SUM(换手,0),黑马跟踪),COLORFF937F LINETHICK0;
+跟踪系数:换手跟踪/涨幅跟踪,COLOR00FF00 LINETHICK0;
+N1:=BARSLAST(CROSS(C,MA(C,250)));
+N2:=BARSLAST(CROSS(MA(C,250),C));
+长期趋势:IF(N1<N2,N1+1,0), NODRAW ;
+乖离率:(C-MA(C,250))/MA(C,250)*100, NODRAW ;
+峰值乖离:HHV(乖离率,长期趋势), NODRAW ;
+长涨幅:(C-REF(C,长期趋势))/REF(C,长期趋势)*100, NODRAW ;

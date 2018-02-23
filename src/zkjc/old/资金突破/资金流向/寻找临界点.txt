@@ -1,0 +1,26 @@
+http://www.55188.com/thread-2179565-1-1.html
+
+
+九死一生（主图）
+参数:
+M(1,300,88)
+N1(1,100,6)
+
+源码：
+VAR0A:=EMA(EMA(EMA(CLOSE,2),2),2);MA13:(MA(VAR0A,13)*0.99);
+(MA(VAR0A,13)*0.999);
+TLAMSENR:=MAX(MAX((HIGH-LOW),ABS((REF(CLOSE,1)-HIGH))),ABS((REF(CLOSE,1)-LOW)));
+ATR:=MA(TLAMSENR,13);VAR1A:=(REF(CLOSE,1)-REF(ATR,1));
+生命线:(HHV(VAR1A,12)),LINETHICK4,COLOR0080FF;
+VAR1:=EMA(AMOUNT/VOL/100,3);控盘成本:EMA(VAR1,M),LINETHICK2;
+低吸伏击:EMA(VAR1,M)*0.85,LINETHICK2,COLORFFFF00;
+走势铁底:低吸伏击*0.87,LINETHICK3,COLORFF00FF;
+VAR2:=LOW<=走势铁底 AND CLOSE>REF(CLOSE,1)*1.02;DRAWICON(FILTER(VAR2,N1),L,5);
+
+
+用法：
+本指标对控盘力量坐庄各环节智能分析研究，得出其各级别实际成本并设计阻击手段。
+当股价走势落入第二条指标线以下，实战操作就具备了低吸伏击的操作基础。第二、
+第三线段之间称为低吸伏击带！而股价走势落入第三条线（也就是最下面一条）时，
+物极必反，否极泰来，实战操作根据图形显示笑脸图标进行坚决阻击。第三条线段以下
+称为铁底阻击区域，实战进场九生一死。

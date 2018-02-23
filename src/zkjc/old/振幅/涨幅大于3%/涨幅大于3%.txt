@@ -1,0 +1,4 @@
+{涨幅大于3%}
+HSL:=100*VOL/(FINANCE(7)/100);
+量比:=DYNAINFO(17);
+H/L>1.1 AND (C-REF(C,1))/REF(C,1)*100>3 AND HSL>5 AND 量比>3;

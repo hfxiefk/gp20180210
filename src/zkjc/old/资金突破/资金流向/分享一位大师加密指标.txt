@@ -1,0 +1,10 @@
+http://www.55188.com/viewthread.php?tid=4637806&extra=&highlight=&page=1###
+
+AA3:EMA((((SLOPE(C,18)) * 20) + C),55);
+AA4:EMA(C,10);
+xg:CROSS(AA4,AA3);
+
+
+输出AA3:(((收盘价的18日线性回归斜率)*20)+收盘价)的55日指数移动平均
+输出AA4:收盘价的10日指数移动平均
+输出XG:AA4上穿AA3

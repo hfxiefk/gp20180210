@@ -1,0 +1,74 @@
+http://www.55188.com/viewthread.php?tid=7898286&extra=&authorid=17649&page=2
+
+剔除 ST 股* ST 股，原因没有时间去上市公司考察，咱小散没有内幕消息，不参与
+剔除 权重股，大盘股，咱小散输不起，也跟郭嘉队耗不起，
+剔除 创业板，这两年创业板估值过高，等跌到讲故事做PPT的多，没时间精力一一抽丝剥茧，细看财报 ，高送转就是坑，从来不玩，跌起来都有群体效应，也不指望自己选的股是幸运的鹤立鸡群剔除停牌股，选了看着占地方，只能看不能买
+剔除上市时间小于200天，等你满了周岁再说
+剔除前两年暴涨的，一直在高位横盘股，老子不想进来给你举杠铃
+剔除 盘子过小的股，容易主力极度控盘，进去就被发现，洗盘洗到你怀疑人生（这条针对老哥本人，个人自行调节）
+剔除 两年连续亏损股，怕一脚踩上地雷，老哥等你把业绩做稳当了，再来买你
+剔除 总股本大于10亿的票，不动起来走势像心电图，老哥看着心烦呐
+
+主图公式如下：用tdx的比较多，这是tdx的，老哥不是专业编公式的，代码难免比较粗糟丑陋些，代码来源论坛各大佬，用到专业财务数据，请自行下载，根据个人需求删减美化，我只是用来快速浏览用的，可自己再添加 自定义数据
+
+
+品种类型:=FINANCE(3);
+所属板块:=HYBLOCK;
+上市天数:=FINANCE(42);
+股总市值:=ROUND(FINANCE(41)/100000000);
+流通市值:=ROUND(FINANCE(40)/100000000);
+股东人数:=FINANCE(8);
+人均持股:=ROUND(FINANCE(7)/FINANCE(8));
+
+DRAWTEXT_FIX(1,0.008,0.01,0,'基本资料：'),COLORFFCC99;
+DRAWTEXT_FIX(1,0.008,0.05,0,'品种类型：'),COLOR99CCFF;
+DRAWTEXT_FIX(1,0.008,0.09,0,'行业板块：'),COLOR99CCFF;
+DRAWTEXT_FIX(1,0.008,0.13,0,'上市天数：'),COLOR99CCFF;
+DRAWTEXT_FIX(1,0.008,0.17,0,'股东人数：'),COLOR99CCFF;
+DRAWTEXT_FIX(1,0.008,0.21,0,'人均持股：'),COLOR99CCFF;
+
+DRAWTEXT_FIX(品种类型=1,0.055,0.05,0,'沪 深 A 股'),COLORYELLOW;
+DRAWTEXT_FIX(品种类型=2,0.055,0.05,0,'  中 小 板'),COLORYELLOW;
+DRAWTEXT_FIX(品种类型=3,0.055,0.05,0,'  创 业 板'),COLORYELLOW;
+DRAWTEXT_FIX(1,0.055,0.09,0,HYBLOCK),COLORYELLOW;
+DRAWNUMBER_FIX(1,0.050,0.13,0,上市天数),COLORGREEN;
+DRAWNUMBER_FIX(1,0.050,0.17,0,股东人数),COLORGREEN;
+DRAWNUMBER_FIX(1,0.050,0.21,0,人均持股),COLORGREEN;
+
+DRAWTEXT_FIX(1,0.08,0.13,0,'天'),COLORWHITE;
+DRAWTEXT_FIX(1,0.08,0.17,0,'人'),COLORWHITE;
+DRAWTEXT_FIX(1,0.08,0.21,0,'股'),COLORWHITE;
+
+DRAWTEXT_FIX(1,0.008,0.25,0,'地区板块：')COLOR99CCFF;
+DRAWTEXT_FIX(1,0.048,0.25,0,DYBLOCK)COLORGREEN;
+DRAWTEXT_FIX(1,0.088,0.25,0,'概念板块：')COLOR99CCFF;
+DRAWTEXT_FIX(1,0.128,0.25,0,GNBLOCK)COLORGREEN;
+DRAWTEXT_FIX(1,0.008,0.29,0,'风格板块：')COLOR99CCFF;
+DRAWTEXT_FIX(1,0.048,0.29,0,FGBLOCK)COLORGREEN;
+
+净资收益率:=(FINANCE(33)/FINANCE(34)*100);
+主营利润率:=(FINANCE(23)/FINANCE(20)*100);
+现金负债比:=(FINANCE(25)/FINANCE(15));
+收入同比:=FINANCE(44);
+利润同比:=FINANCE(43);
+
+DRAWTEXT_FIX(1,0.108,0.01,0,'业绩资料：'),COLORFFCC99;
+DRAWTEXT_FIX(1,0.108,0.05,0,'净资产收益率：'),COLOR99CCFF;
+DRAWTEXT_FIX(1,0.108,0.09,0,'主营业务利润率：'),COLOR99CCFF;
+DRAWTEXT_FIX(1,0.108,0.13,0,'现金流动负债比：'),COLOR99CCFF;
+DRAWTEXT_FIX(1,0.092,0.17,0,'主营收入同比增长率：'),COLOR99CCFF;
+DRAWTEXT_FIX(1,0.099,0.21,0,'净利润同比增长率：'),COLOR99CCFF;
+
+DRAWNUMBER_FIX(1,0.173,0.05,0,净资收益率),COLORYELLOW;
+DRAWNUMBER_FIX(1,0.173,0.09,0,主营利润率),COLORGREEN;
+DRAWNUMBER_FIX(1,0.173,0.13,0,现金负债比),COLORGREEN;
+DRAWNUMBER_FIX(1,0.173,0.17,0,收入同比),COLORYELLOW;
+DRAWNUMBER_FIX(1,0.173,0.21,0,利润同比),COLORYELLOW;
+
+每股收益季:=CONST(FINANCE(33)/(5-FINANCE(37)));
+每股收益年:=CONST(FINANCE(33));
+每股收益:=CONST(FINANCE(38));
+每股净资产:=CONST(FINANCE(34));
+每股现金流:=CONST((FINANCE(25)/FINANCE(1)));
+每股未分配:=CONST(FINANCE(32));
+每股公积金:=CONST(FINANCE(18));

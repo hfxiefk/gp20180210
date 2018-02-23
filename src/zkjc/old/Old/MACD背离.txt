@@ -1,0 +1,41 @@
+http://www.55188.com/blog.php?tid=4390837&page=1
+
+天数:IF(底背离,A,0);
+
+我喜爱用macd底背离寻找底部启动股，并通过观察发现底背离时间跨度越长其上涨的动能越强，
+但是如何用指标统计背离天数来比较背离股票强弱昵?我无法做到，
+特向老师们求助！附底背离源码和个股说明图（600576起点6月6日，止点9月9日，求从起点到止点的天数）；
+
+DIF:EMA(CLOSE,12)-EMA(CLOSE,26);
+DEA:EMA(DIF,9);
+MACD:(DIF-DEA)*2,COLORSTICK;
+A:=BARSLAST(REF(CROSS(DIF,DEA),1));
+底背离:=REF(CLOSE,A+1)>CLOSE AND DIF>REF(DIF,A+1)AND CROSS(DIF,DEA)AND DEA<0;
+底背:DRAWLINE(A=0,DEA,底背离,DEA,0),COLORRED,LINETHICK2;
+
+
+预警一：
+
+瘦:=C/REF(C,1)>1.038 && C=H ;
+石:=BETWEEN(FORCAST(V,5),0.2*FORCAST(V,10),2*FORCAST(V,5)) &&  瘦;
+头:FILTER(石,21)*33 AND DYNAINFO(17)>0;
+
+预警二：
+瘦:=ABS(REF(OPEN,1)-REF(CLOSE,1))/REF(CLOSE,1)<0.03;
+石:=CLOSE/OPEN>1.03&&CLOSE>REF(CLOSE,2);
+头:=C/REF(C,1)>1.05 AND DYNAINFO(7)>DYNAINFO(11);
+
+抓板:瘦 AND 石 AND 头;
+
+说明：此二个指标近似于可以预警出当日的强势股，量价关系需要密切关注。
+
+
+LAST((H-L)/REF(C,1)<0.1,20,0) 
+AND VOL>REF(VOL,1)*2 
+AND C>REF(C,1)*1.03
+AND "DMI.PDI">"DMI.MDI" 
+AND "DMI.ADXR">"DMI.MDI"
+AND "DMI.PDI">"DMI.ADX" 
+AND (CROSS("DMI.ADX","DMI.ADXR")
+OR  ("DMI.ADX">"DMI.ADXR"))
+AND"KDJ.D">REF("KDJ.D",1)；

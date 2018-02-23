@@ -1,0 +1,26 @@
+{今日牛股}
+{开盘集合竞价的时候选}
+VAR1:=EMA(EMA(CLOSE,13),13);
+控盘:= (VAR1-REF(VAR1,1))/REF(VAR1,1)*1000;
+VAR2:=100*WINNER(CLOSE*0.95);
+涨幅:=C/REF(C,50)-1<0.25;
+高开:=O-REF(C,1)/REF(C,1);
+现手:=DYNAINFO(9);
+盘子:=CAPITAL/100;
+选股:盘子<=100000 AND 高开>=0.01 AND 现手>=700 AND VAR2>50 AND COST(85)<CLOSE AND 控盘>0 AND 涨幅;
+
+{集合竞价选股}
+高开:=100*(O-REF(C,1))/REF(C,1); 
+现手:=DYNAINFO(9); 
+盘子:=CAPITAL/100; 
+选股:盘子<=100000 AND 高开>=1 AND 现手>=700;
+
+{老麦综合排名}
+ZF:=DYNAINFO(14)*100;{涨幅}
+LB:=DYNAINFO(17);{量比}
+{ZS:=DYNAINFO(24);}{涨速}
+HS:=DYNAINFO(37)*100;{换手}
+ZJ:=AMOUNT/10000;{资金}
+ZF>=2 AND ZF<=5 AND LB>=2 AND ZJ>=500 AND HS>1; 
+
+

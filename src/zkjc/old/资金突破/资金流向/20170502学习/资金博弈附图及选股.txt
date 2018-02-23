@@ -1,0 +1,46 @@
+http://www.55188.com/viewthread.php?tid=3255346&highlight=%B6%E0%BF%D5%D5%F3%CF%DF
+
+一个机构资金中户和散户资金公式+选股公式
+http://www.guhai.com.cn/html/GS/tong-da-xin/30582.html
+
+一个机构资金大于中户和散户资金公式+选股公式
+源码：
+ JGV:=(L2_VOL(0,0) - L2_VOL(0,1))*VOL/10000;
+ DHV:=(L2_VOL(1,0) - L2_VOL(1,1))*VOL/10000;
+ ZHV:=(L2_VOL(2,0) - L2_VOL(2,1))*VOL/10000;
+ SHV:=(L2_VOL(3,0) - L2_VOL(3,1))*VOL/10000;
+ 机构资金:EMA(JGV,60)*60/CAPITAL,COLORMAGENTA;
+ 游资资金:EMA(DHV,60)*60/CAPITAL,COLOR3399FF ;
+ 中户资金:EMA(ZHV,60)*60/CAPITAL,COLORCYAN;
+ 散户资金:EMA(SHV,60)*60/CAPITAL,COLORGREEN;
+ 
+ 机构资金大于中户和散户资金的选股公式 
+ JGV:=(L2_VOL(0,0) - L2_VOL(0,1))*VOL/10000;
+ DHV:=(L2_VOL(1,0) - L2_VOL(1,1))*VOL/10000;
+ ZHV:=(L2_VOL(2,0) - L2_VOL(2,1))*VOL/10000;
+ SHV:=(L2_VOL(3,0) - L2_VOL(3,1))*VOL/10000;
+ 机构资金:=EMA(JGV,60)*60/CAPITAL,COLORMAGENTA;
+ 游资资金:=EMA(DHV,60)*60/CAPITAL,COLOR3399FF ;
+ 中户资金:=EMA(ZHV,60)*60/CAPITAL,COLORCYAN;
+ 散户资金:=EMA(SHV,60)*60/CAPITAL,COLORGREEN;
+ xg:机构资金>中户资金 and 机构资金>散户资金 ;
+ 
+ 
+ http://blog.sina.com.cn/s/blog_512b3c9d0102ejgg.html
+ 正确计算ZJBY（资金博弈）的源码如下（单位：万元）：
+《资金博弈(阿木改)》
+ 
+超B:=L2_AMO(0,0)/10000.0;
+大B:=L2_AMO(1,0)/10000.0;
+中B:=L2_AMO(2,0)/10000.0;
+小B:=L2_AMO(3,0)/10000.0;
+超S:=-L2_AMO(0,1)/10000.0;
+大S:=-L2_AMO(1,1)/10000.0;
+中S:=-L2_AMO(2,1)/10000.0;
+小S:=-L2_AMO(3,1)/10000.0;
+主力净流入:(超B+大B+超S+大S),NODRAW;
+超大单:(超B)+(超S);
+大单:(大B)+(大S);
+中单:(中B)+(中S);
+小单:(小B)+(小S);
+总成交金额:AMOUNT/10000,NODRAW;

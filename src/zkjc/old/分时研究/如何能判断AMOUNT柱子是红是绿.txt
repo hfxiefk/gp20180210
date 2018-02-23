@@ -1,0 +1,11 @@
+http://www.55188.com/viewthread.php?tid=4019243&highlight=AMOUNT###
+如何能判断AMOUNT柱子是红是绿？ 我的理解是红的是买单比较多，绿的是卖单比较多，
+
+发图给高手们看看，
+
+AMOUNT源码：
+
+AMOUNT,VOLSTICK;
+
+
+实际就是本时间周期股价与前一周期的比较，C-ref(C,1)>=0为红柱，C-ref(C,1)<0为蓝柱

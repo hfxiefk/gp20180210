@@ -1,0 +1,60 @@
+http://www.55188.com/viewthread.php?tid=4329430&extra=&highlight=%D6%F7%C1%A6%B3%EF%C2%EB&page=2
+
+{通达信筹码穿透率}
+穿越筹码:(ABS(WINNER(CLOSE)-WINNER(OPEN)))*100,VOLSTICK;
+换手率:VOL/CAPITAL*100;
+AA:=(C>O)*20;
+VARQS2:=(穿越筹码>=24 AND 换手率<=6)*20;
+博弈点:(AA+VARQS2=40)*20,CIRCLEDOT;
+
+通达信自带的CYQKL就可以用的
+
+一般筹码穿透力达到百分之十以上的股票才有向上穿越筹码的动力，越高动力越强，用筹码穿透力选上穿百分之十就可以自动选出当天有潜力的个股。
+
+正如楼主最后一段所提示的，发现一根博弈长阳，不要急于跟进，分清楚这根博弈长阳的性质更重要
+博弈长阳的穿透力度，取决于筹码的集中度，筹码越集中，穿透力度越强
+同样的一根穿透力很强的K线，对应当前筹码集中的相对位置的高与低，或许会有完全不同的解读
+假设股价经过一轮拉升后平台整理，如果此时底部筹码向上移动，形成筹码在高位集中，
+这时如果出现一个长阳突破，那么这根K线一定是一个穿透力很强的K线，但同时也可能是一个诱多骗人的K线，实战中，还是要注意区分把握
+
+这个要是能练得好，那基本上是在YY机构的底牌了，值得好好研究，趋势+量+价+筹，大家共勉！
+
+
+
+请高手编个筹码穿透率选股指标丨
+http://www.55188.com/viewthread.php?tid=3463022&extra=&highlight=%B3%EF%C2%EB%B4%A9%CD%B8%C2%CA&page=1
+A:=100*V/CAPITAL;
+B:=100*(WINNER(C)-REF(WINNER(C),1));
+M:=5-1;
+筹码穿透率:B/A,VOLSTICK;
+五天筹码穿透率:100*(WINNER(C)-REF(WINNER(C),M))/5*MA(A,5),COLORYELLOW;
+1234567,COLORBLACK,NODRAW;
+HSL:=VOL/CAPITAL*100;
+换手:HSL,NODRAW;
+关注:IF(筹码穿透率>8 AND (换手>2 OR C/REF(C,1)>1.098),1,DRAWNULL),NODRAW,COLORRED;
+STICKLINE(关注,0,筹码穿透率,2,0),COLORRED;
+
+
+ A:=100*V/CAPITAL;
+B:=100*(WINNER(C)-REF(WINNER(C),1));
+筹码穿透率:=B/A;
+HSL:=VOL/CAPITAL*100;
+换手:=HSL;
+关注:=IF(筹码穿透率>8 AND (换手>2 OR C/REF(C,1)>1.098),1,0);
+XG:关注>0;
+
+
+
+
+
+
+
+
+请老师编写一个成交量预警选股指标
+条件如下：
+1，经过缩量回调或整理以后再次出现倍量上攻的股。 
+2，该类股必须是盘中就能找到，也就是依据虚拟量来选择，因为盘后就失去了时机了。
+
+COUNT(REF(C=LLV(C,30),30) AND 
+(C-REF(C,1))/REF(C,1)*100>9.5 AND V/REF(V,1)>1.2,10)=1 AND 
+ABS(C-MA(C,30))/C*100<1;

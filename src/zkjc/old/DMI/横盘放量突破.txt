@@ -1,0 +1,23 @@
+http://www.55188.com/viewthread.php?tid=3475608
+
+
+LAST((H-L)/REF(C,1)<0.1,20,0) AND VOL>REF(VOL,1)*2 AND C>REF(C,1)*1.03
+AND "DMI.PDI">"DMI.MDI" AND CROSS("DMI.ADX","DMI.ADXR")
+AND"DMI.ADXR">"DMI.MDI" AND "DMI.PDI">"DMI.ADX" AND"KDJ.j">REF("KDJ.j",1);
+
+
+
+
+???????
+TJ1:=REF(O/C>1.04,1);
+TJ2:=O<=REF(C,1) AND C>REF(H,1);
+TJ3:=IF(O>EXPMA(C,10),O/EXPMA(C,10)<1.05,O*0.97<EXPMA(C,10) AND C*1.03>EXPMA(C,10));
+TJ4:=EXPMA(C,10)>EXPMA(C,60) AND EXPMA(C,10)/EXPMA(C,60)<1.25;
+XG:TJ1 AND TJ2 AND TJ3 AND TJ4;
+
+
+DMI的ADX在ADXR上指标
+编写要求：
+KDJ金叉且CCI在100以上同时DMI的ADX在ADXR上指标。
+股旁网解答：
+cross(kdj.j,kdj.k)and cci>100 and dmi.adx>dmi.adxr

@@ -1,0 +1,10 @@
+{放量突破20日均线}
+量比:=V/(REF(MA(V,5),1)/240*FROMOPEN);
+CROSS(C,MA(C,20)) AND 量比>2 AND C/REF(C,1)>1.05;
+
+
+修改
+{放量突破20日均线}
+量比:=V/(REF(MA(V,5),1)/240*FROMOPEN);
+CROSS(C,MA(C,20)) AND 量比>2 AND C/REF(C,1)>1.05
+AND REF(MA(C,20),1)/MA(C,20)<1;

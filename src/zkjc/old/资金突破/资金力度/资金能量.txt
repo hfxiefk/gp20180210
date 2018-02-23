@@ -1,0 +1,40 @@
+换手:=V*100/CAPITAL;
+主力:=MA(换手,4);
+大户:=MA(换手,9);
+中户:=MA(换手,17);
+散户:=MA(换手,34);
+均量:=(主力+大户+中户+散户)/4;
+主力能量:(主力-均量)COLORMAGENTA,NODRAW;
+大户能量:(大户-均量)COLORYELLOW,NODRAW;
+中户能量:(中户-均量)COLORLIBLUE,NODRAW;
+散户能量:(散户-均量)COLORBLUE,NODRAW;
+操盘:STICKLINE(主力能量>=0 AND 主力能量>=REF(主力能量,1),14.4,14.4+主力能量,1.5,0),COLORRED;
+减仓:STICKLINE(主力能量>=0 AND 主力能量< REF(主力能量,1),14.4,14.4+主力能量,1.5,0),COLORYELLOW;
+反弹:STICKLINE(主力能量<0 AND 主力能量>=REF(主力能量,1),14.4,14.4+主力能量,1.5,0),COLORGREEN;
+寻底:STICKLINE(主力能量<0 AND 主力能量< REF(主力能量,1),14.4,14.4+主力能量,1.5,0),COLORGREEN;
+DRAWTEXT(ISLASTBAR=1,IF(主力能量>=0,14.4,14.6),' 机构'),COLORMAGENTA;
+操盘1:STICKLINE(大户能量>=0 AND 大户能量>=REF(大户能量,1),9.6,9.6+大户能量,1.5,0),COLORRED;
+减仓1:STICKLINE(大户能量>=0 AND 大户能量< REF(大户能量,1),9.6,9.6+大户能量,1.5,0),COLORYELLOW;
+反弹1:STICKLINE(大户能量<0 AND 大户能量>=REF(大户能量,1),9.6,9.6+大户能量,1.5,0),COLORGREEN;
+寻底1:STICKLINE(大户能量<0 AND 大户能量< REF(大户能量,1),9.6,9.6+大户能量,1.5,0),COLORGREEN;
+DRAWTEXT(ISLASTBAR=1,IF(大户能量>=0,9.6,9.8),' 大户'),COLORYELLOW;
+操盘2:STICKLINE(中户能量>=0 AND 中户能量>=REF(中户能量,1),4.8,4.8+中户能量,1.5,0),COLORRED;
+减仓2:STICKLINE(中户能量>=0 AND 中户能量< REF(中户能量,1),4.8,4.8+中户能量,1.5,0),COLORRED;
+反弹2:STICKLINE(中户能量<0 AND 中户能量>=REF(中户能量,1),4.8,4.8+中户能量,1.5,0),COLORGREEN;
+寻底2:STICKLINE(中户能量<0 AND 中户能量< REF(中户能量,1),4.8,4.8+中户能量,1.5,0),COLORGREEN;
+DRAWTEXT(ISLASTBAR=1,IF(中户能量>=0,4.8,5),' 中户'),COLORLIBLUE;
+操盘3:STICKLINE(散户能量>=0 AND 散户能量>=REF(散户能量,1),0,散户能量,1.5,0),COLORRED;
+减仓3:STICKLINE(散户能量>=0 AND 散户能量< REF(散户能量,1),0,散户能量,1.5,0),COLORRED;
+反弹3:STICKLINE(散户能量<0 AND 散户能量>=REF(散户能量,1),0,散户能量,1.5,0),COLORGREEN;
+寻底3:STICKLINE(散户能量<0 AND 散户能量< REF(散户能量,1),0,散户能量,1.5,0),COLORGREEN;
+DRAWTEXT(ISLASTBAR=1,IF(散户能量>=0,-0.3,0.3),' 散户'),COLORBLUE;
+JZ:=V/(ABS(主力能量)+ABS(大户能量)+ABS(中户能量)+ABS(散户能量));{4，9，17，34日换手偏离值均分成交量}
+ZLCJ:=JZ*ABS(主力能量);{4日换手偏离均量值换算当日成交量}
+DHCJ:=JZ*ABS(大户能量);{9日换手偏离均量值换算当日成交量}
+ZHCJ:=JZ*ABS(中户能量);{17日换手偏离均量值换算当日成交量}
+SHCJ:=JZ*ABS(散户能量);{34日换手偏离均量值换算当日成交量};
+换手率:VOL/CAPITAL*100,LINETHICK0;
+机构量:=ZLCJ,COLORMAGENTA,NODRAW;
+大户量:=DHCJ,COLORYELLOW,NODRAW;
+中户量:=ZHCJ,COLORLIBLUE,NODRAW;
+散户量:=SHCJ,COLORBLUE,NODRAW;

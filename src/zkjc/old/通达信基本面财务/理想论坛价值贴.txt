@@ -1,0 +1,54 @@
+http://www.55188.com/thread-3397862-1-8.html
+
+http://www.55188.com/thread-4225458-1-1.html
+
+http://www.55188.com/viewthread.php?tid=4356402&highlight=%BC%DB%D6%B5%CC%F9
+
+http://www.55188.com/search.php?searchid=1275&orderby=lastpost&ascdesc=desc&searchsubmit=yes
+
+http://www.55188.com/thread-3597486-1-13.html
+
+http://www.55188.com/thread-3397862-37-8.html
+MA30:=MA(C,30);
+MA5 :=EMA(CLOSE,5);
+趋势:=MA5-EMA(MA5,2);
+JCSJ1:=BARSLAST(CROSS(趋势,0))+1;
+JCSJ2:=JCSJ1+REF(JCSJ1,JCSJ1);
+双底:=IF(JCSJ1=1 AND MA5>REF(MA5,JCSJ2) AND COUNT(趋势<0,4)>=2,1,0);
+
+DIF:=EMA(CLOSE,12)-EMA(CLOSE,26);
+DEA:=EMA(DIF,9);
+MACD:=(DIF-DEA)*2;
+
+AA:=COUNT(MA30>REF(MA30,1),3)>=3;
+BB:=COUNT(REF(C,1)<REF(C,2),3)>=3;
+CC:=COUNT(REF(MACD,1)<REF(MACD,2),3)>=3 AND MACD>REF(MACD,1);
+DD:=AA AND BB AND CC;
+双底 AND DD;
+
+-----------------------------------------------------
+MA5 :=EMA(CLOSE,5);
+趋势:=MA5-EMA(MA5,2);
+JCSJ1:=BARSLAST(CROSS(趋势,0))+1;
+JCSJ2:=JCSJ1+REF(JCSJ1,JCSJ1);
+双底:IF(JCSJ1=1 AND MA5>REF(MA5,JCSJ2) AND COUNT(趋势<0,4)>=2,1,0);
+
+==============
+下面的可放在主图提示，大智慧L2版本用：
+MA5 :EMA(CLOSE,5);
+趋势:=MA5-EMA(MA5,2);
+JCSJ1:=BARSLAST(CROSS(趋势,0))+1;
+JCSJ2:=JCSJ1+REF(JCSJ1,JCSJ1);
+双底:IF(JCSJ1=1 AND MA5>REF(MA5,JCSJ2) AND COUNT(趋势<0,4)>=2,1,0),LINETHICK0;
+DRAWICON(双底,L,6),ALIGN1;
+
+
+
+http://www.55188.com/thread-3597486-1-13.html
+急求：编写一个寻找箱体窄幅整理指标（高成功率）！！！ 
+请给编写一个能选出一段时间内，在箱体内窄幅整理的指标。
+指标要求：
+１、是在n天内进行箱体整理。上下整理的幅度为m。
+２、是在此段时间内各均线近似贴合。
+３、参数n天和幅度m可调。
+在下先向各位高人谢谢了！！

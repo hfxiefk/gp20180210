@@ -1,0 +1,136 @@
+源码在536楼，源码在536楼，源码在536楼
+重要事情说三遍
+
+http://www.55188.com/viewthread.php?tid=8174475&extra=&authorid=2696051&page=6
+
+N:=MA(C,120);
+M:=MA(C,250);
+{浅蓝注意}
+STICKLINE(CLOSE>=0,H,L,0,0),COLORFFFF00;
+STICKLINE((CLOSE>=0 AND (C>=O)),O,C,3,1),COLORFFFF00;
+STICKLINE((CLOSE>=0 AND (C<=O)),O,C,3,0),COLORFFFF00;
+{红色上升}
+STICKLINE(CLOSE>N AND N>REF(N,1),H,L,0,0),COLOR0000A8;
+STICKLINE((CLOSE>N AND N>REF(N,1) AND (C>=O)),O,C,3,1),COLOR0000A8;
+STICKLINE((CLOSE>N AND N>REF(N,1) AND (C<=O)),O,C,3,0),COLOR0000A8;
+{绿色调整}
+STICKLINE(CLOSE<N AND CLOSE>M,H,L,0,0),COLOR00A800;
+STICKLINE((CLOSE<N AND CLOSE>M AND (C>=O)),O,C,3,1),COLOR00A800;
+STICKLINE((CLOSE<N AND CLOSE>M AND (C<=O)),O,C,3,0),COLOR00A800;
+{蓝色下跌}
+STICKLINE(CLOSE<M,H,L,0,0),COLORA80000;
+STICKLINE((CLOSE<M AND (C>=O)),O,C,3,1),COLORA80000;
+STICKLINE((CLOSE<M AND (C<=O)),O,C,3,0),COLORA80000;
+{黄色震荡}
+STICKLINE(CLOSE>N AND N<M,H,L,0,0),COLOR54FCFC;
+STICKLINE((CLOSE>N AND N<M AND (C>=O)),O,C,3,1),COLOR54FCFC;
+STICKLINE((CLOSE>N AND N<M AND (C<=O)),O,C,3,0),COLOR54FCFC;
+
+AAA1:=CLOSE<N AND CLOSE>M;{绿色}
+AAA2:=CLOSE>N AND N<M;{黄色}
+AAA3:=CLOSE<M;{蓝色}
+AAA4:=CLOSE>=0;{浅蓝}
+BBB:=CLOSE>N AND N>REF(N,1);{红色}
+绿转红:(REF(AAA1,1) OR REF(AAA2,1) OR REF(AAA3,1) OR REF(AAA4,1)) AND BBB，nodraw;{在这里可以修改，什么颜色转变成红色}
+
+
+
+======
+N:=MA(C,120);
+M:=MA(C,250);
+AAA1:=CLOSE<N AND CLOSE>M;{绿色}
+BBB:=CLOSE>N AND N>REF(N,1);{红色}
+绿转红选股:REF(AAA1,1) AND BBB;
+
+
+================================
+公开源代码，欢迎优化并也公开
+{找出强势股}
+S1:=STRCAT('',FGBLOCK);
+S2:=STRCAT(S1,GNBLOCK);
+S3:=STRCAT(S2,HYBLOCK);
+S4:= FINDSTR(S3,'重仓') 
+  OR FINDSTR(S3,'绩优') 
+  OR FINDSTR(S3,'龙头')
+  OR FINDSTR(S3,'异动')
+  OR FINDSTR(S3,'医疗')
+  OR FINDSTR(S3,'白酒')
+  OR FINDSTR(S3,'电器')
+  OR FINDSTR(S3,'智能')
+  OR FINDSTR(S3,'预升')
+  OR FINDSTR(S3,'金属') 
+  OR FINDSTR(S3,'雄安')   
+;
+
+
+N:=MA(C,120);
+M:=MA(C,250);
+变黄:=CROSS(CLOSE,MA(CLOSE,120)) AND N<M;
+变红:=CLOSE>N AND N>REF(N,1) AND REF(CLOSE,1)<N AND C>=O;
+变色:=变黄 OR 变红;
+标志:=变色 AND REF(变色,1)=0;
+
+C1:=10000*C/INDEXC;
+O1:=10000*O/INDEXO;
+主力动向:=MA(C1,5);
+增减仓:=C1-主力动向;
+连增数:=BARSLASTCOUNT(增减仓>=0)>=3;
+
+{最近5天红色出现至少NN天}
+AAA:= N>M AND C>N;
+BBA:=COUNT(AAA,5)>=3;
+{排除ST股}
+CCC:=IF(NAMELIKE('*'),0,1) AND IF(NAMELIKE('S'),0,1);
+
+标志
+AND S4
+AND V/REF(V,1)>=0.9 
+AND FINANCE(40)<=900000000000
+AND FINANCE(7)<=12000000000
+AND DYNAINFO(39)<=150
+AND N>=M
+AND BBA 
+AND CCC
+AND DYNAINFO(9)>0
+AND 连增数
+AND N>=REF(N,1)
+AND M>=REF(M,1)
+;
+
+
+
+
+
+=====================
+国盛金控没有信号，明显不符合我的板块定义。
+S4:= FINDSTR(S3,'重仓') 
+  OR FINDSTR(S3,'绩优') 
+  OR FINDSTR(S3,'龙头')
+  OR FINDSTR(S3,'异动')
+  OR FINDSTR(S3,'医疗')
+  OR FINDSTR(S3,'白酒')
+  OR FINDSTR(S3,'电器')
+  OR FINDSTR(S3,'智能')
+  OR FINDSTR(S3,'预升')
+  OR FINDSTR(S3,'金属') 
+  OR FINDSTR(S3,'雄安')
+  OR FINDSTR(S3,'矿物')
+  OR FINDSTR(S3,'芯片')
+  OR FINDSTR(S3,'导体')
+  OR FINDSTR(S3,'充电')
+  OR FINDSTR(S3,'资源')
+  OR FINDSTR(S3,'5G')
+  OR FINDSTR(S3,'水泥')
+  OR FINDSTR(S3,'环境')
+  OR FINDSTR(S3,'稀土') 
+  OR FINDSTR(S3,'建材')
+  OR FINDSTR(S3,'化工') 
+  OR FINDSTR(S3,'军工')
+  OR FINDSTR(S3,'通信')
+  OR FINDSTR(S3,'OLED')
+  OR FINDSTR(S3,'油气')
+  OR FINDSTR(S3,'地产')
+  OR FINDSTR(S3,'区块')   
+;
+请检查清楚再说话，请不要血口喷人，看看下图就明白额
+再者，这支股票马上要起爆了，注意关注一下

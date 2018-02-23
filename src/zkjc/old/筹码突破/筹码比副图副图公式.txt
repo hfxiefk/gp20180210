@@ -1,0 +1,119 @@
+红线是：
+EMA453:EMA(C,453);
+成立量是换手：
+换手:VOL/CAPITAL*100,VOLSTICK;
+
+EMA453:EMA(C,453),COLORRED,LINETHICK2;    
+输出EMA453:收盘价的453日指数移动平均,画红色,线宽为2
+
+乳峰不分享。
+
+这个方法不算太难，但很实用，只要写一个统计区间换手总和就可以选出来。今天只说这量堆，不加其它分析方法。
+换手:=VOL/CAPITAL*100;
+AA:=SUM(换手,100)>600;
+BARSLAST(AA)<200;
+
+
+STICKLINE(C>0,25,25,6,0),COLORMAGENTA;
+均价:=(0.618*(0.809*C+0.191*O)+0.382*(IF(H=C,C,H)+IF(L=C,C,L))/2);
+LJ:=IF(INDEXC=C,均价,AMOUNT/(V*100));
+R:=(0.809*IF(L=C,C,L)+0.191*LJ);
+R1:=(0.809*IF(H=C,C,H)+0.191*LJ);
+主力:MA(WINNER(R)*61.8,1),COLORRED;
+市场:MA(WINNER(LJ)*50,5),COLORWHITE;
+散户:MA(WINNER(R1)*50,8),COLORAAAA00;
+IF(主力<散户,主力,DRAWNULL),COLORYELLOW;
+IF(主力<市场,主力,DRAWNULL),COLORGREEN;
+
+
+多记经典图形，经典图例多记量价，我是学美术专业的，所以一幅好图在我心中就是一幅美妙绝伦的画，
+还要象画素描那样，不能首先重局部。久而久之，图形中的东西在心里生根，牛股就那几幅面孔，换汤不换药。
+细节的价多看涨停，量多看倍量。以前我画画时，老师总是说你怎么老盯着局部画乳房，这样是会限制你的。
+所以看图要先看大局，后看局部，就这是为什么先看堆量，后看单量。
+
+筹码比副图副图公式
+主力持仓:EMA(100*(CLOSE-LLV(LOW,34))/(HHV(HIGH,34)-LLV(LOW,34)),3),COLORFF00FF;
+指数趋势:EMA(1250*(INDEXC-LLV(INDEXL,34))/HHV(INDEXH,34)-LLV(INDEXL,34),3),COLORYELLOW,NODRAW;
+主力筹码集中度:WINNER(C)*100,COLORRED;
+散筹筹码集中度: (WINNER(C*1.1)-WINNER(C*0.9))*100,COLORGREEN;
+启主力持仓+主力筹码集中度+散筹筹码集中度)/2,COLORFF6699;
+强弱分界:80,COLOR00FFFF;
+0,;
+
+筹码比副图副图公式
+主力持仓:EMA(100*(CLOSE-LLV(LOW,34))/(HHV(HIGH,34)-LLV(LOW,34)),3),COLORFF00FF;
+指数趋势:EMA(1250*(INDEXC-LLV(INDEXL,34))/HHV(INDEXH,34)-LLV(INDEXL,34),3),COLORYELLOW,NODRAW;
+主力筹码集中度:WINNER(C)*100,COLORRED;
+散筹筹码集中度: (WINNER(C*1.1)-WINNER(C*0.9))*100,COLORGREEN;
+启主力持仓+主力筹码集中度+散筹筹码集中度)/2,COLORFF6699;
+强弱分界:80,COLOR00FFFF;
+0,;
+
+http://www.55188.com/thread-5496170-8-1.html
+筹码副图指标
+VAR1:=XMA(REF((L+OPEN+CLOSE+HIGH)/4,1),2); 
+VAR2:=SMA(ABS(LOW-VAR1),11,1)/SMA(MAX(LOW-VAR1,0),11,1); 
+VAR3:=EMA(VAR2,3);
+VAR4:=LLV(LOW,11);
+VAR5:=EMA(IF(LOW<=VAR4,VAR3,0),5.5);
+AA:=IF(VAR5>REF(VAR5,1),VAR5,0),COLORMAGENTA,NODRAW;
+AA1:=IF(VAR5<REF(VAR5,1),VAR5,0),COLORGREEN,NODRAW;
+AA2:EXPMEMA(AA+AA1,1),COLORRED,NODRAW;
+AA3:=EXPMEMA(AA-AA1,1);
+筹码:=EXPMEMA(AA2*AA3,1);
+
+STICKLINE(筹码>REF(筹码,1)AND 筹码>0,0,筹码,3,0),COLORRED;
+STICKLINE(筹码>REF(筹码,1)AND 筹码>0,0,筹码,2,0),COLORRED;
+STICKLINE(筹码>REF(筹码,1)AND 筹码>0,0,筹码,1.5,0),COLORRED;
+STICKLINE(筹码>REF(筹码,1)AND 筹码>0,0,筹码,0.5,0),COLORRED;
+STICKLINE(筹码>REF(筹码,1)AND 筹码<0,0,筹码,2,0)COLORYELLOW;
+STICKLINE(筹码<REF(筹码,1)AND 筹码<0,0,筹码,3,0),COLORYELLOW;
+STICKLINE(筹码<REF(筹码,1)AND 筹码<0,0,筹码,3,0),COLORYELLOW;
+STICKLINE(筹码<REF(筹码,1)AND 筹码<0,0,筹码,2,0),COLORBLUE;
+STICKLINE(筹码<REF(筹码,1)AND 筹码<0,0,筹码,1,0),COLORCC00FF;
+DRAWTEXT(CROSS(0,筹码),筹码,'*买'),COLORRED;
+
+RSV:=(((CLOSE - LLV(LOW,9)) / (HHV(HIGH,9) - LLV(LOW,9))) * 100); 
+K:=SMA(RSV,3,1); 
+D:=SMA(K,3,1); 
+J:=3*K-2*D; 
+X:=LLV(J,2)=LLV(J,8); 
+注意: IF(CROSS(J,3),95,0),COLORYELLOW,LINETHICK2;
+
+先观察后使用，配合macd用比较稳妥
+
+
+http://www.55188.com/blog.php?tid=8100541&page=2
+请问老师高人怎样修改？
+A1:=REF(C,10)=HHV(C,2*10+1); 
+ B1:=FILTER(A1,10); 
+ C1:=BACKSET(B1,10+1); 
+ HD:=FILTER(C1,10);
+近期压力:=REF(C,BARSLAST(HD));
+ AS1:=REF(C,60)=HHV(C,2*60+1); 
+ AS2:=FILTER(AS1,60); 
+ AS3:=BACKSET(AS2,60+1); 
+ AS4:=FILTER(AS3,60);  
+长期压力:=REF(C,BARSLAST(AS4));
+ A:= DRAWICON(CROSS(C,近期压力 ) AND C<长期压力,L,23);
+ B:=DRAWICON(CROSS(C, 长期压力) AND C>近期压力,L,23);
+ CC:=REF(((HHV(HIGH,N)-LLV(LOW,N))/LLV(LOW,N)),1)<=(N1/100) 
+ && CLOSE>=REF(HHV(HIGH,N),1) && BARSCOUNT(CLOSE)>N;
+
+
+ LOWV:=LLV(LOW,9);
+ HIGHV:=HHV(HIGH,9);
+ RSV:=EMA((CLOSE-LOWV)/(HIGHV-LOWV)*100,3);
+ K:=EMA(RSV,3);
+ D:=MA(K,3);
+ XG:CROSS(C,A) AND CROSS(K,D) AND MA(VOL,1)>REF(VOL,1);
+
+请问老师下面公式是通信达选股器吗？
+CC:=REF(((HHV(HIGH,N)-LLV(LOW,N))/LLV(LOW,N)),1)<=(N1/100) 
+ && CLOSE>=REF(HHV(HIGH,N),1) && BARSCOUNT(CLOSE)>N;
+ n=20;   n1=5；   在20日中有过5%幅度整理
+ 要求编写选股公式；
+K线图在高位横盘多日
+SKDJ指标又在底部下面勾头往上运行
+MACD指标要求在轴心线之上运行
+

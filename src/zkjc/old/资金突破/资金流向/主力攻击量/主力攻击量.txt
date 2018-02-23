@@ -1,0 +1,29 @@
+http://www.55188.com/search.php?searchid=1025&orderby=dateline&ascdesc=desc&searchsubmit=yes
+http://www.55188.com/thread-4443018-10-1.html
+
+我来送出主力攻击量排序，排序周期为分时，
+给个股排序先设置好个股盘子要80000以下。 免费数据即可 。
+
+绝技取值：4最佳               4以下稍弱               4以上较强
+
+主力攻击量排序指标
+DIFF:=EMA(CLOSE,12)-EMA(CLOSE,26);
+DEA:=EMA(DIFF,9);
+MACD:=2*(DIFF-DEA);
+FH1:=REF(MACD,1)<REF(MACD,2) AND REF(MACD,2)<REF(MACD,3) AND REF(MACD,3)<REF(MACD,4);
+FH2:=MACD>=0 AND COUNT(MACD>REF(MACD,1),1)=1;
+FH3:=EMA(C,30)>=REF(EMA(C,30),1) AND COUNT(EMA(C,5)>EMA(C,10) AND EMA(C,10)>EMA(C,30),1)=1;
+FH4:=CROSS(C,EMA(C,30)) OR C>EMA(C,30);
+FH5:=FH1 AND FH2 AND FH3 AND FH4;
+FH6:=FH1 AND FH2 AND FH3 AND FH4 AND ABS((DIFF-DEA)/C)<0.018;
+FH7:=FH1 AND FH2 AND FH3 AND FH4 AND MACD<0.10;
+FH5 OR FH6 OR FH7;
+
+
+http://www.55188.com/viewthread.php?tid=4071107&highlight=
+http://www.55188.com/viewthread.php?tid=4033171&extra=page%3D1%26amp%3Bfilter%3Dtype%26amp%3Btypeid%3D46&page=33
+
+http://www.55188.com/viewthread.php?tid=4033171&extra=page%3D1%26amp%3Bfilter%3Dtype%26amp%3Btypeid%3D46
+虽然不一定比淑女池好。标题可是吸引观众哦。呵呵。而淑女池有约在先，作者不让乱传、不好意思了。
+不好不推荐，。呵呵。红色状态栏为买入池，牛市中这个池子只做参考，主要给一些高手找强势回调的票。，其他池子为次要!建议股池9.25时左右打开，不需要L2数据！
+使用方法，把附件解压，把股票池放在DZH\USEDATE\POOL,把公式（FNC）引入

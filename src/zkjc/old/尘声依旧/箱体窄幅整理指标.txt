@@ -1,0 +1,8 @@
+﻿http://www.55188.com/thread-3597486-1-13.html
+
+参数描述  n(150,10,250),m(40,10,60);
+
+hh:=hhv(h,n);
+ll:=llv(l,n);
+cc:=c;
+xg:ref(c,1)>=ll and ref(c,1)<hh and cross(c,ref(hh,1)) and (hh-ll)/ll*100<=m;

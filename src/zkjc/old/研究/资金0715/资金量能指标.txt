@@ -1,0 +1,23 @@
+http://www.88gs.com/soft/sort013/sort05/down-57909.html
+http://blog.sina.com.cn/s/blog_4c15d7e50101duoj.html
+http://www.55188.com/thread-4753301-1-1.html
+主力资金量能指标
+
+SHORT:=12;
+LONG:=26;
+MID:=9;
+DIF:=EMA(CLOSE,SHORT)-EMA(CLOSE,LONG);
+DEA:=EMA(DIF,MID);
+MACD :=(DIF-DEA)*2,COLORSTICK;
+
+STICKLINE(DIF>DEA,0, VOL ,2,0),COLORRED;
+STICKLINE(DIF<DEA,0,VOL,2,0),COLORYELLOW;
+N:=9;
+M1:=3;
+M2:=3;
+RSV:=(CLOSE-LLV(LOW,N))/(HHV(HIGH,N)-LLV(LOW,N))*100;
+K:=SMA(RSV,M1,1);
+D:=SMA(K,M2,1);
+J:=3*K-2*D;
+STICKLINE(J>D,VOL/2,VOL,2,0),COLORRED;
+STICKLINE(J<D,VOL/2,VOL,2,0),COLORYELLOW;

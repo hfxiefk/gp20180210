@@ -1,0 +1,20 @@
+http://www.55188.com/viewthread.php?tid=6989164&highlight=
+
+macd金叉后的3天内（包括金叉当天），macd红柱大于上一日，同时3天里有一根涨幅大于3个点的阳线。谢谢老师们。
+
+DIF:=EMA(CLOSE,12)-EMA(CLOSE,26);
+DEA:=EMA(DIF,9);
+MACD:=(DIF-DEA)*2;
+TJ1:=SUMBARS(CROSS(DIF,DEA),1)=3;
+TJ2:=EVERY(MACD>REF(MACD,1),3);
+TJ3:=EXIST(C>O AND C/REF(C,1)>1.03,3);
+XG:TJ1 AND TJ2 AND TJ3;
+
+
+DIF赋值:收盘价的12日指数移动平均-收盘价的26日指数移动平均
+DEA赋值:DIF的9日指数移动平均
+MACD赋值:(DIF-DEA)*2
+TJ1赋值:DIF上穿DEA累加至1的天数=3
+TJ2赋值:最近3日一直存在MACD>1日前的MACD
+TJ3赋值:最近3日存在收盘价>OANDC/1日前的收盘价>1.03
+输出XG:TJ1 AND TJ2 AND TJ3

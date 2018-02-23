@@ -1,0 +1,6 @@
+
+周C:=("CCI.CCI#WEEK"(14));
+月C:=("CCI.CCI#MONTH"(14));
+日CCI:=("CCI.CCI"(14));
+QS:=周C>=月C ;
+XG:CROSS(日CCI,100);

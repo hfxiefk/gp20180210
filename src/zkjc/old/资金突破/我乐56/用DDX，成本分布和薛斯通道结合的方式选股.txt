@@ -1,0 +1,27 @@
+
+http://www.55188.com/viewthread.php?tid=5306555&highlight=
+
+选股思路：资金近期流入，股价缓慢上涨或横盘，主力筹码低峰密集，且薛斯通道下方短期通道和长期通道触碰时买入，公式如下：
+count((cross("xs.lowers","xs.lowerl") or cross("xs.lowerl","xs.lowers")),8)>=1{薛斯通道短期长期触碰}
+and count("ddx.ddx">0,10)>=6{资金近日连续流入}
+and (c-ref(c,10))/ref(c,10)<0.08{近日阶段涨幅小}
+and (COST(85)-COST(15))/(COST(85)+COST(15))/2*100<10
+and ((COST(85)+COST(15))/2-LLV(LOW,250))<(HHV(HIGH,250)-LLV(LOW,250))/2{筹码低峰密集};
+这是大智慧的选股公式，请老师帮我改为通达信的选股公式，谢谢！！！
+
+
+
+AA:=MA((2*CLOSE+HIGH+LOW)/4,5); 
+通道1:=AA*102/100; 
+通道2:=AA*(200-102)/100; 
+CC:=ABS((2*CLOSE+HIGH+LOW)/4-MA(CLOSE,20))/MA(CLOSE,20); 
+DD:=DMA(CLOSE,CC); 
+通道3:=(1+7/100)*DD; 
+通道4:=(1-7/100)*DD;
+count((cross(通道2,通道4) or cross(通道4,通道2)),8)>=1{薛斯通道短期长期触碰}
+and count("ddx.大单动向">0,10)>=6{资金近日连续流入}
+and (c-ref(c,10))/ref(c,10)<0.08{近日阶段涨幅小}
+and (COST(85)-COST(15))/(COST(85)+COST(15))/2*100<10
+and ((COST(85)+COST(15))/2-LLV(LOW,250))<(HHV(HIGH,250)-LLV(LOW,250))/2{筹码低峰密集};
+
+第三行102 和 第7行的7都是薛思通道的参数，请你更换数值到你需要

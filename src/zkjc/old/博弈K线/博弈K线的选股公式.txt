@@ -1,0 +1,12 @@
+http://www.55188.com/viewthread.php?tid=7279797&highlight=%B2%A9%DE%C4K%CF%DF
+
+条件：
+博弈K线的代码：
+C1:=WINNER(C);O1:=WINNER(O);H1:=WINNER(H);L1:=WINNER(L);
+DRAWKLINE(H1,O1,L1,C1);
+STICKLINE(C1-O1>=0.25,O1,C1,1,0),COLORRED;
+1、出现博弈K线
+2、筹码峰获利比例大于等于９９％
+
+选股
+C1-O1>=0.25 and WINNER(C)>=0.99;

@@ -1,0 +1,14 @@
+http://www.55188.com/thread-1601459-1-1.html
+http://blog.sina.com.cn/s/blog_6975628c0100l0lc.html
+
+强度综合排序公式
+VarA:=C;
+VarB:=ref(VarA,1);
+VarC:=INDEXC;
+VarD:=REF(VarC,1);
+Var1:=(VarC-VarD)/VarD*100;
+Var2:=(VarA-VarB)/VarB*100;
+Var3:=IF(ABS(Var1)<2,0.9,1);
+Var4:=Var3*(Var2-Var1);
+个股强度:=SUM(VAR4,3);
+强度条件:=个股强度>14;

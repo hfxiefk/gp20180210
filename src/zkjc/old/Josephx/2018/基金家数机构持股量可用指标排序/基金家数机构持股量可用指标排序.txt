@@ -1,0 +1,32 @@
+http://www.55188.com/viewthread.php?tid=8229566&extra=&page=1
+基金家数、机构持股量可用指标排序
+N年不用通达信软件了，周未有空下载下通达信安装玩玩，现在的通达信软件不是N年前能比的了，用起来很快找回感觉，指标兼容性较好、选股也有股票池了，
+指标排序某方面大大超越大智慧，如基金家数、机构持股搜索方面能够搜索、排序季报的所有基金和机构持股量，而大智慧好像只能搜索排序十大股东的基金
+家数和机构家数及持股量，顺便上张图看看。需要排序公式的，已经补传在本帖，操作：报价---历史行情指标排序--更改排序指标--找到要排序的指标--确定，
+就OK了。修改条件也可用来选股或加入股票池作为过滤条件等等。
+
+
+公式导不进，自己写吧！都是简单的小公式，为了适应通达信选股，下面的四句子就是四条公式，分别写！
+基金家数:FINVALUE(254);
+
+机构占比:100*FINVALUE(247)/FINVALUE(239);
+
+基金过十:FINVALUE(254)>10;
+
+机构过半:100*FINVALUE(247)/FINVALUE(239)>60;
+
+
+
+“盘中虚拟金额达到昨天成交金额2倍”。
+在盘中才会出现虚拟成交额的，收盘之后不会出现；
+要不，我哪天在盘中看看。
+请高手帮忙编写AMO成交金额，盘中虚拟量达到昨天成交金额2倍时，画出买入信号，谢谢！注意不是成交量，是AMO-TDX,通达信的，谢谢
+TOTAL:=IF(PERIOD=1,5,IF(PERIOD=2,15,IF(PERIOD=3,30,IF(PERIOD=4,60,IF(PERIOD=5,TOTALFZNUM,1)))));
+MTIME:=MOD(FROMOPEN,TOTAL);
+CTIME:=IF(MTIME<0.5,TOTAL,MTIME);
+AA:=IF((CURRBARSCOUNT=1 AND DYNAINFO(8)>1),AMOUNT/100000000*TOTAL/CTIME,DRAWNULL),NODRAW;
+STICKLINE((CURRBARSCOUNT=1 AND DYNAINFO(8)>1),AA,0,-1,-1),COLOR00C0C0;
+额亿:AMOUNT/100000000,VOLSTICK;
+MA5:MA(额亿,5)COLORYELLOW;
+MA10:MA(额亿,10)COLORMAGENTA;
+DRAWICON(AA/REF(额亿,1)>=2,额亿*0.996,1);

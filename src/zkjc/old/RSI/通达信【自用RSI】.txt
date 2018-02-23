@@ -1,0 +1,12 @@
+﻿http://www.55188.com/viewthread.php?tid=4828805&highlight=
+
+八十线:80,COLORFF8000;二十线:20,COLOR0000BB;五十线:50,COLOR004080;STICKLINE(1,60,65,8,0),COLOR585858;
+STICKLINE(1,35,40,8,0),COLOR004646;
+LC:=REF(CLOSE,1);
+RSI:SMA(MAX(CLOSE-LC,0),14,1)/SMA(ABS(CLOSE-LC),14,1)*100,LINETHICK2,COLORFFFFFF;
+IF(RSI>REF(RSI,1),RSI,DRAWNULL),LINETHICK2,COLORRED;
+
+{用法：股票强势时，RSI线一般是在35-80之间运行，80的位置压力比较大，
+35的位置支撑比较强；股票弱势时，RSI线一般是在20-65之间运行，
+65的位置压力比较大，20的位置支撑比较强；RSI线跌穿35线后反弹未突破65线，说
+明股票趋势开始由强转弱；RSI线上穿65线后回落未跌破35线，说明股票趋势开始由弱转强。};

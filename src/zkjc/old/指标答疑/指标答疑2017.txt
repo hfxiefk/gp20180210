@@ -1,0 +1,386 @@
+恭请老师把XG2共振的做成选股，利益大家 
+http://www.55188.com/thread-8225377-1-4.html
+黄金坑HDY:EMA (100*(C-LLV(LOW,34))/(HHV(H,34)-LLV(LOW,34)),3)<10 AND C>=MA(C,288)COLORRED; 
+N:=30;
+AA4:=(CLOSE-LLV(LOW,21))/(HHV(HIGH,21)-LLV(LOW,21))*100;
+AA5:=SMA(AA4,13,8);
+RSV:=(CLOSE-LLV(LOW,N))/(HHV(HIGH,N)-LLV(LOW,N))*100;
+K:=SMA(RSV,5,1);
+D:=SMA(K,3,1);
+J:=3*K-2*D;
+操作线:=CEILING(SMA(AA5,13,8));
+XGA:=FILTER(J>REF(J,1) AND 操作线>=REF(操作线,1) AND 操作线<25 ,5) AND C>=MA(C,288) ;
+
+
+RSVB:=(C-LLV(L,9))/(HHV(H,9)-LLV(L,9))*100;
+KB:=SMA(RSVB,3,1);
+DB:=SMA(KB,3,1);
+JB:=3*KB-2*DB;
+BDDD:=LLV(JB,2)=LLV(JB,8);
+重启:=CROSS(JB,REF(JB+0.01,1)) AND BDDD AND JB<20;
+XGB:=C>=MA(C,288) AND 重启;
+
+XGC:=CROSS(0.9,1/VOL*1000>0.01 AND "KDJ.J"<0) AND C>=MA(C,288);
+
+XG1:XGA OR XGB OR XGC,COLORWHITE;
+XG2:XGA AND XGB AND XGC,COLORMAGENTA;{共振信号};
+
+{选股}
+N:=30;
+AA4:=(CLOSE-LLV(LOW,21))/(HHV(HIGH,21)-LLV(LOW,21))*100;
+AA5:=SMA(AA4,13,8);
+RSV:=(CLOSE-LLV(LOW,N))/(HHV(HIGH,N)-LLV(LOW,N))*100;
+K:=SMA(RSV,5,1);
+D:=SMA(K,3,1);
+J:=3*K-2*D;
+操作线:=CEILING(SMA(AA5,13,8));
+XGA:=FILTER(J>REF(J,1) AND 操作线>=REF(操作线,1) AND 操作线<25 ,5) AND C>=MA(C,288) ;
+
+RSVB:=(C-LLV(L,9))/(HHV(H,9)-LLV(L,9))*100;
+KB:=SMA(RSVB,3,1);
+DB:=SMA(KB,3,1);
+JB:=3*KB-2*DB;
+BDDD:=LLV(JB,2)=LLV(JB,8);
+重启:=CROSS(JB,REF(JB+0.01,1)) AND BDDD AND JB<20;
+XGB:=C>=MA(C,288) AND 重启;
+
+XGC:=CROSS(0.9,1/VOL*1000>0.01 AND "KDJ.J"<0) AND C>=MA(C,288); 
+XG2:XGA AND XGB AND XGC ;
+
+
+
+经传指标公式“主力控盘”指标
+指标如下：
+指标如下：
+B1:=(HHV(H,N)-C)/(HHV(H,N)-LLV(LOW,N))*100- M;
+B2:=SMA(B1,N,1)+100;
+B3:=(C-LLV(L,N))/(HHV(H,N)- LLV(L,N))*100;
+B4:=SMA(B3,3,1);
+B5:=SMA(B4,3,1)+100;
+B6:=B5-B2;
+控盘程度:(IF(B6>N1,B6-N1,0))*2.5,COLORYELLOW;
+
+控盘度:100,COLORRED;
+STICKLINE( 控盘程度,0,控盘程度 ,3,0 ),COLOR00FFFF;
+STICKLINE( 控盘程度 AND 控盘程度>100,100,控盘程度 ,3,0 ),COLORRED;
+
+
+请老师把以下龙头股指标修改为：条件公式
+http://www.55188.com/thread-8226619-1-2.html
+请老师把以下龙头股指标修改为：条件公式，并加上参数。
+
+ZF:=(C-REF(C,3))/REF(C,3)*100;
+龙1:(C-REF(C,5))/REF(C,5)*100;
+龙2:(C-REF(C,7))/REF(C,7)*100;
+龙3:(C-REF(C,13))/REF(C,13)*100;
+龙4:(C-REF(C,21))/REF(C,21)*100;
+龙5:(C-REF(C,43))/REF(C,43)*100;
+龙6:(C-REF(C,72))/REF(C,72)*100;
+
+请求老师帮忙写一个通达信公式
+条件：前天涨停，昨天和今天的收盘价都在前天涨停价之上。不需要有跳空缺口，也不用都收阳线。
+ZT:=C/REF(C,1)>=1.098 AND NOT(C=O);
+REF(ZT,2) AND REF(C,1)>REF(C,2) AND C>REF(C,2);
+
+请老师做个预警指标 就是通达信自带的指标
+求老师做个kd指标.参数9.3.3.k线在数值25金叉d线预警...用月线选..最好能把月线做成日线级别的...那是在好不过了 还请老师多多费心了
+A1:=BARSLAST(MONTH!=REF(MONTH,1));
+A2:=CROSS(KDJ.K#MONTH,KDJ.D#MONTH);
+XG:REF(A2,A1) AND KDJ.K#MONTH<=25;
+日线级别选股
+
+请求老师帮忙在白线上穿黄线处做个预警公式，谢谢！
+BIAS :(CLOSE-MA(CLOSE,N))/MA(CLOSE,N)*100;
+BIASMA :MA(BIAS,M);
+预警公式
+N:=6;M:=6;
+BIAS:=(CLOSE-MA(CLOSE,N))/MA(CLOSE,N)*100;
+BIASMA:=MA(BIAS,M);
+XG:CROSS(BIAS,BIASMA);
+
+
+请老师将量比擒牛公式改成选股公式
+量比:=VOL/MA(REF(VOL,1),5);
+蓝柱:量比>10;
+
+请老师帮忙做一个选股预警公式
+http://www.55188.com/thread-8226969-1-1.html
+条件  1， 5日均线金叉13日均线
+      2， 放量 是前日的倍量     
+
+
+http://www.55188.com/thread-8222337-1-1.html
+把量能变成量能博奕线
+http://www.55188.com/thread-8222345-1-1.html
+DRAWGBK(C>0,RGB(48,48,8),RGB(48,48,8),0,'8',0);
+V1:=DMA((((HIGH + LOW) + (CLOSE * 2)) / 4),0.9);
+HY1:=REF(EMA(V1,3),1);
+多空趋势:=(MA((CLOSE - HY1) * 10,2))*0.1;
+换手:=V*100/CAPITAL;
+主力:=MA(换手,4);
+大户:=MA(换手,9);
+中户:=MA(换手,17);
+散户:=MA(换手,34);
+均量:=(主力+大户+中户+散户)/4;
+成交量:V,COLORWHITE,NODRAW;
+主力能量:(主力-均量)COLORMAGENTA,NODRAW;
+大户能量:(大户-均量)COLORYELLOW,NODRAW;
+中户能量:(中户-均量)COLORLIBLUE,NODRAW;
+散户能量:(散户-均量)COLORBLUE,NODRAW;
+
+中户线:=(REFDATE(HHV(散户能量,108),DATE)*1.02)-(REFDATE(LLV(中户能量,108),DATE)),COLORYELLOW,DOTLINE;
+大户线:=((中户线+(REFDATE(HHV(中户能量,108),DATE)))*1.02)-(REFDATE(LLV(大户能量,108),DATE));
+主力线:=((大户线+(REFDATE(HHV(大户能量,108),DATE)))*1.02)-(REFDATE(LLV(主力能量,108),DATE));
+多空线:=((主力线+(REFDATE(HHV(主力能量,108),DATE)))*1.02)-(REFDATE(LLV(多空趋势,108),DATE));
+
+
+
+操盘4:STICKLINE(多空趋势>=0 AND 多空趋势>=REF(多空趋势,1),多空线,多空线+多空趋势,3,0),COLORRED;
+减仓4:STICKLINE(多空趋势>=0 AND 多空趋势< REF(多空趋势,1),多空线,多空线+多空趋势,3,0), COLORRED;
+反弹4:STICKLINE(多空趋势<0 AND 多空趋势>=REF(多空趋势,1),多空线,多空线+多空趋势,3,0),COLORGREEN;
+寻底4:STICKLINE(多空趋势<0 AND 多空趋势< REF(多空趋势,1),多空线,多空线+多空趋势,3,0),COLORGREEN; 
+DRAWTEXT(ISLASTBAR=1,IF(多空趋势>=0,多空线,多空线),'   多空'),COLORWHITE;
+
+
+
+操盘:STICKLINE(主力能量>=0 AND 主力能量>=REF(主力能量,1),主力线,主力线+主力能量,3,0),COLORYELLOW;
+减仓:STICKLINE(主力能量>=0 AND 主力能量< REF(主力能量,1),主力线,主力线+主力能量,3,0),COLORRED;
+反弹:STICKLINE(主力能量<0 AND 主力能量>=REF(主力能量,1),主力线,主力线+主力能量,3,0),COLORGREEN;
+寻底:STICKLINE(主力能量<0 AND 主力能量< REF(主力能量,1),主力线,主力线+主力能量,3,0),COLORGREEN;
+DRAWTEXT(ISLASTBAR=1,IF(主力能量>=0,主力线,主力线),'   机构'),COLORMAGENTA;
+
+操盘1:STICKLINE(大户能量>=0 AND 大户能量>=REF(大户能量,1),大户线,大户线+大户能量,3,0),COLORYELLOW;
+减仓1:STICKLINE(大户能量>=0 AND 大户能量< REF(大户能量,1),大户线,大户线+大户能量,3,0),COLORRED;
+反弹1:STICKLINE(大户能量<0 AND 大户能量>=REF(大户能量,1),大户线,大户线+大户能量,3,0),COLORGREEN;
+寻底1:STICKLINE(大户能量<0 AND 大户能量< REF(大户能量,1),大户线,大户线+大户能量,3,0),COLORGREEN;
+DRAWTEXT(ISLASTBAR=1,IF(大户能量>=0,大户线,大户线),'  大户'),COLORYELLOW;
+
+
+操盘2:STICKLINE(中户能量>=0 AND 中户能量>=REF(中户能量,1),中户线,中户线+中户能量,3,0),COLORRED;
+减仓2:STICKLINE(中户能量>=0 AND 中户能量< REF(中户能量,1),中户线,中户线+中户能量,3,0),COLORRED;
+反弹2:STICKLINE(中户能量<0 AND 中户能量>=REF(中户能量,1),中户线,中户线+中户能量,3,0),COLORGREEN;
+寻底2:STICKLINE(中户能量<0 AND 中户能量< REF(中户能量,1),中户线,中户线+中户能量,3,0),COLORGREEN;
+DRAWTEXT(ISLASTBAR=1,IF(中户能量>=0,中户线,中户线),'   中户'),COLORLIBLUE;
+操盘3:STICKLINE(散户能量>=0 AND 散户能量>=REF(散户能量,1),0,散户能量,3,0),COLORRED;
+减仓3:STICKLINE(散户能量>=0 AND 散户能量< REF(散户能量,1),0,散户能量,3,0),COLORRED;
+反弹3:STICKLINE(散户能量<0 AND 散户能量>=REF(散户能量,1),0,散户能量,3,0),COLORGREEN;
+寻底3:STICKLINE(散户能量<0 AND 散户能量< REF(散户能量,1),0,散户能量,3,0),COLORGREEN;
+DRAWTEXT(ISLASTBAR=1,IF(散户能量>=0,-0.3,0),'  散户'),COLORBLUE;
+{JZ:=V/(ABS(主力能量)+ABS(大户能量)+ABS(中户能量)+ABS(散户能量));
+ZLCJ:=JZ*ABS(主力能量);
+DHCJ:=JZ*ABS(大户能量);
+ZHCJ:=JZ*ABS(中户能量);
+SHCJ:=JZ*ABS(散户能量);
+机构量:ZLCJ,COLORMAGENTA,NODRAW;
+大户量:DHCJ,COLORYELLOW,NODRAW;
+中户量:ZHCJ,COLORLIBLUE,NODRAW;
+散户量:SHCJ,COLORBLUE,NODRAW;};
+
+
+KDJ副图，编写5天内二次金叉选股公式
+http://www.55188.com/thread-3382462-1-1.html
+主图公式如下：
+RSV:=(CLOSE-LLV(LOW,9))/(HHV(HIGH,9)-LLV(LOW,9))*100;
+K:SMA(RSV,3,1);
+D:SMA(K,3,1);
+J:3*K-2*D;
+
+{解决}
+RSV:=(CLOSE-LLV(LOW,9))/(HHV(HIGH,9)-LLV(LOW,9))*100;
+K:=SMA(RSV,3,1);
+D:=SMA(K,3,1);
+J:=3*K-2*D;
+XG:CROSS(J,K) AND CROSS(J,D) AND COUNT(CROSS(K,D),5)=2;
+
+请老师把（高度控盘）的指标改为如图，选出来的就是第一天出现的高度控盘
+http://www.55188.com/thread-8218565-1-5.html
+VAR1:=EMA(EMA(CLOSE,9),9);
+控盘:=(VAR1-REF(VAR1,1))/REF(VAR1,1)*1000;
+VAR2:=100*WINNER(CLOSE*0.95);
+高度控盘:=IF(VAR2>50 AND COST(85)<CLOSE AND 控盘>0,控盘,0);
+CROSS(高度控盘>REF(高度控盘,1),0.5);
+
+{解决}
+VAR1:=EMA(EMA(CLOSE,9),9);
+控盘:=(VAR1-REF(VAR1,1))/REF(VAR1,1)*1000;
+VAR2:=100*WINNER(CLOSE*0.95);
+高度控盘:=VAR2>50 AND COST(85)<CLOSE AND 控盘>0;
+XG:CROSS(高度控盘>0,0.5) AND REF(控盘<0,1);
+
+请做一个成交金额与流通值比的线型指标股
+http://www.55188.com/thread-8221459-1-1.html
+ZB1:=AMOUNT;{金额}
+ZB2:=C*(CAPITAL*100);{流通市值}
+XG:ZB1/ZB2*100;{百分比};
+
+急求：编写一个寻找箱体窄幅整理指标（高成功率）！！！
+http://www.55188.com/thread-3597486-1-13.html
+各位高人好！
+
+请给编写一个能选出一段时间内，在箱体内窄幅整理的指标。
+指标要求：
+１、是在n天内进行箱体整理。上下整理的幅度为m。
+２、是在此段时间内各均线近似贴合。
+３、参数n天和幅度m可调。
+在下先向各位高人谢谢了！！
+
+参数描述  n(150,10,250),m(40,10,60);
+
+hh:=hhv(h,n);
+ll:=llv(l,n);
+cc:=c;
+xg:ref(c,1)>=ll and ref(c,1)<hh and cross(c,ref(hh,1)) and (hh-ll)/ll*100<=m;
+
+HH赋值:N日内最高价的最高值
+LL赋值:N日内最低价的最低值
+CC赋值:收盘价
+输出XG:1日前的收盘价>=LL AND 1日前的收盘价<HH AND 收盘价上穿1日前的HH AND (HH-LL)/LL*100<=M
+
+
+
+求放量上涨然后缩量回调再次放量上涨公式
+http://www.55188.com/viewthread.php?tid=5134940&highlight=
+请老师帮忙整合一个放量上涨然后缩量回调再次放量上涨公式。谢谢
+（1）aa:=ma(c,60);bb:=hhv(aa,40);cc:=llv(aa,40);dd:(bb-cc)*100/cc<=3;（60均线呈水平线）
+（2）COUNT(EVERY(VOL>=REF(VOL,1),3),30);(连续放量3天30天内)
+（3）连续缩量30天芝麻量和放量。 VVOL:IF(CURRBARSCOUNT=1 AND PERIOD=5,VOL*240/FROMOPEN,DRAWNULL),NODRAW;
+STICKLINE(CURRBARSCOUNT=1 AND PERIOD=5,VVOL,0,-1,-1),COLOR00C0C0;
+VOLUME:VOL,VOLSTICK;
+MAVOL1:MA(VOLUME,5);
+MAVOL2:MA(VOLUME,10);
+MAVOL3:MA(VOLUME,20);
+MAVOL4:MA(VOLUME,60);
+A1:=REF(CLOSE,1);
+B1:=V<MA(V,60)/3 ;
+B2:=MA(V,5)/2>V AND V>B1;
+STICKLINE(B2,V,0,2,0),COLORLIMAGENTA; STICKLINE(B1,V,0,2,0),COLORYELLOW;
+倍量:IF(CURRBARSCOUNT=1,VOL*240/FROMOPEN/REF(VOL,1)-1,VOL/REF(VOL,1)-1),NODRAW,COLORRED;
+STICKLINE(倍量>=1,0,VOL,0.5,0),COLORRED;
+（4）60和120粘合且股价在两均线上方C>MA(C,60) AND C>MA(C,120)
+
+{解决公式}
+{放量上涨然后缩量回调再次放量上涨}
+AA:=MA(C,60);
+BB:=HHV(AA,40);
+CC:=LLV(AA,40);
+DD:=(BB-CC)*100/CC<=3;{60均线呈水平线}
+BB0:=COUNT(EVERY(VOL>=REF(VOL,1),3),30);{连续放量3天30天内}
+{连续缩量30天芝麻量和放量。}
+
+S2:=IF(NAMELIKE('S'),0,1);
+S3:=IF(NAMELIKE('*'),0,1);
+S4:=DYNAINFO(4)>0;
+
+A1:=REF(CLOSE,1);
+B1:=V<MA(V,60)/3 ;
+B2:=MA(V,5)/2>V AND V>B1;
+
+倍量:=IF(CURRBARSCOUNT=1,VOL*240/FROMOPEN/REF(VOL,1)-1,VOL/REF(VOL,1)-1);
+
+{60和120粘合且股价在两均线上方}
+
+放量:DD AND BB0  AND 倍量  AND C>MA(C,60) AND C>MA(C,120)
+AND S2 AND S3 AND S4 AND  RANGE(CAPITAL/100,3000,110000)
+AND  C>REF(C,1){盘中价大于昨日收盘价}
+  AND C>0  AND DYNAINFO(17)>=1.72{量比 }AND C<23 
+  AND BETWEEN(V/CAPITAL*100, 1.00,30);{换手率 };
+
+================================================================================
+启动点预警
+http://www.55188.com/viewthread.php?tid=7296484&highlight=%C6%F4%B6%AF%B5%E3
+http://www.55188.com/viewthread.php?tid=8171841&highlight=%C6%F4%B6%AF%B5%E3
+{附图}
+DIF:EMA(CLOSE,12)-EMA(CLOSE,150);
+DEA:EMA(DIF,9);
+MACD:(DIF-DEA)*2,COLORSTICK;
+
+启动点:=MACD<0 AND MACD>REF(MACD ,1) AND REF(MACD ,1)<REF(MACD ,2)
+AND REF(MACD ,2)<REF(MACD ,3)
+AND REF(MACD ,3)<REF(MACD ,4);
+STICKLINE(启动点,0.4,MACD,2,0),COLORYELLOW;
+
+STICKLINE(MACD>REF(MACD,1) AND MACD>0,0,MACD,1.8,0),COLOR000055;
+STICKLINE(MACD>REF(MACD,1) AND MACD>0,0,MACD,1.1,0),COLOR000099;
+STICKLINE(MACD>REF(MACD,1) AND MACD>0,0,MACD,0.6,0),COLOR0000BB;
+
+启动点A:0,COLORYELLOW;
+
+DRAWICON(启动点,2,11);
+
+{预警}
+DIF:=EMA(CLOSE,12)-EMA(CLOSE,150);
+DEA:=EMA(DIF,9);
+MACD:=(DIF-DEA)*2;
+
+启动点:MACD<0 AND MACD>REF(MACD ,1) AND REF(MACD ,1)<REF(MACD ,2)
+AND REF(MACD ,2)<REF(MACD ,3)
+AND REF(MACD ,3)<REF(MACD ,4);
+
+
+20日均线选股预警
+http://www.55188.com/viewthread.php?action=&tid=8204745&ptid=&fid=8&uid=&pmid=&pid=&goto=&folder=&item=
+要求如下：这是一个通达信的选股预警公式
+1、 20日均线连续三天向上
+2、当日股价最低价跌破20日线
+ 谢谢各位老师！
+
+
+一、布林线选股公式条件：
+1、放量站上布林线中轨
+2、放量在1.5倍即可
+
+通达信布林主图选股】
+N:=20;
+MID:=MA(C,N);
+BOLL:=REF(MID,1);
+CROSS(C>BOLL,0.5) AND V>REF(V,1)*1.5;
+
+二、CCI月周日多周期指标（源码 副图 通达信 贴图）
+http://www.55188.com/viewthread.php?tid=7875635&highlight=CCI
+任何牛股的产生都不是偶然，必然的因素就是大周期的走好后外加事件的催化，现在很多股友操作股票都是喜欢看日线图，
+如果玩短线只看日线图是很错误的，日线很容易产生骗线被洗出局。
+以前论坛上有MACD日周月 KDJ日周月等多周期指标效果都是很不错的。
+今天共享的CCI多周期指标相对于以上两指标来的简单明了，没有过多的线看的眼花，就三条线买卖点很清楚，
+对于CCI的日线单一用法就不多介绍，很多网站都有介绍，其实做股票也不是很难只要顺势而为就行，
+CCI就是顺势指标。废话不多说就把我用了一年多的心得说下，做票就要做强势股，
+本指标的精华就是月 周CCI必须大于100，当天日线CCI放量突破100就是买进的好机会，跌破150就得减仓 跌破100清仓。
+月周CCI大于100 ，但日线CCI小于100，K线连续缩量收出小阴小阳线时就得关注了。
+很多时候书上介绍日线CCI突破100就是买进，可以按操作不是被套就是涨不了多少，原因就是月周CCI小于100，
+所以注定不是牛股。本指标对于喜欢用CCI的股友应该是如虎添翼，对于没用过CCI的不介意下载，不要看到一个指标花哨或者人家说好就下载，
+只要熟悉几个经典指标领悟期精髓后必将有收获，祝大家2017机会连连，账户长红。
+
+三、
+http://www.55188.com/viewthread.php?tid=4807175&highlight=%2B%D0%A1%C9%A2%BF%C1%BF%C1###
+{追涨逃顶主图}
+空:=EMA(C,5);
+均衡:EMA(空,5),COLORWHITE;
+中轨:HHV(MA(H,13),13),COLORRED,LINETHICK2;
+趋势:LLV(MA(H,13),1),COLOR00FF00,LINETHICK2;
+VARA:=(CLOSE-REF(OPEN,29))/REF(OPEN,29)*100; 
+VARB:=EMA(0.667*REF(VARA,1)+0.333*VARA,5);
+DRAWTEXT(IF(VOL>=1.3*MA(VOL,5) AND COUNT(VARA>=VARB AND VARA<-17,3) AND REF(LOW,1)=LLV(LOW,120),1,0),LOW,'买入');
+VARC:=SMA(MAX(CLOSE-REF(C,1),0),6,1)/SMA(ABS(CLOSE-REF(C,1)),6,1)*100;
+DRAWICON(CROSS(82,VARC),HIGH,2);
+VAR1:=(HIGH+LOW+OPEN+2*CLOSE)/5;
+VAR2:=REF(VAR1,1);
+VAR3:=SMA(MAX(VAR1-VAR2,0),10,1)/SMA(ABS(VAR1-VAR2),10,1)*100;
+VAR4:=FILTER(IF(COUNT(VAR3<20,5)>=1 AND COUNT(VAR1=LLV(VAR1,10),10)>=1 AND CLOSE>=OPEN*1.038 AND VOL>MA(VOL,5)*1.2,1,0),5);
+DRAWICON(VAR4,LOW,1);
+VAR5:=FILTER(均衡>REF(均衡,1)AND 中轨<REF(中轨,1)AND C>REF(C,1),11);
+DRAWTEXT(VAR5,L*0.98,'追涨'),COLOR00FF00;
+VAR6:=REF(CLOSE,1); 
+VAR7:=SMA(MAX(CLOSE-VAR6,0),6,1)/SMA(ABS(CLOSE-VAR6),6,1)*100; 
+DRAWTEXT(CROSS(84,VAR7),H*1.03,'逃顶'),COLORYELLOW ;
+
+{追涨逃顶选股}
+N:=0;
+空:=EMA(C,5);
+均衡:=EMA(空,5);
+中轨:=HHV(MA(H,13),13);
+趋势:=LLV(MA(H,13),1);
+VARA:=(CLOSE-REF(OPEN,29))/REF(OPEN,29)*100; 
+VARB:=EMA(0.667*REF(VARA,1)+0.333*VARA,5);
+{XG:VOL>=1.3*MA(VOL,5) AND COUNT(VARA>=VARB AND VARA<-17,3) AND REF(LOW,1)=LLV(LOW,120);}
+
+XG:=VOL>=1.3*MA(VOL,5) AND COUNT(VARA>=VARB AND VARA<-17,3) AND REF(LOW,1)=LLV(LOW,120);
+XGN:BARSLAST(XG)=N;{这个就是N天的，你可以把N设为参数，N=0表示当天的，N=1表示1天前的...依此类推};

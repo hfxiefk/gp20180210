@@ -1,0 +1,13 @@
+http://www.55188.com/viewthread.php?tid=7823987&highlight=%BA%EC%D2%C2###
+股价经过长期下跌或充分调整以后，55日均线基本处于水平状态，股价沿着13日均线爬至55日均线附近进行窄幅整理，在13日均线上穿55日均线之日，如果股价携量上攻，形态即告成立。我们把站在"右上角"13日均线与55日均线结点处的那根阳线称之为“红衣侠女”。是即将拉升的标志之一。
+
+EMA13:=EMA(C,13);
+ EMA34:=EMA(C,34);
+ EMA55:=EMA(C,55);
+ EMA120:=EMA(C,120);
+ CR1:=(C-REF(C,1))/REF(C,1)*100>0.5;
+ CR2:=V>MA(V,5)*0.6;
+ CR3:=COUNT(CROSS(EMA13,EMA55),3)=1;
+ CR4:=ABS(EMA34-EMA55)/EMA55<0.03;
+ CR5:=EMA55<=EMA120 AND EMA55>=REF(EMA55,1);
+ 红衣侠女:FILTER(CR1 AND CR2 AND CR3 AND CR4 AND CR5,2);

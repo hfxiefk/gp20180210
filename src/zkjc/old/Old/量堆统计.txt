@@ -1,0 +1,196 @@
+http://www.55188.com/viewthread.php?tid=7306229&highlight=%C1%BF%C4%DC
+http://www.55188.com/viewthread.php?tid=7306229&extra=&highlight=%C1%BF%C4%DC&page=6
+自用分时量能（指标 分时副图 通达信 贴图）
+{分时量能}
+大单买:=SUM(IF(C>REF(C,1)AND V>4000,V/5,0),0);
+大单卖:=SUM(IF(C<REF(C,1)AND V>4000,V/5,0),0);
+拉升量:=IF(C>REF(C,1),VOL,0);
+昨拉升最高值:CONST(FINDHIGH(拉升量,FROMOPEN,240,1));
+FILTER(CROSS(拉升量,昨拉升最高值),30)AND 大单买>大单卖;
+
+
+
+http://www.55188.com/viewthread.php?tid=5582881&highlight=%C1%BF%C4%DC
+一个实战无未来画线主图源码~~实战专用~~配合量能使用~抓涨停利器
+
+http://www.55188.com/viewthread.php?tid=870593&highlight=
+一个判断庄家吸筹的好指标
+N=13,1,30
+M=14,1,30
+M1=5,1,20
+
+DRAWGBK(CLOSE>0, COLORRGB(1,3333,6666), COLORRGB(1,8888,8888),3);
+{机构建仓}
+A00:=(DATE <  1050430.000);
+A01:=DYNAINFO( 7.000);
+A02:=MA(AMOUNT / VOL /  100.000,VOL / CAPITAL);
+A03:=BARSCOUNT(CLOSE);
+A04:=SMA(CLOSE / HHV(HIGH, 120.000), 3.000, 1.000) *  100.000;
+A05:=IF((A03 >  20.000),A04,0);
+A06:=IF(((LOW > A01) and A00),0,IF(((HIGH < A01) and A00), 1.000,((A01 - LOW) +  0.01) / ((HIGH - LOW) +  0.01)));
+A07:=DMA(A06,VOL / CAPITAL) *  100.000;
+A08:=IF((A02 > A01),( 100.000 - A07),A07);
+A09:=IF(((((A07 > 0) and (A07 > REF(A07, 1.000))) and A00) and (A05 <=  88.000)),A07,0);
+FILLRGN((A09 > 0),0,A09)COLOR;
+黄金线选股:IF(((CROSS(A09, 0.01) and (OPEN <> LOW)) and (CLOSE <> LOW)), 888.000,0)COLORMAGENTA,LINETHICK0;
+私募机构黄金线:A09,COLORYELLOW,LINETHICK2;
+A0D:DRAWTEXT(CROSS(A09, 0.01), 4.000,'-----注意')COLORGREEN;
+DRAWICON(CROSS(A09, 0.01), 4.000, 1.000);
+EXPLAINICON(CROSS(A09, 0.01), 4.000);
+
+
+{天眼通li_yung0053自用}
+{我就是li_yung0053.所以再发一次原码，是发现有人用它卖钱。}
+a1:=cost(95);
+a2:=cost(5);
+天眼通:=(a1-a2)*100/(a1+a2);
+drawicon(天眼通>ref(天眼通,1), l*0.98,8),ALIGN5;
+
+{zhuangjiajinchang}
+aa:=winner(c+c*15/100)*100;
+bb:=winner(c+c*0/100)*100;
+cc:=aa-bb;
+dd:=(winner(c-c*0.1/100)-winner(c-c*15/100))*100;
+ee:=cc<3 and dd<0.5 and o<>l;
+a1:=dynainfo(6);
+a2:=if(l>a1,0,if(h<a1,1,(a1-l+0.01)/(h-l+0.01)));
+a3:=v/winner(l);
+a4:=ref(hhv(c,120),1);
+a5:=ref(llv(c,120),1);
+a6:=100*(c-a5)/(a4-a5);
+a7:=a2>0 or a2=1;
+a8:=a7 and a3/ref(a3,3)>=3 and a6<80;
+a9:=ref(a8,1) or ref(a8,2) or ref(a8,3) or ref(a8,4);
+a10:=a8 and a9;
+a11:=if(filter(a8,3),5,0);
+a12:=if(filter(a10,3) or ee,10,0);
+私募机构进场日:if(a11,8,0),LINETHICK0;
+stickline(a12,0,15,5,0),colorff00ff;
+私募机构加仓日:if(a12,88,0),LINETHICK0;
+stickline(a12,0,15,5,0),colorff00ff;
+stickline(a11,0,5,5,0),colorff7700;
+stickline(a11,0,5,4.5,0),colorff8800;
+stickline(a11,0,5,4,0),colorff9900;
+stickline(a11,0,5,3.5,0),colorffaa00;
+stickline(a11,0,5,3,0),colorffbb00;
+stickline(a11,0,5,2.5,0),colorffcc00;
+stickline(a11,0,5,2,0),colorffdd00;
+stickline(a11,0,5,1,0),colorffee00;
+stickline(a12,0,15,4.5,0),color102099;
+stickline(a12,0,15,4,0),color1020aa;
+stickline(a12,0,15,3.5,0),color1020bb;
+stickline(a12,0,15,3,0),color1020cc;
+stickline(a12,0,15,2.5,0),color1020dd;
+stickline(a12,0,15,2,0),color1020ee;
+stickline(a12,0,15,1,0),color1020ff;
+drawtext(a11,8,'进场'),colorffff;
+drawtext(a12,17,'加仓'),colorff00;
+
+
+
+{庄家戏筹}
+BB10:=100*(c-cost(10))/cost(10);
+BB1:=(close-llv(low,28))/(hhv(high,28)-llv(low,28))*100;
+BB2:=sma(BB1,4,1);
+BB3:=sma(BB2,2,1);
+BB4:=vol/capital*34;
+BB5:=ref(BB4,1);
+主力建仓提醒: if(BB3<8.5 and BB2<11,-10,0),colorred;
+空跌幅度:if(BB10<0,BB10,0),coloryellow,linethick2;
+-10,colorccff99,pointdot;
+-20,colorccff99,pointdot;
+-25,colorccff99,pointdot;
+
+
+{n:1,30,13;m:1,30,14;m1:1,20,5}
+INPUT:N(13,1,30),M(14,1,30),M1(5,1,20);
+Var2:=REF(LOW,1)*0.9; 
+Var3:=LOW*0.9; 
+Var4:=(Var3*VOL+Var2*(CAPITAL-VOL))/CAPITAL; 
+Var5:=EMA(Var4,30); 
+Var6:=CLOSE-REF(CLOSE,1); 
+Var7:=MAX(Var6,0); 
+Var8:=ABS(Var6); 
+Var9:=SMA(Var7,7,1)/SMA(Var8,7,1)*100; 
+VarA:=SMA(Var7,13,1)/SMA(Var8,13,1)*100; 
+VarB:=BARSCOUNT(CLOSE); 
+VarC:=SMA(MAX(Var6,0),6,1)/SMA(ABS(Var6),6,1)*100; 
+VarD:=(-200)*(HHV(HIGH,60)-CLOSE)/(HHV(HIGH,60)-LLV(LOW,60))+100; 
+VarE:=(CLOSE-LLV(LOW,15))/(HHV(HIGH,15)-LLV(LOW,15))*100; 
+VarF:=SMA((SMA(VarE,4,1)-50)*2,3,1); 
+Var10:=(INDEXC-LLV(INDEXL,14))/(HHV(INDEXH,14)-LLV(INDEXL,14))*100; 
+Var11:=SMA(Var10,4,1); 
+Var12:=SMA(Var11,3,1); 
+Var13:=(HHV(HIGH,30)-CLOSE)/CLOSE*100; 
+Var14:=VarC<=25 AND VarD<-95 AND Var13>20 AND VarF<-30 AND Var12<30 AND Var5-CLOSE>=-0.25 AND Var9<22 AND VarA<28 AND VarB>50; 
+Var15:=(HIGH+LOW+CLOSE)/3; 
+Var16:=(Var15-MA(Var15,14))/(0.015*AVEDEV(Var15,14)); 
+Var17:=(Var15-MA(Var15,70))/(0.015*AVEDEV(Var15,70)); 
+Var18:=IF(Var16>=150 AND Var16<200 AND Var17>=150 AND Var17<200,10,0); 
+Var19:=IF(Var16<=-150 AND Var16>-200 AND Var17<=-150 AND Var17>-200,-10,Var18); 
+Var1A:=(CLOSE-LLV(LOW,27))/(HHV(HIGH,27)-LLV(LOW,27))*100; 
+Var1B:=REVERSE(Var1A); 
+Var1C:=SMA(Var1A,3,1); 
+Var1D:=SMA(Var1C,3,1); 
+Var1E:=SMA(Var1D,3,1); 
+Var1F:=(CLOSE-LLV(LOW,N))/(HHV(HIGH,N)-LLV(LOW,N))*100; 
+Var20:=SMA(Var1F,M1,1); 
+散户:=SMA(Var20,M1,1),linethick2 , stick, COLORMAGENTA; 
+Var21:=(HHV(HIGH,M)-CLOSE)/(HHV(HIGH,M)-LLV(LOW,M))*100; 
+Var22:=SMA(Var21,M1,1); 
+Var23:=SMA(Var22,M1,1); 
+主力:=SMA(散户,M1,1),linethick2 ,stick,  COLORYELLOW; 
+Var24:=COST(10); 
+Var25:=(CLOSE-Var24)/Var24*100; 
+Var26:=COUNT(Var25<-2.05,3); 
+主力秘密吸货:=IF(Var26>=3,10,0),linethick5,stick, COLORred;
+DRAWICON(主力秘密吸货,l,13),ALIGN4;
+
+
+http://www.55188.com/viewthread.php?tid=712160&highlight=%C1%BF%B6%D1###
+
+量堆统计
+
+a0:=BARSCOUNT(c);a3:=SYSPARAM(3);a2:=SYSPARAM(2);
+a4:=SYSPARAM(4);a5:=SYSPARAM(5);
+nn0:=a3-a2;nn:=a0-a2;hh1:=(a4-a5)/10;
+y0:=a0>=a2;vv0:=if(y0=1 and SYSPARAM(1)>=a0,v,0);
+c1:=if(BETWEEN(c,a4-0*hh1,a4-1*hh1),vv0,0);
+c2:=if(BETWEEN(c,a4-1*hh1,a4-2*hh1),vv0,0);
+c3:=if(BETWEEN(c,a4-2*hh1,a4-3*hh1),vv0,0);
+c4:=if(BETWEEN(c,a4-3*hh1,a4-4*hh1),vv0,0);
+c5:=if(BETWEEN(c,a4-4*hh1,a4-5*hh1),vv0,0);
+c6:=if(BETWEEN(c,a4-5*hh1,a4-6*hh1),vv0,0);
+c7:=if(BETWEEN(c,a4-6*hh1,a4-7*hh1),vv0,0);
+c8:=if(BETWEEN(c,a4-7*hh1,a4-8*hh1),vv0,0);
+c9:=if(BETWEEN(c,a4-8*hh1,a4-9*hh1),vv0,0);
+c10:=if(BETWEEN(c,a4-9*hh1,a4-10*hh1),vv0,0);
+v1:=STRTONUM(NUMTOSTR(if(ISLASTBAR,sum(c1,nn0),0),2));
+v2:=STRTONUM(NUMTOSTR(if(ISLASTBAR,sum(c2,nn0),0),2));
+v3:=STRTONUM(NUMTOSTR(if(ISLASTBAR,sum(c3,nn0),0),2));
+v4:=STRTONUM(NUMTOSTR(if(ISLASTBAR,sum(c4,nn0),0),2));
+v5:=STRTONUM(NUMTOSTR(if(ISLASTBAR,sum(c5,nn0),0),2));
+v6:=STRTONUM(NUMTOSTR(if(ISLASTBAR,sum(c6,nn0),0),2));
+v7:=STRTONUM(NUMTOSTR(if(ISLASTBAR,sum(c7,nn0),0),2));
+v8:=STRTONUM(NUMTOSTR(if(ISLASTBAR,sum(c8,nn0),0),2));
+v9:=STRTONUM(NUMTOSTR(if(ISLASTBAR,sum(c9,nn0),0),2));
+v10:=STRTONUM(NUMTOSTR(if(ISLASTBAR,sum(c10,nn0),0),2));
+av0:=max(v1,max(v2,max(v3,max(v4,max(v5,max(v6,max(v7,max(v8,max(v9,v10)))))))));
+FILLRGN(v1/av0>=nn/nn0 and nn>=0,a4-0*hh1,a4-1*hh1+0.05),colormagenta;
+FILLRGN(v2/av0>=nn/nn0 and nn>=0,a4-1*hh1,a4-2*hh1+0.05),colormagenta;
+FILLRGN(v3/av0>=nn/nn0 and nn>=0,a4-2*hh1,a4-3*hh1+0.05),colormagenta;
+FILLRGN(v4/av0>=nn/nn0 and nn>=0,a4-3*hh1,a4-4*hh1+0.05),colormagenta;
+FILLRGN(v5/av0>=nn/nn0 and nn>=0,a4-4*hh1,a4-5*hh1+0.05),colormagenta;
+FILLRGN(v6/av0>=nn/nn0 and nn>=0,a4-5*hh1,a4-6*hh1+0.05),colormagenta;
+FILLRGN(v7/av0>=nn/nn0 and nn>=0,a4-6*hh1,a4-7*hh1+0.05),colormagenta;
+FILLRGN(v8/av0>=nn/nn0 and nn>=0,a4-7*hh1,a4-8*hh1+0.05),colormagenta;
+FILLRGN(v9/av0>=nn/nn0 and nn>=0,a4-8*hh1,a4-9*hh1+0.05),colormagenta;
+FILLRGN(v10/av0>=nn/nn0 and nn>=0,a4-9*hh1,a4-10*hh1+0.05),colormagenta;
+
+STICKLINE(c>=o,c,o,9,1),colorred;
+STICKLINE(c>=o,l,o,0.1,0),colorred;
+STICKLINE(c>=o,c,h,0.1,0),colorred;
+STICKLINE(c<o,c,o,9,0),colorffff00;
+STICKLINE(c<o,h,l,0.1,0),colorffff00;
+
+看着好，给加分

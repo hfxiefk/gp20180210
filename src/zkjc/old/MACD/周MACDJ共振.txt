@@ -1,0 +1,8 @@
+捂股只捂步步高.就是参照周MACD和周KDJ中的D 和 J的共振步步走高,捂股.走坏止盈出局.不喜周线指标的勿用.
+第一次发帖,加上电脑登录论坛老出错.帖子不一定标准,作为免费金钻给大家.
+公式源码:
+0;
+{N 1,100,50}
+周J:"KDJ.J#WEEK" ,COLORFF0099,LINETHICK2;
+周D:"KDJ.D#WEEK" ,COLOR33AAAA,LINETHICK1;
+周MA:N*"MACD.MACD#WEEK" ,COLORLIGREEN,LINETHICK2;

@@ -1,0 +1,23 @@
+http://www.55188.com/viewthread.php?tid=4140631&extra=&highlight=%B7%D6%CA%B1%B4%F3%B5%A5&page=1
+
+奉上自己编写使用的分时大单主动买盘预警公式，主要区分了不同大小流通盘的大单买盘，欢迎改进。
+{大智慧}
+A:=BETWEEN(CAPITAL,100000,300000) and BUYVOL>=100;
+B:=BETWEEN(CAPITAL,300000,500000) and BUYVOL>=200;
+D:=BETWEEN(CAPITAL,500000,1000000) and BUYVOL>=450;
+E:=BETWEEN(CAPITAL,1000000,2000000) and BUYVOL>=950;
+F:=BETWEEN(CAPITAL,2000000,3000000) and BUYVOL>=1450;
+G:=BETWEEN(CAPITAL,3000000,5000000) and BUYVOL>=1950;
+I:=BETWEEN(CAPITAL,5000000,10000000) and BUYVOL>=2850;
+J:=BETWEEN(CAPITAL,10000000,9999999999) and BUYVOL>=4500;
+上午:=BETWEEN(TIME0,34200 ,41400);
+下午:=BETWEEN(TIME0,46800 ,53820);
+时间:=上午 or 下午;
+异动:=A or B or D or E or F or G or I or J;
+预警:时间 and  异动;
+
+其中预警的时间可以不用。
+
+
+
+通达信BUYVOL  外盘（手）   返回外盘，即时行情数据.
